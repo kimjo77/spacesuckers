@@ -32,6 +32,8 @@ public class Game extends Canvas implements Runnable{
 		handler.addObject(new Player(WIDTH/2,HEIGHT/2,16,16,ID.Player,handler));
 		handler.addObject(new Blackhole(WIDTH/2,HEIGHT/2,16,16,ID.Blackhole,handler));
 		handler.addObject(new AsteroidController(0,0,0,0,ID.AsteroidController,handler));
+		
+		new Test();
 	}
 	
 	public synchronized void start() {
