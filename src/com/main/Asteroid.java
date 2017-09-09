@@ -88,8 +88,7 @@ public class Asteroid extends GameObject {
 	}
 	
 	public void destroy() {
-		int num=rand.nextInt(5)+1;
-		for(int i=0;i<num;i++) {
+		for(int i=0;i<2;i++) {
 			handler.addObject(new SmallAsteroid(x, y, originX, originY, id, handler));
 		}
 	}
