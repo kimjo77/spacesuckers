@@ -10,9 +10,11 @@ public class Asteroid extends GameObject {
 	private double dir, spd=0, pullX, pullY;
 	final static double MAX_SPEED = 8;	
 	private Random rand = new Random();
+	private Handler handler;
 	
-	public Asteroid(int x, int y, int originX, int originY, ID id) {
+	public Asteroid(int x, int y, int originX, int originY, ID id, Handler handler) {
 		super(x, y, originX, originY, id);
+		this.handler=handler;
 		//dir = rand.nextInt(360);
 		//spd = rand.nextInt(3)+2;
 	}
@@ -34,11 +36,13 @@ public class Asteroid extends GameObject {
 		}else if(y >= Game.HEIGHT) {
 			y = 0;
 		}
+		
+		collision();
 	}
 	
 	public void render(Graphics g) {	
 		g.setColor(Color.blue);
-		g.drawRect(x-originX, y-originY, 16, 16);
+		g.drawRect(x-originX, y-originY, 24, 24);
 	}
 	
 	public void setPullX(double pullX) {
@@ -55,7 +59,31 @@ public class Asteroid extends GameObject {
 		return this.pullY;
 	}
 	public Rectangle getBounds() {
-		return new Rectangle(x-originX,y-originY,16,16);
+		return new Rectangle(x-originX,y-originY,24,24);
+	}
+
+	public void collision() {
+		GameObject tempObject;
+		Player playerObject;
+		Bullet bulletObject;		
+		for(int i=0; i < handler.object.size(); i++) {
+			tempObject = handler.object.get(i);
+			if(tempObject.getId() == ID.Player) {
+				playerObject = (Player)tempObject;
+				if(this.getBounds().intersects(playerObject.getBounds())) {
+//					handler.removeObject(playerObject);
+					playerObject.stunTime=50;
+					handler.removeObject(this);
+				}
+			} else if(tempObject.getId() == ID.Bullet) {
+				bulletObject = (Bullet)tempObject;
+				if(bulletObject.getBounds().intersects(this.getBounds())) {
+					handler.removeObject(this);
+					System.out.println("Deadz");
+				}
+			} else { }
+		}
+		
 	}
 	
 	public void destroy() {

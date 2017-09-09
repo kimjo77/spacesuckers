@@ -13,6 +13,7 @@ public class Player extends GameObject {
 					key_right = 0,
 					key_shoot = 0,
 					mouse_shoot = 0,
+					stunTime=0,
 					turrentKey_left,
 					turrentKey_right,
 					mouseX,
@@ -35,46 +36,58 @@ public class Player extends GameObject {
 	}
 
 	public void tick() {
-		angle += (key_left + key_right) * rotspd;
-		turrentAngle += (turrentKey_left + turrentKey_right) * rotspd;
 		
+		if(stunTime<0) {	
+			angle += (key_left + key_right) * rotspd;
+			turrentAngle += (turrentKey_left + turrentKey_right) * rotspd;
+			
+			if(key_shoot == 1) {
+				this.shoot(1);
+				key_shoot = 2;
+			} else if( mouse_shoot == 1) {
+				this.shoot(0);
+				mouse_shoot = 2;
+			}
+			
+			if(key_up == 1) {
+				motion_add(angle,0.2,velX,velY,spd);
+			} else {
+				spd -= 0.1;
+			}
 		
-		if(key_shoot == 1) {
-			this.shoot(1);
-			key_shoot = 2;
-		} else if( mouse_shoot == 1) {
-			this.shoot(0);
-			mouse_shoot = 2;
+			velX = Math.cos(Math.toRadians(dir)) * spd;
+			velY = Math.sin(Math.toRadians(dir)) * spd;
+			
+			if(spd > MAX_SPEED) {
+				spd = MAX_SPEED;
+			} else if(spd < MIN_SPEED) {
+				spd = MIN_SPEED;
+			}
+			
+			x += velX + pullX;
+			y += velY + pullY;
+			
+			if(x <= 0) {
+				x = Game.WIDTH;
+			}else if(x >= Game.WIDTH) {
+				x = 0;
+			}
+			
+			if(y <= 0) {
+				y = Game.HEIGHT;
+			}else if(y >= Game.HEIGHT) {
+				y = 0;
+			}
 		}
-		
-		if(key_up == 1) {
+		else {
+			velX = 0;
+			velY = 0;
+			
+			x += velX + pullX;
+			y += velY + pullY;
+
 			motion_add(angle,0.2,velX,velY,spd);
-		} else {
-			spd -= 0.1;
-		}
-	
-		velX = Math.cos(Math.toRadians(dir)) * spd;
-		velY = Math.sin(Math.toRadians(dir)) * spd;
-		
-		if(spd > MAX_SPEED) {
-			spd = MAX_SPEED;
-		} else if(spd < MIN_SPEED) {
-			spd = MIN_SPEED;
-		}
-		
-		x += velX + pullX;
-		y += velY + pullY;
-		
-		if(x <= 0) {
-			x = Game.WIDTH;
-		}else if(x >= Game.WIDTH) {
-			x = 0;
-		}
-		
-		if(y <= 0) {
-			y = Game.HEIGHT;
-		}else if(y >= Game.HEIGHT) {
-			y = 0;
+			stunTime--;
 		}
 	}
 

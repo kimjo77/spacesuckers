@@ -39,7 +39,7 @@ public class AsteroidController extends GameObject{
 						yy = Game.HEIGHT + offset;
 						break;
 				}
-				handler.addObject(new Asteroid(xx,yy,16,16,ID.Asteroid));
+				handler.addObject(new Asteroid(xx,yy,16,16,ID.Asteroid,handler));
 			}
 		}else{
 			spawnTime--;
@@ -51,7 +51,7 @@ public class AsteroidController extends GameObject{
 	public Rectangle getBounds() {
 		return null;
 	}
-	
+		
 	public void destroy() {
 		
 	}
