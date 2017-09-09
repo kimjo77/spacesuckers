@@ -35,11 +35,15 @@ private Handler handler;
 	
 	public void render(Graphics g) {
 		g.setColor(Color.GREEN);
-		g.drawRect(x, y, 5, 5);
+		g.drawRect(x, y, 6, 6);
 	}
 		
 	public Rectangle getBounds() {
-		return null; //new Rectangle(x-originX,y-originY,8,20);
+		return new Rectangle(x-originX,y-originY,6,6);
+	}
+
+	public void destroy() {
+		
 	}
 
 }

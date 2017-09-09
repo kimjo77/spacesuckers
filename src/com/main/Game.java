@@ -15,18 +15,22 @@ public class Game extends Canvas implements Runnable{
 	private boolean running = false;
 	
 	private Handler handler; 
+	private MouseInput mouse;
 	private Random rand = new Random();
 	
 	public Game() {
 		
 		handler = new Handler();
+		mouse = new MouseInput(handler);
+		
 		this.addKeyListener(new KeyInput(handler));
+		this.addMouseListener(mouse);
+		this.addMouseMotionListener(mouse);
 		
 		new Window(WIDTH, HEIGHT,"Space Suckers",this);
 		
 		handler.addObject(new Player(WIDTH/2,HEIGHT/2,16,16,ID.Player,handler));
 		handler.addObject(new Blackhole(WIDTH/2,HEIGHT/2,16,16,ID.Blackhole,handler));
-		
 		handler.addObject(new AsteroidController(0,0,0,0,ID.AsteroidController,handler));
 	}
 	
@@ -68,7 +72,6 @@ public class Game extends Canvas implements Runnable{
 			frames++;
 			if(System.currentTimeMillis() - timer > 1000) {
 				timer += 1000;
-				System.out.println("FPS: " + frames);
 				frames = 0;
 			}
 		}

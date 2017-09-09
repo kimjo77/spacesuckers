@@ -58,5 +58,9 @@ public class Asteroid extends GameObject {
 		return new Rectangle(x-originX,y-originY,16,16);
 	}
 	
+	public void destroy() {
+		
+	}
+	
 	
 }

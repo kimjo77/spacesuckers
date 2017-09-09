@@ -6,7 +6,6 @@ import java.util.Random;
 
 public class AsteroidController extends GameObject{
 	
-	private Asteroid asteroidObject;
 	private Handler handler;
 	private int spawnTime;
 	private Random rand = new Random();
@@ -51,6 +50,10 @@ public class AsteroidController extends GameObject{
 	}
 	public Rectangle getBounds() {
 		return null;
+	}
+	
+	public void destroy() {
+		
 	}
 	
 

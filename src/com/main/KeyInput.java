@@ -15,7 +15,6 @@ public class KeyInput extends KeyAdapter{
 	
 	public void keyPressed(KeyEvent e) {
 		key = e.getKeyCode();
-		System.out.println(key);
 		for(int i=0; i<handler.object.size(); i++) {
 			tempObject = handler.object.get(i);
 			if(tempObject.getId() == ID.Player) {
@@ -24,6 +23,8 @@ public class KeyInput extends KeyAdapter{
 				if(key == KeyEvent.VK_D) tempPlayer.key_right = 1;
 				if(key == KeyEvent.VK_W) tempPlayer.key_up = 1;
 				//if(key == KeyEvent.VK_S) tempPlayer.key_down = -1;
+				if(key == KeyEvent.VK_LEFT) tempPlayer.turrentKey_left = -1;
+				if(key == KeyEvent.VK_RIGHT) tempPlayer.turrentKey_right = 1;
 				if(key == KeyEvent.VK_SPACE) {
 					if(tempPlayer.key_shoot == 0) {
 						tempPlayer.key_shoot = 1;
@@ -43,6 +44,8 @@ public class KeyInput extends KeyAdapter{
 				if(key == KeyEvent.VK_A) tempPlayer.key_left = 0;
 				if(key == KeyEvent.VK_D) tempPlayer.key_right = 0;
 				if(key == KeyEvent.VK_W) tempPlayer.key_up = 0;
+				if(key == KeyEvent.VK_LEFT) tempPlayer.turrentKey_left = 0;
+				if(key == KeyEvent.VK_RIGHT) tempPlayer.turrentKey_right = 0;
 				if(key == KeyEvent.VK_SPACE) tempPlayer.key_shoot = 0;
 				//if(key == KeyEvent.VK_S) tempPlayer.key_down = 0;
 			}

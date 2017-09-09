@@ -11,13 +11,18 @@ public class Player extends GameObject {
 					key_down = 0,
 					key_left = 0,
 					key_right = 0,
-					key_shoot = 0;
+					key_shoot = 0,
+					mouse_shoot = 0,
+					turrentKey_left,
+					turrentKey_right,
+					mouseX,
+					mouseY;
 	private double 
 					dir = 0,
 					spd = 0,
-					mag = 0,
 					angle = 0,
 					rotspd = 4,
+					turrentAngle = 0,
 					pullX,
 					pullY;
 	final static double MAX_SPEED = 7,MIN_SPEED = -3;
@@ -31,10 +36,15 @@ public class Player extends GameObject {
 
 	public void tick() {
 		angle += (key_left + key_right) * rotspd;
+		turrentAngle += (turrentKey_left + turrentKey_right) * rotspd;
+		
 		
 		if(key_shoot == 1) {
-			this.shoot(angle);
+			this.shoot(1);
 			key_shoot = 2;
+		} else if( mouse_shoot == 1) {
+			this.shoot(0);
+			mouse_shoot = 2;
 		}
 		
 		if(key_up == 1) {
@@ -80,17 +90,36 @@ public class Player extends GameObject {
 		dir = angle;
 	}
 
-	public void shoot(double angle) {
-		Bullet b = new Bullet(x, y, 0, 0, ID.Bullet,handler);
-		b.setAngle(angle);
+	public void shoot(int choice) {
+		Bullet b = new Bullet(x, y, 3, 3, ID.Bullet,handler);
 		handler.addObject(b);
+		switch(choice) {
+			case 0:
+				int dx = mouseX - x;
+				int dy = mouseY - y;
+				turrentAngle = Math.toDegrees(Math.atan2(dy,dx)); 
+				break;
+		}
+		b.setAngle(turrentAngle);
 	}
 	
 	public void render(Graphics g) {
 		g.setColor(Color.red);
 		g.drawRect(x-originX, y-originY, 32, 32);
 		g.drawRect((int)(x+velX)-8, (int)(y+velY)-8, 16, 16);
-		//g.drawRect((int)(x+(Math.cos(Math.toRadians(angle))*MAX_SPEED))-8, (int)(y+(Math.sin(Math.toDegrees(angle))*MAX_SPEED))-8, 16, 16);
+		
+		
+		/*switch(mouse_shoot) {
+			case 0:
+				int dx = mouseX - x;
+				int dy = mouseY - y;
+				turrentAngle = Math.toDegrees(Math.atan2(dy,dx)); 
+				break;
+		}*/
+		double turrentX = Math.cos(Math.toRadians(turrentAngle)) * 100;
+		double turrentY = Math.sin(Math.toRadians(turrentAngle)) * 100;
+		g.setColor(Color.white);
+		g.drawRect((int)(x+turrentX) ,(int)(y+turrentY)-2,4,4);
 	}
 	
 	public void setPullX(double pullX) {
@@ -109,6 +138,10 @@ public class Player extends GameObject {
 	
 	public Rectangle getBounds() {
 		return new Rectangle(x-originX,y-originY,32,32);
+	}
+	
+	public void destroy() {
+		
 	}
 	
 }

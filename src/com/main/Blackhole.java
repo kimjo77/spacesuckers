@@ -10,6 +10,7 @@ public class Blackhole extends GameObject {
 		private GameObject tempObject;
 		private Player playerObject;
 		private Asteroid asteroidObject;
+		private Bullet bulletObject;
 		
 		
 		public Blackhole(int x, int y, int originX, int originY, ID id, Handler handler) {
@@ -51,14 +52,17 @@ public class Blackhole extends GameObject {
 				if(tempObject.getId() == ID.Asteroid) {
 					asteroidObject = (Asteroid)tempObject;
 					if(this.getBounds().intersects(asteroidObject.getBounds())) {
-						asteroidObject.setPullX(0);
-						asteroidObject.setPullY(0);
 						handler.removeObject(asteroidObject);
 					}
 				} else if(tempObject.getId() == ID.Player) {
 					playerObject = (Player)tempObject;
 					if(this.getBounds().intersects(playerObject.getBounds())) {
-						//Stop!! OH NOOO!!! I AM GROOOT!!!
+						//handler.removeObject(playerObject);
+					}
+				} else if(tempObject.getId() == ID.Bullet) {
+					bulletObject = (Bullet)tempObject;
+					if(this.getBounds().intersects(bulletObject.getBounds())) {
+						handler.removeObject(bulletObject);
 					}
 				}
 			}
@@ -72,5 +76,9 @@ public class Blackhole extends GameObject {
 		
 		public Rectangle getBounds() {
 			return new Rectangle(x-originX,y-originY,32,32);
+		}
+		
+		public void destroy() {
+			
 		}
 }
