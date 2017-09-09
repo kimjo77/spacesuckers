@@ -80,6 +80,7 @@ public class Player extends GameObject {
 			}
 		}
 		else {
+			spd=0;
 			velX = 0;
 			velY = 0;
 			

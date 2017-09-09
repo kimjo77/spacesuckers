@@ -78,6 +78,7 @@ public class Asteroid extends GameObject {
 			} else if(tempObject.getId() == ID.Bullet) {
 				bulletObject = (Bullet)tempObject;
 				if(bulletObject.getBounds().intersects(this.getBounds())) {
+					this.destroy();
 					handler.removeObject(this);
 					System.out.println("Deadz");
 				}
@@ -87,7 +88,10 @@ public class Asteroid extends GameObject {
 	}
 	
 	public void destroy() {
-		
+		int num=rand.nextInt(5)+1;
+		for(int i=0;i<num;i++) {
+			handler.addObject(new SmallAsteroid(x, y, originX, originY, id, handler));
+		}
 	}
 	
 	
