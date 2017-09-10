@@ -5,5 +5,6 @@ public enum ID {
 	Blackhole,
 	Asteroid,
 	Bullet,
-	AsteroidController;
+	AsteroidController,
+	Test;
 }

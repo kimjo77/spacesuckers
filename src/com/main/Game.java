@@ -29,9 +29,10 @@ public class Game extends Canvas implements Runnable{
 		
 		new Window(WIDTH, HEIGHT,"Space Suckers",this);
 		
-		handler.addObject(new Player(WIDTH/2,HEIGHT/2,16,16,ID.Player,handler));
-		handler.addObject(new Blackhole(WIDTH/2,HEIGHT/2,16,16,ID.Blackhole,handler));
-		handler.addObject(new AsteroidController(0,0,0,0,ID.AsteroidController,handler));
+		//handler.addObject(new Player(WIDTH/2,HEIGHT/2,16,16,ID.Player,handler));
+		//handler.addObject(new Blackhole(WIDTH/2,HEIGHT/2,16,16,ID.Blackhole,handler));
+		//handler.addObject(new AsteroidController(0,0,0,0,ID.AsteroidController,handler));
+		handler.addObject(new Test(WIDTH/2,HEIGHT/2,32,32,ID.Test));
 		
 //		new Test();
 	}

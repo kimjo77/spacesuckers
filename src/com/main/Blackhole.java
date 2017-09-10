@@ -2,7 +2,9 @@ package com.main;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Rectangle;
+import java.awt.geom.AffineTransform;
 
 public class Blackhole extends GameObject {
 		private double pull=5, dx, dy, angle, dis;
@@ -18,6 +20,7 @@ public class Blackhole extends GameObject {
 			this.handler = handler;
 		}
 		public void tick() {
+			
 			for(int i=0; i<handler.object.size(); i++) {
 				tempObject = handler.object.get(i);
 				if(tempObject.getId() == ID.Asteroid) {
@@ -71,7 +74,7 @@ public class Blackhole extends GameObject {
 		
 		public void render(Graphics g) {
 			g.setColor(Color.WHITE);
-			g.drawRect(x-originX, y-originY, 32, 32);
+			g.fillRect(x-originX, y-originY, 32, 32);
 		}
 		
 		public Rectangle getBounds() {
