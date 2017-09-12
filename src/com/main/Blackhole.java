@@ -9,7 +9,7 @@ import java.awt.geom.Area;
 import java.awt.geom.GeneralPath;
 
 public class Blackhole extends GameObject {
-	private double pull=5, dx, dy, angle, dis, rot=0;
+	private double pull=4, dx, dy, angle, dis, rot=0;
 	private Handler handler;
 	private GameObject tempObject;
 	private Player playerObject;

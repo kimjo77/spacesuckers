@@ -12,7 +12,7 @@ import java.util.Random;
 public class SmallAsteroid extends Asteroid{
 
 	private double rot=0;
-	private int pullTime = 0;
+	public int pullTime = 0;
 	
 	final static double MAX_SPEED = 8;	
 	private Random rand = new Random();
@@ -26,9 +26,8 @@ public class SmallAsteroid extends Asteroid{
 	public SmallAsteroid(int x, int y, int originX, int originY, ID id, Handler handler) {
 		super(x, y, originX, originY, id, handler);
 		rot = rand.nextInt(360);
-		//super.dir = rand.nextInt(360);
-		super.spd = rand.nextInt(10);
-		pullTime = rand.nextInt();
+		super.spd = 6;
+		pullTime = 20;
 		
 		rect = this.getBounds();
 		at.rotate(Math.toRadians(rot), x, y);
@@ -36,24 +35,23 @@ public class SmallAsteroid extends Asteroid{
 	}
 	
 	public void tick() {
-		//if(pullTime < 0) {
-			
-		//} else {
-		//	pullTime--;
-		//}
-		spd -= 0.1;
 		rot += 1;
 		
 		velX = Math.cos(Math.toRadians(dir)) * spd;
 		velY = Math.sin(Math.toRadians(dir)) * spd;
 		
-		x += velX + (int)pullX;
-		y += velY + (int)pullY;
-		
-		if(spd < 0) {
-			spd = 0;
+		if(pullTime < 0) {
+			spd -= 0.1;
+			if(spd < 0) spd = 0;
+			//dir = 0;
+			x += velX + (int)pullX;
+			y += velY + (int)pullY;
+		} else {
+			pullTime--;
+			
+			x += velX;
+			y += velY;
 		}
-		
 		collision();
 	}
 	
@@ -65,7 +63,7 @@ public class SmallAsteroid extends Asteroid{
 		
 		rect = this.getBounds();
 		
-		at.rotate(Math.toRadians(0), x, y);
+		at.rotate(Math.toRadians(rot), x, y);
 		path.append(rect.getPathIterator(at), true);
 		area = new Area(path);
 		g2d.draw(path);

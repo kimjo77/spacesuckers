@@ -30,7 +30,7 @@ public class Player extends GameObject {
 					turrentAngle = 0,
 					pullX,
 					pullY;
-	final static double MAX_SPEED = 7,MIN_SPEED = -3;
+	final static double MAX_SPEED = 6,MIN_SPEED = -3;
 	
 	private Handler handler;
 	

@@ -44,6 +44,9 @@ public class Bullet extends GameObject {
 	public void setAngle(double angle) {
 		this.angle=angle;
 	}
+	public double getAngle() {
+		return angle;
+	}
 	
 	public void render(Graphics g) {
 		g.setColor(Color.GREEN);

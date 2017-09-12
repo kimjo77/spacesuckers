@@ -30,7 +30,7 @@ public class Asteroid extends GameObject {
 		path.append(rect.getPathIterator(at), true);
 	}
 	public void tick() {
-		rot += 1;
+		//rot += 1;
 		
 		velX = Math.cos(Math.toRadians(dir)) * spd;
 		velY = Math.sin(Math.toRadians(dir)) * spd;
@@ -79,8 +79,16 @@ public class Asteroid extends GameObject {
 	}
 	
 	public void generateAsteroidSmall(Bullet bullet) {
-		for(int j=0;j<2;j++) {
-			handler.addObject(new SmallAsteroid(x, y, 8, 8, id, handler));
+		SmallAsteroid sAsteroid;
+		double bulletAngle = bullet.getAngle();
+		int rotGap = 60;
+		
+		for(int i=0;i<2;i++) {
+			sAsteroid = new SmallAsteroid(x,y,8,8,id,handler);
+			rotGap *= -1;
+			bulletAngle = bulletAngle + rotGap;
+			sAsteroid.dir = bulletAngle;
+			handler.addObject(sAsteroid);
 		}
 	}
 	
