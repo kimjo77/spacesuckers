@@ -29,12 +29,13 @@ public class Game extends Canvas implements Runnable{
 		
 		new Window(WIDTH, HEIGHT,"Space Suckers",this);
 		
-		//handler.addObject(new Player(WIDTH/2,HEIGHT/2,16,16,ID.Player,handler));
-		//handler.addObject(new Blackhole(WIDTH/2,HEIGHT/2,16,16,ID.Blackhole,handler));
-		//handler.addObject(new AsteroidController(0,0,0,0,ID.AsteroidController,handler));
-		handler.addObject(new Test(WIDTH/2,HEIGHT/2,32,32,ID.Test));
+		handler.addObject(new Player(WIDTH/2,HEIGHT/2,16,16,ID.Player,handler));
+		handler.addObject(new Blackhole(WIDTH/2,HEIGHT/2,16,16,ID.Blackhole,handler));
+		handler.addObject(new AsteroidController(0,0,0,0,ID.AsteroidController,handler));
+		handler.addObject(new Asteroid(0,0,16,16,ID.Asteroid,handler));
 		
-//		new Test();
+		//handler.addObject(new Test(WIDTH/2,HEIGHT/2,32,32,ID.Test,handler));
+		//handler.addObject(new Test2(0,HEIGHT/2,32,32,ID.Test2));
 	}
 	
 	public synchronized void start() {
@@ -75,6 +76,7 @@ public class Game extends Canvas implements Runnable{
 			frames++;
 			if(System.currentTimeMillis() - timer > 1000) {
 				timer += 1000;
+				System.out.println("FPS: " + frames);
 				frames = 0;
 			}
 		}

@@ -46,7 +46,6 @@ public class MouseInput extends MouseAdapter{
 				playerObject = (Player)tempObject;
 				playerObject.mouseX = e.getX();
 				playerObject.mouseY = e.getY();
-				System.out.println("(" + e.getX() + "," + e.getY() + ")");
 			}
 		}
 	}

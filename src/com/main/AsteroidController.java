@@ -18,8 +18,8 @@ public class AsteroidController extends GameObject{
 
 	public void tick() {
 		if(spawnTime <0) {
-			spawnTime = 20 + rand.nextInt(60);
-			for(int i=(rand.nextInt(3)+1); i > 0; i--) {
+			spawnTime = 30 + rand.nextInt(60);
+			for(int i=(rand.nextInt(2)+1); i > 0; i--) {
 				int xx=0,yy=0;
 				switch(rand.nextInt(4)) {
 					case 0: // right
@@ -51,10 +51,4 @@ public class AsteroidController extends GameObject{
 	public Rectangle getBounds() {
 		return null;
 	}
-		
-	public void destroy() {
-		
-	}
-	
-
 }

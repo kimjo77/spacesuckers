@@ -6,5 +6,6 @@ public enum ID {
 	Asteroid,
 	Bullet,
 	AsteroidController,
-	Test;
+	Test,
+	Test2;
 }

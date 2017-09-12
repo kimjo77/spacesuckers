@@ -1,4 +1,4 @@
-package com.main;
+package com.test;
 
 import java.awt.Color;
 import java.awt.Dimension;

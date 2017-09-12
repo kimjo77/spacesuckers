@@ -2,7 +2,11 @@ package com.main;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Rectangle;
+import java.awt.geom.AffineTransform;
+import java.awt.geom.Area;
+import java.awt.geom.GeneralPath;
 
 public class Player extends GameObject {
 	
@@ -30,12 +34,25 @@ public class Player extends GameObject {
 	
 	private Handler handler;
 	
+	private Rectangle rect;
+	private Area area;
+	private GeneralPath path = new GeneralPath();
+	private AffineTransform at = new AffineTransform();
+	
 	public Player(int x, int y, int originX, int originY, ID id, Handler handler) {
 		super(x, y, originX, originY, id);
 		this.handler = handler;
+		rect = this.getBounds();
+		at.rotate(Math.toRadians(dir), x, y);
+		path.append(rect.getPathIterator(at), true);
+		path.moveTo(x, y);
+		/*double lineX = Math.cos(Math.toRadians(angle)) * 16;
+		double lineY = Math.sin(Math.toRadians(angle)) * 16;
+		path.lineTo(x + lineX,y + lineY);*/
 	}
 
 	public void tick() {
+	
 		
 		if(stunTime<0) {	
 			angle += (key_left + key_right) * rotspd;
@@ -54,42 +71,35 @@ public class Player extends GameObject {
 			} else {
 				spd -= 0.1;
 			}
-		
-			velX = Math.cos(Math.toRadians(dir)) * spd;
-			velY = Math.sin(Math.toRadians(dir)) * spd;
-			
-			if(spd > MAX_SPEED) {
-				spd = MAX_SPEED;
-			} else if(spd < MIN_SPEED) {
-				spd = MIN_SPEED;
-			}
-			
-			x += velX + pullX;
-			y += velY + pullY;
-			
-			if(x <= 0) {
-				x = Game.WIDTH;
-			}else if(x >= Game.WIDTH) {
-				x = 0;
-			}
-			
-			if(y <= 0) {
-				y = Game.HEIGHT;
-			}else if(y >= Game.HEIGHT) {
-				y = 0;
-			}
-		}
-		else {
-			spd=0;
-			velX = 0;
-			velY = 0;
-			
-			x += velX + pullX;
-			y += velY + pullY;
+		} else {
+			spd -= 0.1;
 
-			motion_add(angle,0.2,velX,velY,spd);
 			stunTime--;
 		}
+		velX = Math.cos(Math.toRadians(dir)) * spd;
+		velY = Math.sin(Math.toRadians(dir)) * spd;
+		
+		if(spd > MAX_SPEED) {
+			spd = MAX_SPEED;
+		} else if(spd < MIN_SPEED) {
+			spd = MIN_SPEED;
+		}
+		
+		x += velX + pullX;
+		y += velY + pullY;
+		
+		if(x <= 0) {
+			x = Game.WIDTH;
+		}else if(x >= Game.WIDTH) {
+			x = 0;
+		}
+		
+		if(y <= 0) {
+			y = Game.HEIGHT;
+		}else if(y >= Game.HEIGHT) {
+			y = 0;
+		}
+		
 	}
 
 	public void motion_add(double angle, double accelspd ,double pvelX, double pvelY, double pspd) {
@@ -119,20 +129,24 @@ public class Player extends GameObject {
 	
 	public void render(Graphics g) {
 		g.setColor(Color.red);
-		g.drawRect(x-originX, y-originY, 32, 32);
-		g.drawRect((int)(x+velX)-8, (int)(y+velY)-8, 16, 16);
+		Graphics2D g2d = (Graphics2D) g;
+		at = new AffineTransform();
+		path = new GeneralPath();
 		
+		rect = this.getBounds();
 		
-		/*switch(mouse_shoot) {
-			case 0:
-				int dx = mouseX - x;
-				int dy = mouseY - y;
-				turrentAngle = Math.toDegrees(Math.atan2(dy,dx)); 
-				break;
-		}*/
+		at.rotate(Math.toRadians(dir), x, y);
+		path.append(rect.getPathIterator(at), true);
+		area = new Area(path);
+		path.moveTo(x, y);
+		double lineX = Math.cos(Math.toRadians(angle)) * 16;
+		double lineY = Math.sin(Math.toRadians(angle)) * 16;
+		path.lineTo(x + lineX,y + lineY);
+		g2d.draw(path);
+		
 		double turrentX = Math.cos(Math.toRadians(turrentAngle)) * 100;
 		double turrentY = Math.sin(Math.toRadians(turrentAngle)) * 100;
-		g.setColor(Color.white);
+		g.setColor(Color.red);
 		g.drawRect((int)(x+turrentX) ,(int)(y+turrentY)-2,4,4);
 	}
 	
@@ -154,8 +168,8 @@ public class Player extends GameObject {
 		return new Rectangle(x-originX,y-originY,32,32);
 	}
 	
-	public void destroy() {
-		
+	public Area getArea() {
+		return area;
 	}
 	
 }

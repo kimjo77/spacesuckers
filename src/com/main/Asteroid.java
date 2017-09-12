@@ -2,47 +2,100 @@ package com.main;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Rectangle;
+import java.awt.geom.AffineTransform;
+import java.awt.geom.Area;
+import java.awt.geom.GeneralPath;
 import java.util.Random;
 
 public class Asteroid extends GameObject {
 	
-	private double dir, spd=0, pullX, pullY;
-	final static double MAX_SPEED = 8;	
+	public double dir, spd=0, pullX, pullY, rot;
 	private Random rand = new Random();
 	private Handler handler;
+	
+	private Rectangle rect;
+	private Area area;
+	private GeneralPath path = new GeneralPath();
+	private AffineTransform at = new AffineTransform();
 	
 	public Asteroid(int x, int y, int originX, int originY, ID id, Handler handler) {
 		super(x, y, originX, originY, id);
 		this.handler=handler;
-		//dir = rand.nextInt(360);
-		//spd = rand.nextInt(3)+2;
+		rot = rand.nextInt(360);
+		
+		rect = this.getBounds();
+		at.rotate(Math.toRadians(rot), x, y);
+		path.append(rect.getPathIterator(at), true);
 	}
 	public void tick() {
+		rot += 1;
+		
 		velX = Math.cos(Math.toRadians(dir)) * spd;
 		velY = Math.sin(Math.toRadians(dir)) * spd;
 		
 		x += velX + (int)pullX;
 		y += velY + (int)pullY;
 		
-		if(x <= 0) {
-			x = Game.WIDTH;
-		}else if(x >= Game.WIDTH) {
-			x = 0;
-		}
 		
-		if(y <= 0) {
-			y = Game.HEIGHT;
-		}else if(y >= Game.HEIGHT) {
-			y = 0;
+		if(spd > Player.MAX_SPEED) {
+			spd = Player.MAX_SPEED;
+		} else if(spd < Player.MIN_SPEED) {
+			spd = Player.MIN_SPEED;
 		}
 		
 		collision();
 	}
+
+	public void collision() {
+		GameObject tempObject;
+		Player playerObject;
+		Bullet bulletObject;
+		Area tempArea;
+		for(int i=0; i < handler.object.size(); i++) {
+			tempObject = handler.object.get(i);
+			tempArea = new Area(path);
+			if(tempObject.getId() == ID.Player) {
+				playerObject = (Player)tempObject;
+				tempArea.intersect(playerObject.getArea());
+				if(!tempArea.isEmpty()) {
+//					handler.removeObject(playerObject);
+					playerObject.stunTime=60;
+					handler.removeObject(this);
+				}
+			} else if(tempObject.getId() == ID.Bullet) {
+				bulletObject = (Bullet)tempObject;
+				tempArea.intersect(bulletObject.getArea());
+				if(!tempArea.isEmpty()) {
+					handler.removeObject(bulletObject);
+					generateAsteroidSmall(bulletObject);
+					handler.removeObject(this);
+					System.out.println("Deadz");
+				}
+			}
+		}
+		
+	}
+	
+	public void generateAsteroidSmall(Bullet bullet) {
+		for(int j=0;j<2;j++) {
+			handler.addObject(new SmallAsteroid(x, y, 8, 8, id, handler));
+		}
+	}
 	
 	public void render(Graphics g) {	
 		g.setColor(Color.blue);
-		g.drawRect(x-originX, y-originY, 24, 24);
+		Graphics2D g2d = (Graphics2D) g;
+		at = new AffineTransform();
+		path = new GeneralPath();
+		
+		rect = this.getBounds();
+		
+		at.rotate(Math.toRadians(rot), x, y);
+		path.append(rect.getPathIterator(at), true);
+		area = new Area(path);
+		g2d.draw(path);
 	}
 	
 	public void setPullX(double pullX) {
@@ -59,39 +112,9 @@ public class Asteroid extends GameObject {
 		return this.pullY;
 	}
 	public Rectangle getBounds() {
-		return new Rectangle(x-originX,y-originY,24,24);
+		return new Rectangle(x-originX,y-originY,32,32);
 	}
-
-	public void collision() {
-		GameObject tempObject;
-		Player playerObject;
-		Bullet bulletObject;		
-		for(int i=0; i < handler.object.size(); i++) {
-			tempObject = handler.object.get(i);
-			if(tempObject.getId() == ID.Player) {
-				playerObject = (Player)tempObject;
-				if(this.getBounds().intersects(playerObject.getBounds())) {
-//					handler.removeObject(playerObject);
-					playerObject.stunTime=50;
-					handler.removeObject(this);
-				}
-			} else if(tempObject.getId() == ID.Bullet) {
-				bulletObject = (Bullet)tempObject;
-				if(bulletObject.getBounds().intersects(this.getBounds())) {
-					this.destroy();
-					handler.removeObject(this);
-					System.out.println("Deadz");
-				}
-			} else { }
-		}
-		
+	public Area getArea() {
+		return area;
 	}
-	
-	public void destroy() {
-		for(int i=0;i<2;i++) {
-			handler.addObject(new SmallAsteroid(x, y, originX, originY, id, handler));
-		}
-	}
-	
-	
 }
