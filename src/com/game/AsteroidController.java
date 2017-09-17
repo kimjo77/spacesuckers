@@ -1,4 +1,4 @@
-package com.main;
+package com.game;
 
 import java.awt.Graphics;
 import java.awt.Rectangle;
@@ -6,14 +6,12 @@ import java.util.Random;
 
 public class AsteroidController extends GameObject{
 	
-	private Handler handler;
 	private int spawnTime;
 	private Random rand = new Random();
 	private int offset = 32 * 2;
 
-	public AsteroidController(int x, int y, int originX, int originY, ID id, Handler handler) {
+	public AsteroidController(int x, int y, int originX, int originY, ID id) {
 		super(x, y, originX, originY, id);
-		this.handler = handler;
 	}
 
 	public void tick() {
@@ -39,7 +37,7 @@ public class AsteroidController extends GameObject{
 						yy = Game.HEIGHT + offset;
 						break;
 				}
-				handler.addObject(new Asteroid(xx,yy,16,16,ID.Asteroid,handler));
+				Game.handler.addObject(new Asteroid(xx,yy,16,16,ID.Asteroid));
 			}
 		}else{
 			spawnTime--;

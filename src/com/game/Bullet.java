@@ -1,4 +1,4 @@
-package com.main;
+package com.game;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -12,16 +12,14 @@ public class Bullet extends GameObject {
 
 	private double angle = 0; 
 	private final int spd = 15 ;
-	private Handler handler;
 	
 	private Rectangle rect;
 	private Area area;
 	private GeneralPath path = new GeneralPath();
 	private AffineTransform at = new AffineTransform();
 	
-	public Bullet(int x, int y, int originX, int originY, ID id, Handler handler) {
+	public Bullet(int x, int y, int originX, int originY, ID id) {
 		super(x, y, originX, originY, id);
-		this.handler = handler;
 		rect = this.getBounds();
 		at.rotate(Math.toRadians(angle), x, y);
 		path.append(rect.getPathIterator(at), true);
@@ -37,7 +35,7 @@ public class Bullet extends GameObject {
 		y += (int)velY;	
 		
 		if( x<0 || x>Game.WIDTH || y<0 || y>Game.HEIGHT) {
-			handler.removeObject(this);
+			Game.handler.removeObject(this);
 		}
 	}
 

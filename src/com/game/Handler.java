@@ -1,4 +1,4 @@
-package com.main;
+package com.game;
 
 import java.awt.Graphics;
 import java.util.LinkedList;
@@ -25,8 +25,9 @@ public class Handler {
 		}
 	}
 	
-	public void addObject(GameObject object) {
+	public GameObject addObject(GameObject object) {
 		this.object.add(object);
+		return object;
 	}
 	
 	public void removeObject(GameObject object) {

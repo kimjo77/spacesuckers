@@ -8,9 +8,9 @@ import java.awt.geom.AffineTransform;
 import java.awt.geom.Area;
 import java.awt.geom.GeneralPath;
 
-import com.main.Game;
-import com.main.GameObject;
-import com.main.ID;
+import com.game.Game;
+import com.game.GameObject;
+import com.game.ID;
 
 public class Test2 extends GameObject{
 	

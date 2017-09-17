@@ -1,4 +1,4 @@
-package com.main;
+package com.game;
 
 import java.awt.Graphics;
 import java.awt.Rectangle;

@@ -1,4 +1,4 @@
-package com.main;
+package com.game;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -10,7 +10,7 @@ import java.awt.geom.GeneralPath;
 
 public class Blackhole extends GameObject {
 	private double pull=4, dx, dy, angle, dis, rot=0;
-	private Handler handler;
+	
 	private GameObject tempObject;
 	private Player playerObject;
 	private Asteroid asteroidObject;
@@ -22,9 +22,8 @@ public class Blackhole extends GameObject {
 	private AffineTransform at = new AffineTransform();
 	
 	
-	public Blackhole(int x, int y, int originX, int originY, ID id, Handler handler) {
+	public Blackhole(int x, int y, int originX, int originY, ID id) {
 		super(x, y, originX, originY, id);
-		this.handler = handler;
 		rect = this.getBounds();
 		at.rotate(Math.toRadians(rot), x, y);
 		path.append(rect.getPathIterator(at), true);
@@ -32,8 +31,8 @@ public class Blackhole extends GameObject {
 	public void tick() {
 		rot += 0.5;
 		
-		for(int i=0; i<handler.object.size(); i++) {
-			tempObject = handler.object.get(i);
+		for(int i=0; i<Game.handler.object.size(); i++) {
+			tempObject = Game.handler.object.get(i);
 			if(tempObject.getId() == ID.Asteroid) {
 				asteroidObject = (Asteroid)tempObject;
 				dx = x-asteroidObject.getX();
@@ -62,14 +61,14 @@ public class Blackhole extends GameObject {
 	
 	public void collision() {
 		Area tempArea;
-		for(int i=0; i < handler.object.size(); i++) {
-			tempObject = handler.object.get(i);
+		for(int i=0; i < Game.handler.object.size(); i++) {
+			tempObject = Game.handler.object.get(i);
 			tempArea = new Area(path);
 			if(tempObject.getId() == ID.Asteroid) {
 				asteroidObject = (Asteroid)tempObject;
 				tempArea.intersect(asteroidObject.getArea());
 				if(!tempArea.isEmpty()) {
-					handler.removeObject(asteroidObject);
+					Game.handler.removeObject(asteroidObject);
 				}
 			} /*else if(tempObject.getId() == ID.Player) {
 				playerObject = (Player)tempObject;

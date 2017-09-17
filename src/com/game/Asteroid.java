@@ -1,4 +1,4 @@
-package com.main;
+package com.game;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -13,16 +13,17 @@ public class Asteroid extends GameObject {
 	
 	public double dir, spd=0, pullX, pullY, rot;
 	private Random rand = new Random();
-	private Handler handler;
+	
+	private Texture tex = Game.tex;
 	
 	private Rectangle rect;
 	private Area area;
 	private GeneralPath path = new GeneralPath();
-	private AffineTransform at = new AffineTransform();
+	private AffineTransform at = new AffineTransform(),
+							gat = new AffineTransform();
 	
-	public Asteroid(int x, int y, int originX, int originY, ID id, Handler handler) {
+	public Asteroid(int x, int y, int originX, int originY, ID id) {
 		super(x, y, originX, originY, id);
-		this.handler=handler;
 		rot = rand.nextInt(360);
 		
 		rect = this.getBounds();
@@ -30,7 +31,7 @@ public class Asteroid extends GameObject {
 		path.append(rect.getPathIterator(at), true);
 	}
 	public void tick() {
-		//rot += 1;
+		rot += 1;
 		
 		velX = Math.cos(Math.toRadians(dir)) * spd;
 		velY = Math.sin(Math.toRadians(dir)) * spd;
@@ -53,24 +54,24 @@ public class Asteroid extends GameObject {
 		Player playerObject;
 		Bullet bulletObject;
 		Area tempArea;
-		for(int i=0; i < handler.object.size(); i++) {
-			tempObject = handler.object.get(i);
+		for(int i=0; i < Game.handler.object.size(); i++) {
+			tempObject = Game.handler.object.get(i);
 			tempArea = new Area(path);
 			if(tempObject.getId() == ID.Player) {
 				playerObject = (Player)tempObject;
 				tempArea.intersect(playerObject.getArea());
 				if(!tempArea.isEmpty()) {
 //					handler.removeObject(playerObject);
-					playerObject.stunTime=60;
-					handler.removeObject(this);
+					playerObject.stunTime=30;
+					Game.handler.removeObject(this);
 				}
 			} else if(tempObject.getId() == ID.Bullet) {
 				bulletObject = (Bullet)tempObject;
 				tempArea.intersect(bulletObject.getArea());
 				if(!tempArea.isEmpty()) {
-					handler.removeObject(bulletObject);
 					generateAsteroidSmall(bulletObject);
-					handler.removeObject(this);
+					Game.handler.removeObject(bulletObject);
+					Game.handler.removeObject(this);
 					System.out.println("Deadz");
 				}
 			}
@@ -84,11 +85,11 @@ public class Asteroid extends GameObject {
 		int rotGap = 60;
 		
 		for(int i=0;i<2;i++) {
-			sAsteroid = new SmallAsteroid(x,y,8,8,id,handler);
+			sAsteroid = new SmallAsteroid(x,y,8,8,id);
 			rotGap *= -1;
 			bulletAngle = bulletAngle + rotGap;
 			sAsteroid.dir = bulletAngle;
-			handler.addObject(sAsteroid);
+			Game.handler.addObject(sAsteroid);
 		}
 	}
 	
@@ -96,13 +97,18 @@ public class Asteroid extends GameObject {
 		g.setColor(Color.blue);
 		Graphics2D g2d = (Graphics2D) g;
 		at = new AffineTransform();
+		gat = new AffineTransform();
 		path = new GeneralPath();
 		
 		rect = this.getBounds();
 		
+		gat.rotate(Math.toRadians(rot), x,y);
+		gat.translate(x-(tex.asteroid[0].getWidth()/2),y-(tex.asteroid[0].getHeight()/2));
+		
 		at.rotate(Math.toRadians(rot), x, y);
 		path.append(rect.getPathIterator(at), true);
 		area = new Area(path);
+		g2d.drawImage(tex.asteroid[0], gat, null);
 		g2d.draw(path);
 	}
 	

@@ -8,9 +8,9 @@ import java.awt.geom.AffineTransform;
 import java.awt.geom.Area;
 import java.awt.geom.GeneralPath;
 
-import com.main.GameObject;
-import com.main.Handler;
-import com.main.ID;
+import com.game.GameObject;
+import com.game.Handler;
+import com.game.ID;
 
 public class Test extends GameObject {
 	private double rot = 0;

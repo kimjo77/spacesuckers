@@ -1,4 +1,4 @@
-package com.main;
+package com.game;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -10,6 +10,7 @@ import java.awt.geom.GeneralPath;
 
 public class Player extends GameObject {
 	
+	private int playerID = 0;
 	public int 
 					key_up = 0,
 					key_down = 0,
@@ -29,26 +30,25 @@ public class Player extends GameObject {
 					rotspd = 4,
 					turrentAngle = 0,
 					pullX,
-					pullY;
+					pullY,
+					turrentX,
+					turrentY;
 	final static double MAX_SPEED = 6,MIN_SPEED = -3;
 	
-	private Handler handler;
+	private Texture tex = Game.tex;
 	
 	private Rectangle rect;
 	private Area area;
 	private GeneralPath path = new GeneralPath();
-	private AffineTransform at = new AffineTransform();
+	private AffineTransform at = new AffineTransform(),
+							gat = new AffineTransform();
 	
-	public Player(int x, int y, int originX, int originY, ID id, Handler handler) {
+	public Player(int x, int y, int originX, int originY, ID id) {
 		super(x, y, originX, originY, id);
-		this.handler = handler;
 		rect = this.getBounds();
 		at.rotate(Math.toRadians(dir), x, y);
 		path.append(rect.getPathIterator(at), true);
 		path.moveTo(x, y);
-		/*double lineX = Math.cos(Math.toRadians(angle)) * 16;
-		double lineY = Math.sin(Math.toRadians(angle)) * 16;
-		path.lineTo(x + lineX,y + lineY);*/
 	}
 
 	public void tick() {
@@ -115,8 +115,8 @@ public class Player extends GameObject {
 	}
 
 	public void shoot(int choice) {
-		Bullet b = new Bullet(x, y, 3, 3, ID.Bullet,handler);
-		handler.addObject(b);
+		Bullet b = new Bullet((int)(x+turrentX), (int)(y+turrentY), 3, 3, ID.Bullet);
+		Game.handler.addObject(b);
 		switch(choice) {
 			case 0:
 				int dx = mouseX - x;
@@ -131,22 +131,31 @@ public class Player extends GameObject {
 		g.setColor(Color.red);
 		Graphics2D g2d = (Graphics2D) g;
 		at = new AffineTransform();
+		gat = new AffineTransform();
 		path = new GeneralPath();
 		
 		rect = this.getBounds();
 		
-		at.rotate(Math.toRadians(dir), x, y);
+		gat.rotate(Math.toRadians(angle), x,y);
+		gat.translate(x-(tex.player[playerID].getWidth()/2),y-(tex.player[playerID].getHeight()/2));
+		
+		at.rotate(Math.toRadians(angle), x, y);
 		path.append(rect.getPathIterator(at), true);
 		area = new Area(path);
 		path.moveTo(x, y);
-		double lineX = Math.cos(Math.toRadians(angle)) * 16;
-		double lineY = Math.sin(Math.toRadians(angle)) * 16;
+		double lineX = Math.cos(Math.toRadians(dir)) * 16;
+		double lineY = Math.sin(Math.toRadians(dir)) * 16;
 		path.lineTo(x + lineX,y + lineY);
+		g2d.drawImage(tex.player[playerID], gat, null);
 		g2d.draw(path);
 		
-		double turrentX = Math.cos(Math.toRadians(turrentAngle)) * 100;
-		double turrentY = Math.sin(Math.toRadians(turrentAngle)) * 100;
+		turrentX = Math.cos(Math.toRadians(turrentAngle)) * 50;
+		turrentY = Math.sin(Math.toRadians(turrentAngle)) * 50;
+		gat = new AffineTransform();
+		gat.rotate(Math.toRadians(turrentAngle), (x+turrentX),(y+turrentY));
+		gat.translate((x+turrentX)-(tex.cursor[playerID].getWidth()/2),(y+turrentY)-(tex.cursor[playerID].getHeight()/2));
 		g.setColor(Color.red);
+		g2d.drawImage(tex.cursor[playerID], gat, null);
 		g.drawRect((int)(x+turrentX) ,(int)(y+turrentY)-2,4,4);
 	}
 	
@@ -165,7 +174,7 @@ public class Player extends GameObject {
 	}
 	
 	public Rectangle getBounds() {
-		return new Rectangle(x-originX,y-originY,32,32);
+		return new Rectangle(x-originX,y-originY,48,24);
 	}
 	
 	public Area getArea() {

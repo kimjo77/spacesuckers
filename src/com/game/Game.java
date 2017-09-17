@@ -1,4 +1,4 @@
-package com.main;
+package com.game;
 
 import java.awt.Canvas;
 import java.awt.Color;
@@ -14,11 +14,15 @@ public class Game extends Canvas implements Runnable{
 	private Thread thread;
 	private boolean running = false;
 	
-	private Handler handler; 
 	private MouseInput mouse;
 	private Random rand = new Random();
 	
+	public static Handler handler; 
+	public static Texture tex;
+	
 	public Game() {
+		
+		tex = new Texture();
 		
 		handler = new Handler();
 		mouse = new MouseInput(handler);
@@ -29,10 +33,10 @@ public class Game extends Canvas implements Runnable{
 		
 		new Window(WIDTH, HEIGHT,"Space Suckers",this);
 		
-		handler.addObject(new Player(WIDTH/2,HEIGHT/2,16,16,ID.Player,handler));
-		handler.addObject(new Blackhole(WIDTH/2,HEIGHT/2,16,16,ID.Blackhole,handler));
-		handler.addObject(new AsteroidController(0,0,0,0,ID.AsteroidController,handler));
-		handler.addObject(new Asteroid(0,0,16,16,ID.Asteroid,handler));
+		handler.addObject(new Player(WIDTH/2,HEIGHT/2,24,12,ID.Player));
+		handler.addObject(new Blackhole(WIDTH/2,HEIGHT/2,16,16,ID.Blackhole));
+		handler.addObject(new AsteroidController(0,0,0,0,ID.AsteroidController));
+		handler.addObject(new Asteroid(0,0,16,16,ID.Asteroid));
 		
 		//handler.addObject(new Test(WIDTH/2,HEIGHT/2,32,32,ID.Test,handler));
 		//handler.addObject(new Test2(0,HEIGHT/2,32,32,ID.Test2));
