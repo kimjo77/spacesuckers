@@ -62,7 +62,7 @@ public class Asteroid extends GameObject {
 				tempArea.intersect(playerObject.getArea());
 				if(!tempArea.isEmpty()) {
 //					handler.removeObject(playerObject);
-					playerObject.stunTime=30;
+					playerObject.stunTime=60;
 					Game.handler.removeObject(this);
 				}
 			} else if(tempObject.getId() == ID.Bullet) {
