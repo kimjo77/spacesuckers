@@ -70,18 +70,19 @@ public class Blackhole extends GameObject {
 				if(!tempArea.isEmpty()) {
 					Game.handler.removeObject(asteroidObject);
 				}
-			} /*else if(tempObject.getId() == ID.Player) {
+			} else if(tempObject.getId() == ID.Player) {
 				playerObject = (Player)tempObject;
 				tempArea.intersect(playerObject.getArea());
 				if(!tempArea.isEmpty()) {
-					//handler.removeObject(playerObject);
+					Game.handler.removeObject(playerObject);
 				}
-			} /*else if(tempObject.getId() == ID.Bullet) {
+			} else if(tempObject.getId() == ID.Bullet) {
 				bulletObject = (Bullet)tempObject;
-				if(area.intersects(bulletObject.getBounds())) {
-					handler.removeObject(bulletObject);
+				tempArea.intersect(bulletObject.getArea());
+				if(!tempArea.isEmpty()) {
+					Game.handler.removeObject(bulletObject);
 				}
-			}*/
+			}
 		}
 		
 	}
