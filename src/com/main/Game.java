@@ -4,6 +4,10 @@ import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.net.ServerSocket;
+import java.net.Socket;
 import java.util.Random;
 
 public class Game extends Canvas implements Runnable{
@@ -14,7 +18,7 @@ public class Game extends Canvas implements Runnable{
 	private Thread thread;
 	private boolean running = false;
 	
-	private Handler handler; 
+	private static Handler handler; 
 	private MouseInput mouse;
 	private Random rand = new Random();
 	
@@ -26,8 +30,10 @@ public class Game extends Canvas implements Runnable{
 		this.addKeyListener(new KeyInput(handler));
 		this.addMouseListener(mouse);
 		this.addMouseMotionListener(mouse);
-		
-		new Window(WIDTH, HEIGHT,"Space Suckers",this);
+
+		new Window();
+//		new Window(WIDTH, HEIGHT,"Space Suckers",this);
+//		w.openMainGame(WIDTH,HEIGHT,"Space Suckers",this);
 		
 		handler.addObject(new Player(WIDTH/2,HEIGHT/2,16,16,ID.Player,handler));
 		handler.addObject(new Blackhole(WIDTH/2,HEIGHT/2,16,16,ID.Blackhole,handler));
@@ -105,7 +111,32 @@ public class Game extends Canvas implements Runnable{
 		bs.show();
 	}
 	
-	public static void main(String args[]) {
-		new Game();
+	public static Socket[] client;
+	public static int clientSize=0;
+	
+	public static void main(String args[]) throws IOException {
+//	public static void main(String args[]) {
+//		new Game();
+/*		
+		ServerSocket server=new ServerSocket(8880);
+		server.setReuseAddress(true);
+		System.out.println("Server started.");
+		Socket client=server.accept();
+		System.out.println("Connection from: " + client.getInetAddress());
+		DataOutputStream out=new DataOutputStream(client.getOutputStream());
+		out.writeUTF("Connection to server.");
+		System.out.println("Connected to client.");
+		
+*/		
+//		if(client.isConnected()) {
+//			new Handler().addObject(new Player(WIDTH/2,HEIGHT/2,16,16,ID.Player,handler));
+//			handler.addObject(new Player(WIDTH,HEIGHT,16,16,ID.Player,handler));
+//*/
+		
+		Window w=new Window();
+		w.openMenu(WIDTH, HEIGHT,"Space Suckers",new Game());
+
 	}
+
 }
+	
