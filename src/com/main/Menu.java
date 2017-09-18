@@ -20,8 +20,7 @@ public class Menu extends MouseAdapter{
 	
 	private Texture tex = Game.tex;
 	private int mx,my;
-	private int splashTime,
-				sx = 0,
+	private int sx = 0,
 				sy = 0 - tex.splash.getHeight() + Game.HEIGHT,
 				//sy = 0,
 				sspd = 1;
