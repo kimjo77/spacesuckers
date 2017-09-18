@@ -34,7 +34,7 @@ public class Game extends Canvas implements Runnable{
 	}
 	private Menu menu;
 	
-	public static STATE gameState = STATE.Menu;
+	public static STATE gameState = STATE.Splash;
 	
 	public static Handler handler; 
 	public static Texture tex;
@@ -58,10 +58,10 @@ public class Game extends Canvas implements Runnable{
 		
 		switch(gameState) {
 			case Game : 
-						handler.addObject(new Player(WIDTH/2,HEIGHT/2,24,12,ID.Player));
 						handler.addObject(new Blackhole(WIDTH/2,HEIGHT/2,16,16,ID.Blackhole));
 						handler.addObject(new AsteroidController(0,0,0,0,ID.AsteroidController));
 						handler.addObject(new Asteroid(0,0,16,16,ID.Asteroid));
+						handler.addObject(new Player(WIDTH/2,HEIGHT/2,24,12,ID.Player));
 						break;	
 			default:
 		}
@@ -129,16 +129,16 @@ public class Game extends Canvas implements Runnable{
 	private void render() {
 		BufferStrategy bs = this.getBufferStrategy();
 		if(bs == null) {
-			this.createBufferStrategy(3);
+			this.createBufferStrategy(2);
 			return;
 		}
 		
 		Graphics g = bs.getDrawGraphics();
 		
 		g.setColor(Color.white);
-		//g.fillRect(0,0,WIDTH, HEIGHT);
+		g.fillRect(0,0,WIDTH, HEIGHT);
 		
-		g.drawImage((Image)tex.bg, 0, 0, null);
+		g.drawImage(tex.bg, 0, 0, null);
 		g.setFont(fnt);
 		g.drawString("Score: " + SCORE, 16, 35);
 		

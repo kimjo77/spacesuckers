@@ -22,30 +22,41 @@ public class Menu extends MouseAdapter{
 	private int mx,my;
 	private int sx = 0,
 				sy = 0 - tex.splash.getHeight() + Game.HEIGHT,
-				//sy = 0,
 				sspd = 1;
+	private boolean quit = false;
 	
 	public void mousePressed(MouseEvent e) {
 		mx = e.getX();
 		my = e.getY();
 		switch(Game.gameState) {
 		case Menu:
-					if(mouseOver(mx,my,345,350+(0*85),285,73)) {
-						Game.handler.addObject(new Player(Game.WIDTH/2,Game.HEIGHT/2,24,12,ID.Player));
-						Game.handler.addObject(new Blackhole(Game.WIDTH/2,Game.HEIGHT/2,16,16,ID.Blackhole));
-						Game.handler.addObject(new AsteroidController(0,0,0,0,ID.AsteroidController));
-						Game.handler.addObject(new Asteroid(0,0,16,16,ID.Asteroid));
-						Game.gameState = Game.STATE.Game;
-						System.out.println("Singleplayer!");
+					if(!quit) {
+						if(mouseOver(mx,my,345,350+(0*85),285,73)) {
+							Game.handler.addObject(new Blackhole(Game.WIDTH/2,Game.HEIGHT/2,16,16,ID.Blackhole));
+							Game.handler.addObject(new AsteroidController(0,0,0,0,ID.AsteroidController));
+							Game.handler.addObject(new Asteroid(0,0,16,16,ID.Asteroid));
+							Game.handler.addObject(new Player(Game.WIDTH/2,Game.HEIGHT/2,24,12,ID.Player));
+							Game.gameState = Game.STATE.Game;
+							System.out.println("Singleplayer!");
+						}
+						if(mouseOver(mx,my,345,350+(1*85),285,73)) {
+							Game.gameState = Game.STATE.Multi;
+							System.out.println("Multiplayer!");
+						}
+						if(mouseOver(mx,my,345,350+(2*85),285,73)) {
+							quit = true;
+							System.out.println("Quit!");
+						}	
+					}else {
+						if(mouseOver(mx,my,270,350,203,51)) {
+							System.out.println("Quit!");
+							System.exit(0);
+						}
+						if(mouseOver(mx,my,530,350,203,51)) {
+							quit = false;
+							System.out.println("CANCEL!");
+						}
 					}
-					if(mouseOver(mx,my,345,350+(1*85),285,73)) {
-						Game.gameState = Game.STATE.Multi;
-						System.out.println("Multiplayer!");
-					}
-					if(mouseOver(mx,my,345,350+(2*85),285,73)) {
-						System.exit(0);
-						System.out.println("Quit!");
-					}	
 					break;
 		case Multi:
 					if(mouseOver(mx,my,345,350+(0*85),285,73))
@@ -100,22 +111,34 @@ public class Menu extends MouseAdapter{
 		
 		switch(Game.gameState) {
 			case Splash:
-						g2d.drawImage((Image)tex.splash, sx, sy, null);
+						g2d.drawImage(tex.splash, sx, sy, null);
 						break;
 			case Menu:
-						g2d.drawImage((Image)tex.bg,0,0,null);
-						g2d.drawImage((Image)tex.logo,230,80,null);
+						g2d.drawImage(tex.bg,0,0,null);
+						g2d.drawImage(tex.logo,230,80,null);
 						for(int i=0; i<3; i++) {
-							g2d.drawImage((Image)tex.menuBtn[i], 330, 340 + (i*85), null);
-							g.drawRect(345,350+(i*85),285,73);
+							g2d.drawImage(tex.menuBtn[i], 330, 340 + (i*85), null);
+							//g.drawRect(345,350+(i*85),285,73);
+						}
+						if(quit) {
+							g.setColor(Color.white);
+							g.fillRect(200, 230, 600, 200);
+							g.setColor(Color.black);
+							g.fillRect(200+6, 230+6, 600-12, 200-12);
+							g2d.drawImage(tex.quitwarning, 215, 250, null);
+							g2d.drawImage(tex.quit, 270, 350, null);
+							g2d.drawImage(tex.cancel, 530, 350, null);
+							//g.setColor(Color.red);
+							//g.drawRect(270,350,203,51);
+							//g.drawRect(530,350,203,51);
 						}
 						break;
 			case Multi:
-						g2d.drawImage((Image)tex.bg,0,0,null);
-						g2d.drawImage((Image)tex.logo,230,80,null);
+						g2d.drawImage(tex.bg,0,0,null);
+						g2d.drawImage(tex.logo,230,80,null);
 						for(int i=0; i<3; i++) {
-							g2d.drawImage((Image)tex.multiBtn[i], 330, 340 + (i*85), null);
-							g.drawRect(345,350+(i*85),285,73);
+							g2d.drawImage(tex.multiBtn[i], 330, 340 + (i*85), null);
+							//g.drawRect(345,350+(i*85),285,73);
 						}
 			case Game:
 			default:

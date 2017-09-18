@@ -11,6 +11,9 @@ public class Texture {
 	public BufferedImage 	logo,
 						 	bg,
 						 	splash,
+						 	quitwarning,
+						 	quit,
+						 	cancel,
 						 	menuBtn[] = new BufferedImage[3],
 						 	multiBtn[] = new BufferedImage[3];
 	public Texture() {
@@ -26,6 +29,9 @@ public class Texture {
 			logo = loader.loadImage("/images/logo.png",.7,.7,1);
 			bg = loader.loadImage("/images/menu-bg.png",.7,.7,1);
 			splash = loader.loadImage("/images/splash.png",.7,.7,1);
+			quit = loader.loadImage("/images/cp-quit.png",.7,.7,1);
+			cancel = loader.loadImage("/images/cancel.png",.7,.7,1);
+			quitwarning = loader.loadImage("/images/quitquestion.png",.7,.7,1);
 			menuBtn[0] = loader.loadImage("/images/rec6-splayer.png",.7,.7,1);
 			menuBtn[1] = loader.loadImage("/images/rec6-mplayer.png",.7,.7,1);
 			menuBtn[2] = loader.loadImage("/images/rec6-quit.png",.7,.7,1);
