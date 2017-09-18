@@ -5,8 +5,6 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
 
-import com.main.Game;
-
 public class GameClient {
 
 	static Socket server;

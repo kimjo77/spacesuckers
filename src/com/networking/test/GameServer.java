@@ -5,12 +5,11 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.Scanner;
 
-import com.main.Game;
+import com.game.Game;
 
 public class GameServer {
-
+	
 	static ServerSocket server;
 	static Socket client;
 	static Game spacesuckers;

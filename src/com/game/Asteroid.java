@@ -69,6 +69,7 @@ public class Asteroid extends GameObject {
 				bulletObject = (Bullet)tempObject;
 				tempArea.intersect(bulletObject.getArea());
 				if(!tempArea.isEmpty()) {
+					Game.SCORE += 20;
 					generateAsteroidSmall(bulletObject);
 					Game.handler.removeObject(bulletObject);
 					Game.handler.removeObject(this);
@@ -85,7 +86,7 @@ public class Asteroid extends GameObject {
 		int rotGap = 60;
 		
 		for(int i=0;i<2;i++) {
-			sAsteroid = new SmallAsteroid(x,y,8,8,id);
+			sAsteroid = new SmallAsteroid(x,y,12,12,id);
 			rotGap *= -1;
 			bulletAngle = bulletAngle + rotGap;
 			sAsteroid.dir = bulletAngle;
@@ -109,7 +110,7 @@ public class Asteroid extends GameObject {
 		path.append(rect.getPathIterator(at), true);
 		area = new Area(path);
 		g2d.drawImage(tex.asteroid[0], gat, null);
-		g2d.draw(path);
+		//g2d.draw(path);
 	}
 	
 	public void setPullX(double pullX) {
@@ -126,7 +127,7 @@ public class Asteroid extends GameObject {
 		return this.pullY;
 	}
 	public Rectangle getBounds() {
-		return new Rectangle(x-originX,y-originY,32,32);
+		return new Rectangle(x-originX,y-originY,48,48);
 	}
 	public Area getArea() {
 		return area;

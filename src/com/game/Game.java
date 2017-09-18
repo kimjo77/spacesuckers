@@ -2,31 +2,47 @@ package com.game;
 
 import java.awt.Canvas;
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.image.BufferStrategy;
-import java.io.DataOutputStream;
-import java.io.IOException;
-import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Random;
+
+import com.main.Menu;
 
 public class Game extends Canvas implements Runnable{
 	
 	private static final long serialVersionUID = -6244201119884380285L;
 	public final static int WIDTH = 1000, HEIGHT = WIDTH / 12 * 9;
-	public static double DELTA_TIME;
+	public static double DELTA_TIME;	
 	private Thread thread;
 	private boolean running = false;
+	public static Font fnt = new Font("04B", Font.PLAIN, 24);
+	public static int SCORE = 0;
 	
 	private MouseInput mouse;
 	private Random rand = new Random();
+	
+	public static enum STATE{
+		Splash,
+		Menu,
+		Multi,
+		Create,
+		Connect,
+		Game,
+	}
+	private Menu menu;
+	
+	public static STATE gameState = STATE.Menu;
 	
 	public static Handler handler; 
 	public static Texture tex;
 	
 	public Game() {
-		
 		tex = new Texture();
+		
+		menu = new Menu();
 		
 		handler = new Handler();
 		mouse = new MouseInput(handler);
@@ -34,18 +50,21 @@ public class Game extends Canvas implements Runnable{
 		this.addKeyListener(new KeyInput(handler));
 		this.addMouseListener(mouse);
 		this.addMouseMotionListener(mouse);
-
-//		new Window();
-//		new Window(WIDTH, HEIGHT,"Space Suckers",this);
-//		w.openMainGame(WIDTH,HEIGHT,"Space Suckers",this);
+		this.addMouseListener(menu);
+		this.addMouseMotionListener(menu);
+		new Window(WIDTH, HEIGHT,"Space Suckers",this);
 		
-		handler.addObject(new Player(WIDTH/2,HEIGHT/2,24,12,ID.Player));
-		handler.addObject(new Blackhole(WIDTH/2,HEIGHT/2,16,16,ID.Blackhole));
-		handler.addObject(new AsteroidController(0,0,0,0,ID.AsteroidController));
-		handler.addObject(new Asteroid(0,0,16,16,ID.Asteroid));
 		
-		//handler.addObject(new Test(WIDTH/2,HEIGHT/2,32,32,ID.Test,handler));
-		//handler.addObject(new Test2(0,HEIGHT/2,32,32,ID.Test2));
+		
+		switch(gameState) {
+			case Game : 
+						handler.addObject(new Player(WIDTH/2,HEIGHT/2,24,12,ID.Player));
+						handler.addObject(new Blackhole(WIDTH/2,HEIGHT/2,16,16,ID.Blackhole));
+						handler.addObject(new AsteroidController(0,0,0,0,ID.AsteroidController));
+						handler.addObject(new Asteroid(0,0,16,16,ID.Asteroid));
+						break;	
+			default:
+		}
 	}
 	
 	public synchronized void start() {
@@ -94,7 +113,17 @@ public class Game extends Canvas implements Runnable{
 	}
 	
 	private void tick() {
-		handler.tick();
+		switch(gameState) {
+		case Splash:
+		case Menu : 
+		case Multi:
+					menu.tick();
+					break;
+		case Game : 
+					handler.tick();
+					break;	
+		}
+		
 	}
 	
 	private void render() {
@@ -106,10 +135,24 @@ public class Game extends Canvas implements Runnable{
 		
 		Graphics g = bs.getDrawGraphics();
 		
-		g.setColor(Color.black);
-		g.fillRect(0,0,WIDTH, HEIGHT);
+		g.setColor(Color.white);
+		//g.fillRect(0,0,WIDTH, HEIGHT);
+		
+		g.drawImage((Image)tex.bg, 0, 0, null);
+		g.setFont(fnt);
+		g.drawString("Score: " + SCORE, 16, 35);
+		
 		
 		handler.render(g);
+		
+		switch(gameState) {
+		case Splash : 
+		case Menu : 
+		case Multi:
+					menu.render(g);
+					break;
+		case Game : break;	
+		}
 		
 		g.dispose();
 		bs.show();
@@ -118,28 +161,8 @@ public class Game extends Canvas implements Runnable{
 	public static Socket[] client;
 	public static int clientSize=0;
 	
-	public static void main(String args[]) throws IOException {
-//	public static void main(String args[]) {
-//		new Game();
-/*		
-		ServerSocket server=new ServerSocket(8880);
-		server.setReuseAddress(true);
-		System.out.println("Server started.");
-		Socket client=server.accept();
-		System.out.println("Connection from: " + client.getInetAddress());
-		DataOutputStream out=new DataOutputStream(client.getOutputStream());
-		out.writeUTF("Connection to server.");
-		System.out.println("Connected to client.");
-		
-*/		
-//		if(client.isConnected()) {
-//			new Handler().addObject(new Player(WIDTH/2,HEIGHT/2,16,16,ID.Player,handler));
-//			handler.addObject(new Player(WIDTH,HEIGHT,16,16,ID.Player,handler));
-//*/
-		
-		Window w=new Window();
-		w.openMenu(WIDTH, HEIGHT,"Space Suckers",new Game());
-
+	public static void main(String args[]) {
+		new Game();
 	}
 
 }

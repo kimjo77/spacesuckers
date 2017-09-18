@@ -99,11 +99,11 @@ public class SmallAsteroid extends Asteroid{
 		path.append(rect.getPathIterator(at), true);
 		area = new Area(path);
 		g2d.drawImage(tex.asteroid[2], gat, null);
-		g2d.draw(path);
+		//g2d.draw(path);
 	}
 
 	public Rectangle getBounds() {
-		return new Rectangle(x-originX,y-originY,16,16);
+		return new Rectangle(x-originX,y-originY,24,24);
 	}
 
 	public Area getArea() {

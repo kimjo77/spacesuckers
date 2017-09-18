@@ -74,7 +74,7 @@ public class Blackhole extends GameObject {
 				playerObject = (Player)tempObject;
 				tempArea.intersect(playerObject.getArea());
 				if(!tempArea.isEmpty()) {
-					Game.handler.removeObject(playerObject);
+					//Game.handler.removeObject(playerObject);
 				}
 			} else if(tempObject.getId() == ID.Bullet) {
 				bulletObject = (Bullet)tempObject;

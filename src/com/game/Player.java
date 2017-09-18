@@ -147,7 +147,7 @@ public class Player extends GameObject {
 		double lineY = Math.sin(Math.toRadians(dir)) * 16;
 		path.lineTo(x + lineX,y + lineY);
 		g2d.drawImage(tex.player[playerID], gat, null);
-		g2d.draw(path);
+		//g2d.draw(path);
 		
 		turrentX = Math.cos(Math.toRadians(turrentAngle)) * 50;
 		turrentY = Math.sin(Math.toRadians(turrentAngle)) * 50;
@@ -156,7 +156,7 @@ public class Player extends GameObject {
 		gat.translate((x+turrentX)-(tex.cursor[playerID].getWidth()/2),(y+turrentY)-(tex.cursor[playerID].getHeight()/2));
 		g.setColor(Color.red);
 		g2d.drawImage(tex.cursor[playerID], gat, null);
-		g.drawRect((int)(x+turrentX) ,(int)(y+turrentY)-2,4,4);
+		//g.drawRect((int)(x+turrentX) ,(int)(y+turrentY)-2,4,4);
 	}
 	
 	public void setPullX(double pullX) {
