@@ -7,10 +7,6 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.image.BufferStrategy;
-
-import javax.swing.BorderFactory;
-import javax.swing.JTextField;
 
 import com.game.Asteroid;
 import com.game.AsteroidController;
@@ -81,15 +77,45 @@ public class Menu extends MouseAdapter{
 						Game.handler.addObject(name);
 						Game.handler.addObject(pass);
 						Game.handler.addObject(port);
+						
 						Game.gameState = Game.STATE.Create;
 						System.out.println("Create!");
-					}
-					if(mouseOver(mx,my,345,350+(1*85),285,73)) {
+					}else if(mouseOver(mx,my,345,350+(1*85),285,73)) {
+						name = new CustomTextField(310, 230, 390, 40,ID.CustomTextField);
+						port = new CustomTextField(310, 320, 390, 40,ID.CustomTextField);
+						pass = new CustomTextField(310, 410, 390, 40,ID.CustomTextField);
+						
+						Game.handler.addObject(name);
+						Game.handler.addObject(pass);
+						Game.handler.addObject(port);
+						
+						Game.gameState = Game.STATE.Connect;
 						System.out.println("Connect!");
-					}
-					if(mouseOver(mx,my,345,350+(2*85),285,73)) {
+					}else if(mouseOver(mx,my,345,350+(2*85),285,73)) {
 						Game.gameState = Game.STATE.Menu;
 						System.out.println("Back!");
+					}
+					break;
+		case Create:
+					if(mouseOver(mx,my,295,520,203,50)) {
+						Game.gameState = Game.STATE.Multi;
+						Game.handler.removeObject(name);
+						Game.handler.removeObject(pass);
+						Game.handler.removeObject(port);
+						System.out.println("Multi!");
+					} else if(mouseOver(mx,my,515,520,203,50)) {
+						
+					}
+					break;
+		case Connect:
+					if(mouseOver(mx,my,295,520,203,50)) {
+						Game.gameState = Game.STATE.Multi;
+						Game.handler.removeObject(name);
+						Game.handler.removeObject(pass);
+						Game.handler.removeObject(port);
+						System.out.println("Multi!");
+					} else if(mouseOver(mx,my,515,520,203,50)) {
+						
 					}
 					break;
 		case Game:
@@ -149,13 +175,6 @@ public class Menu extends MouseAdapter{
 		//g.drawString("Suckers", Game.WIDTH/2 - fntm.stringWidth("Suckers")/2, Game.HEIGHT/3 - fntm.getHeight()/2+fntm.getHeight()-10);
 		g.setFont(Game.fnt);
 		Graphics2D g2d = (Graphics2D) g;
-		/*g2d.drawImage((Image)tex.bg,0,0,null);
-		g2d.drawImage((Image)tex.logo,Game.WIDTH/2-(tex.logo.getWidth()/2),Game.HEIGHT/3 - (tex.logo.getHeight()),null);
-		for(int i=0; i<3; i++) {
-			g2d.drawImage((Image)tex.menuBtn[i],Game.WIDTH/2-(tex.menuBtn[i].getWidth()/2),Game.HEIGHT/2 - (tex.menuBtn[i].getHeight()/2)+i*tex.menuBtn[i].getHeight(),null);
-			g.drawRect(Game.WIDTH/2-(tex.menuBtn[i].getWidth()/2)+14, Game.HEIGHT/2-(tex.menuBtn[i].getHeight()/2)+i*tex.menuBtn[i].getHeight()+10, (int)tex.menuBtn[i].getWidth()-29, (int)tex.menuBtn[i].getHeight()-20);
-			//g.drawRect(Game.WIDTH/2, y, width, height);
-		}*/
 		
 		switch(Game.gameState) {
 			case Splash:
@@ -195,6 +214,9 @@ public class Menu extends MouseAdapter{
 						break;
 			case Create:
 						g2d.drawImage(tex.bg, 0, 0, null);
+						g2d.drawImage(tex.createHeader, 265, 110, null);
+						g2d.drawImage(tex.back, 295, 520, null);
+						g2d.drawImage(tex.create, 515, 520, null);
 						g.setColor(Color.white);
 						g.fillRect(280, 180, 450, 300);
 						g.setColor(Color.black);
@@ -209,8 +231,32 @@ public class Menu extends MouseAdapter{
 						g.fillRect(310, 270, 390, 6);
 						g.fillRect(310, 360, 390, 6);
 						g.fillRect(310, 450, 390, 6);
+						//g.setColor(Color.red);
+						//g.drawRect(295,520,203,50);
+						//g.drawRect(515,520,203,50);
 						break;
 			case Connect:
+						g2d.drawImage(tex.bg, 0, 0, null);
+						g2d.drawImage(tex.connectHeader, 380, 110, null);
+						g2d.drawImage(tex.back, 295, 520, null);
+						g2d.drawImage(tex.connect, 515, 520, null);
+						g.setColor(Color.white);
+						g.fillRect(280, 180, 450, 300);
+						g.setColor(Color.black);
+						g.fillRect(280+6, 180+6, 450-12, 300-12);
+						g.setColor(Color.white);
+						g.setFont(Game.fnt);
+						Game.fnt = new Font("04B", Font.TRUETYPE_FONT, 32);
+						g.drawString("Name", 310, 230);
+						g.drawString("Port", 310, 320);
+						g.drawString("Pass", 310, 410);
+						g.setColor(Color.white);
+						g.fillRect(310, 270, 390, 6);
+						g.fillRect(310, 360, 390, 6);
+						g.fillRect(310, 450, 390, 6);
+						//g.setColor(Color.red);
+						//g.drawRect(295,520,203,50);
+						//g.drawRect(515,520,203,50);
 						break;
 			case Game:
 			default:

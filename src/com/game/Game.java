@@ -33,7 +33,7 @@ public class Game extends Canvas implements Runnable{
 		Multi,
 		Create,
 		Connect,
-		Game,
+		Game;
 	}
 	private Menu menu;
 	
@@ -163,9 +163,6 @@ public class Game extends Canvas implements Runnable{
 		g.dispose();
 		bs.show();
 	}
-	
-	public static Socket[] client;
-	public static int clientSize=0;
 	
 	public static void main(String args[]) {
 		new Game();

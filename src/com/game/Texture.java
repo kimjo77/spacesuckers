@@ -15,6 +15,11 @@ public class Texture {
 						 	quitwarning,
 						 	quit,
 						 	cancel,
+						 	back,
+						 	create,
+						 	connect,
+						 	createHeader,
+						 	connectHeader,
 						 	menuBtn[] = new BufferedImage[3],
 						 	multiBtn[] = new BufferedImage[3];
 	public Texture() {
@@ -28,11 +33,16 @@ public class Texture {
 			asteroid[2] = loader.loadImage("/sprites/spr_Asteroid3.png",2,2,0);
 			
 			logo = loader.loadImage("/images/logo.png",.7,.7,1);
-			team = loader.loadImage("/images/ws-logo.png",1,1,1);
+			team = loader.loadImage("/images/ws-logo.png",1,1,1);	
 			bg = loader.loadImage("/images/menu-bg.png",.7,.7,1);
 			splash = loader.loadImage("/images/splash.png",.7,.7,1);
 			quit = loader.loadImage("/images/cp-quit.png",.7,.7,1);
 			cancel = loader.loadImage("/images/cancel.png",.7,.7,1);
+			back = loader.loadImage("/images/c1-back.png",.7,.7,1);
+			create = loader.loadImage("/images/cs-create.png",.7,.7,1);
+			connect = loader.loadImage("/images/c1-connect.png",.7,.7,1);
+			createHeader = loader.loadImage("/images/createserver-header.png",.7,.7,1);
+			connectHeader = loader.loadImage("/images/c1-connect-header.png",.7,.7,1);
 			quitwarning = loader.loadImage("/images/quitquestion.png",.7,.7,1);
 			menuBtn[0] = loader.loadImage("/images/rec6-splayer.png",.7,.7,1);
 			menuBtn[1] = loader.loadImage("/images/rec6-mplayer.png",.7,.7,1);

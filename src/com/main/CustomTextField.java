@@ -33,7 +33,7 @@ public class CustomTextField extends GameObject {
 	public void tick() {
 			
 	}
-	public void render(Graphics g) {
+	public void render(Graphics g) {	
 		Graphics2D g2d = (Graphics2D) g;
 		g.setColor(backgroundColor);
 		g.fillRect(x, y, width, height);
@@ -43,8 +43,8 @@ public class CustomTextField extends GameObject {
 		g2d.drawString(text, x+2, y+height-2);
 		
 	//--Debugging purposes only--//
-		g.setColor(Color.red);
-		g.drawRect(x, y, width, height);
+	//g.setColor(Color.red);
+	//g.drawRect(x, y, width, height);
 	//--------------------------//
 	}
 	public Rectangle getBounds() {
