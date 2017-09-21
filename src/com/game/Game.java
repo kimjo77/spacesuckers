@@ -9,6 +9,8 @@ import java.awt.image.BufferStrategy;
 import java.net.Socket;
 import java.util.Random;
 
+import javax.swing.JTextField;
+
 import com.main.Menu;
 
 
@@ -41,6 +43,7 @@ public class Game extends Canvas implements Runnable{
 	public static Texture tex;
 	
 	public Game() {
+		
 		tex = new Texture();
 		
 		menu = new Menu();
@@ -113,6 +116,7 @@ public class Game extends Canvas implements Runnable{
 	}
 	
 	private void tick() {
+		
 		switch(gameState) {
 		case Splash:
 		case Menu : 
@@ -129,7 +133,7 @@ public class Game extends Canvas implements Runnable{
 	private void render() {
 		BufferStrategy bs = this.getBufferStrategy();
 		if(bs == null) {
-			this.createBufferStrategy(2);
+			this.createBufferStrategy(3);
 			return;
 		}
 		
@@ -143,16 +147,18 @@ public class Game extends Canvas implements Runnable{
 		g.drawString("Score: " + SCORE, 16, 35);
 		
 		
-		handler.render(g);
-		
 		switch(gameState) {
 		case Splash : 
 		case Menu : 
 		case Multi:
+		case Create:
+		case Connect:
 					menu.render(g);
 					break;
 		case Game : break;	
 		}
+		
+		handler.render(g);
 		
 		g.dispose();
 		bs.show();

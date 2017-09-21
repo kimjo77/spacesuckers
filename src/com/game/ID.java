@@ -6,6 +6,5 @@ public enum ID {
 	Asteroid,
 	Bullet,
 	AsteroidController,
-	Test,
-	Test2;
+	CustomTextField;
 }
