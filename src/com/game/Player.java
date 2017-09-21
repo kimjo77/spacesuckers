@@ -117,6 +117,9 @@ public class Player extends GameObject {
 	public void shoot(int choice) {
 		Bullet b = new Bullet((int)(x+turrentX), (int)(y+turrentY), 3, 3, ID.Bullet);
 		Game.handler.addObject(b);
+//		b.playSound(b.getAudioClip()); 
+//		new SoundEffects();
+		
 		switch(choice) {
 			case 0:
 				int dx = mouseX - x;

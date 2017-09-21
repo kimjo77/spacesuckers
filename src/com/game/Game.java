@@ -11,6 +11,7 @@ import java.util.Random;
 
 import com.main.Menu;
 
+
 public class Game extends Canvas implements Runnable{
 	
 	private static final long serialVersionUID = -6244201119884380285L;
@@ -34,7 +35,7 @@ public class Game extends Canvas implements Runnable{
 	}
 	private Menu menu;
 	
-	public static STATE gameState = STATE.Splash;
+	public static STATE gameState = STATE.Menu;
 	
 	public static Handler handler; 
 	public static Texture tex;
@@ -53,7 +54,6 @@ public class Game extends Canvas implements Runnable{
 		this.addMouseListener(menu);
 		this.addMouseMotionListener(menu);
 		new Window(WIDTH, HEIGHT,"Space Suckers",this);
-		
 		
 		
 		switch(gameState) {

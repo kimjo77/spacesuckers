@@ -7,6 +7,10 @@ import java.awt.Rectangle;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Area;
 import java.awt.geom.GeneralPath;
+import java.io.File;
+
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
 
 public class Bullet extends GameObject {
 
@@ -18,12 +22,16 @@ public class Bullet extends GameObject {
 	private GeneralPath path = new GeneralPath();
 	private AffineTransform at = new AffineTransform();
 	
+	private File audio;
+	
 	public Bullet(int x, int y, int originX, int originY, ID id) {
 		super(x, y, originX, originY, id);
 		rect = this.getBounds();
 		at.rotate(Math.toRadians(angle), x, y);
 		path.append(rect.getPathIterator(at), true);
 		area = new Area(path);
+		audio = new File("C://Users/Matugas LKJ/Documents/spacesuckers/res/audio/Laser_Shoot.wav");
+
 	}
 
 	public void tick() {
@@ -37,6 +45,7 @@ public class Bullet extends GameObject {
 		if( x<0 || x>Game.WIDTH || y<0 || y>Game.HEIGHT) {
 			Game.handler.removeObject(this);
 		}
+		
 	}
 
 	public void setAngle(double angle) {
@@ -44,6 +53,23 @@ public class Bullet extends GameObject {
 	}
 	public double getAngle() {
 		return angle;
+	}
+	
+	public File getAudioClip() {
+		return audio;
+	}
+	
+	public void playSound(File sound) { //still need to fix this so that no more interruptions
+		try {
+			Clip clip = AudioSystem.getClip();
+			clip.open(AudioSystem.getAudioInputStream(sound));
+			clip.start();
+			Thread.sleep(clip.getMicrosecondLength()/1000);
+
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		
 	}
 	
 	public void render(Graphics g) {
