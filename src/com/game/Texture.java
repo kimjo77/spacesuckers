@@ -9,6 +9,7 @@ public class Texture {
 							asteroid = new BufferedImage[3];
 	
 	public BufferedImage 	logo,
+							team,
 						 	bg,
 						 	splash,
 						 	quitwarning,
@@ -27,6 +28,7 @@ public class Texture {
 			asteroid[2] = loader.loadImage("/sprites/spr_Asteroid3.png",2,2,0);
 			
 			logo = loader.loadImage("/images/logo.png",.7,.7,1);
+			team = loader.loadImage("/images/ws-logo.png",1,1,1);
 			bg = loader.loadImage("/images/menu-bg.png",.7,.7,1);
 			splash = loader.loadImage("/images/splash.png",.7,.7,1);
 			quit = loader.loadImage("/images/cp-quit.png",.7,.7,1);
