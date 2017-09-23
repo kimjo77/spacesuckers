@@ -31,7 +31,7 @@ public class Bullet extends GameObject {
 		path.append(rect.getPathIterator(at), true);
 		area = new Area(path);
 		audio = new File("C://Users/Matugas LKJ/Documents/spacesuckers/res/audio/Laser_Shoot.wav");
-
+		
 	}
 
 	public void tick() {
@@ -65,7 +65,8 @@ public class Bullet extends GameObject {
 			clip.open(AudioSystem.getAudioInputStream(sound));
 			clip.start();
 			Thread.sleep(clip.getMicrosecondLength()/1000);
-
+			clip.stop();
+			clip.close();
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
