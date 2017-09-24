@@ -22,7 +22,7 @@ public class Bullet extends GameObject {
 	private GeneralPath path = new GeneralPath();
 	private AffineTransform at = new AffineTransform();
 	
-	private File audio;
+	//private File audio;
 	
 	public Bullet(int x, int y, int originX, int originY, ID id) {
 		super(x, y, originX, originY, id);
@@ -30,7 +30,7 @@ public class Bullet extends GameObject {
 		at.rotate(Math.toRadians(angle), x, y);
 		path.append(rect.getPathIterator(at), true);
 		area = new Area(path);
-		audio = new File("C://Users/Matugas LKJ/Documents/spacesuckers/res/audio/Laser_Shoot.wav");
+		//audio = new File("C://Users/Matugas LKJ/Documents/spacesuckers/res/audio/Laser_Shoot.wav");
 		
 	}
 
@@ -55,7 +55,7 @@ public class Bullet extends GameObject {
 		return angle;
 	}
 	
-	public File getAudioClip() {
+	/*public File getAudioClip() {
 		return audio;
 	}
 	
@@ -71,7 +71,7 @@ public class Bullet extends GameObject {
 			e.printStackTrace();
 		}
 		
-	}
+	}*/
 	
 	public void render(Graphics g) {
 		g.setColor(Color.GREEN);

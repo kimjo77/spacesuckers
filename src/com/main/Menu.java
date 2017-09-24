@@ -7,6 +7,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.IOException;
 
 import com.game.Asteroid;
 import com.game.AsteroidController;
@@ -15,6 +16,8 @@ import com.game.Game;
 import com.game.ID;
 import com.game.Player;
 import com.game.Texture;
+import com.test.ClientTest;
+import com.test.ServerTest;
 
 public class Menu extends MouseAdapter{
 	
@@ -47,28 +50,23 @@ public class Menu extends MouseAdapter{
 							Game.handler.addObject(new Asteroid(0,0,16,16,ID.Asteroid));
 							Game.handler.addObject(new Player(Game.WIDTH/2,Game.HEIGHT/2,24,12,ID.Player));
 							Game.gameState = Game.STATE.Game;
-							System.out.println("Singleplayer!");
-						}
-						if(mouseOver(mx,my,345,350+(1*85),285,73)) {
+						}else if(mouseOver(mx,my,345,350+(1*85),285,73)) {
 							Game.gameState = Game.STATE.Multi;
-							System.out.println("Multiplayer!");
-						}
-						if(mouseOver(mx,my,345,350+(2*85),285,73)) {
+						} else if(mouseOver(mx,my,345,350+(2*85),285,73)) {
 							quit = true;
-							System.out.println("Quit!");
 						}	
-					}else {
+					} else {
 						if(mouseOver(mx,my,270,350,203,51)) {
 							System.out.println("Quit!");
 							System.exit(0);
-						}
-						if(mouseOver(mx,my,530,350,203,51)) {
+						} else if(mouseOver(mx,my,530,350,203,51)) {
 							quit = false;
 							System.out.println("CANCEL!");
 						}
 					}
 					break;
 		case Multi:
+			//--Create--//
 					if(mouseOver(mx,my,345,350+(0*85),285,73)) {
 						name = new CustomTextField(310, 230, 390, 40,ID.CustomTextField);
 						port = new CustomTextField(310, 320, 390, 40,ID.CustomTextField);
@@ -104,6 +102,20 @@ public class Menu extends MouseAdapter{
 						Game.handler.removeObject(port);
 						System.out.println("Multi!");
 					} else if(mouseOver(mx,my,515,520,203,50)) {
+						Game.gameState = Game.STATE.Lobby;
+						Game.networkType = Game.NETWORK_TYPE.Server;
+						/*
+						try {
+							Game.server = new ServerTest(null,Integer.parseUnsignedInt(port.getText()),null);
+						} catch (NumberFormatException e1) {
+							e1.printStackTrace();
+						} catch (IOException e1) {
+							e1.printStackTrace();
+						}*/
+						//Game.gameState = Game.STATE.Menu;
+						Game.handler.removeObject(name);
+						Game.handler.removeObject(pass);
+						Game.handler.removeObject(port);
 						
 					}
 					break;
@@ -115,7 +127,30 @@ public class Menu extends MouseAdapter{
 						Game.handler.removeObject(port);
 						System.out.println("Multi!");
 					} else if(mouseOver(mx,my,515,520,203,50)) {
-						
+						Game.gameState = Game.STATE.Lobby;
+						Game.networkType = Game.NETWORK_TYPE.Client;
+						/*
+						try {
+							Game.client = new ClientTest("User",Integer.parseUnsignedInt(port.getText()),null);
+						} catch (NumberFormatException e1) {
+							e1.printStackTrace();
+						} catch (IOException e1) {
+							e1.printStackTrace();
+						}*/
+						//Game.gameState = Game.STATE.Menu;
+						Game.handler.removeObject(name);
+						Game.handler.removeObject(pass);
+						Game.handler.removeObject(port);
+					}
+					break;
+					
+		case Lobby:
+					if(mouseOver(mx,my,524, 474, 175, 44)) {
+							//Disconnect / delete lobby
+						Game.gameState = Game.STATE.Multi;
+						Game.networkType = null;
+					} else if(mouseOver(mx,my, 704, 474, 175, 44)) {
+							//Start Game
 					}
 					break;
 		case Game:
@@ -257,6 +292,40 @@ public class Menu extends MouseAdapter{
 						//g.setColor(Color.red);
 						//g.drawRect(295,520,203,50);
 						//g.drawRect(515,520,203,50);
+						break;
+			case Lobby:
+						g2d.drawImage(tex.bg, 0, 0, null);
+						if(Game.networkType == Game.NETWORK_TYPE.Server) {
+							g2d.drawImage(tex.createHeader,250,125,null);
+							g2d.drawImage(tex.create_s, 705, 475, null);
+						} else if(Game.networkType == Game.NETWORK_TYPE.Client) {
+							g2d.drawImage(tex.connectedPlayers,175,125,null);
+							g2d.drawImage(tex.ready_s, 705, 475, null);
+						}
+						g2d.drawImage(tex.lobbyBox, 70, 200, null);
+						g2d.drawImage(tex.lobbyBox, 70, 300, null);
+						g2d.drawImage(tex.lobbyBox, 70, 400, null);
+						g2d.drawImage(tex.lobbyBox, 70, 500, null);
+						g2d.drawImage(tex.back_s, 525, 475, null);
+						
+						
+						g.setColor(Color.white);
+						g.fillRect(500, 200, 400, 250);
+						g.setColor(Color.black);
+						g.fillRect(500+4, 200+4, 400-8, 250-8);
+						g.setColor(Color.white);
+						g.setFont(Game.fnt);
+						Game.fnt = new Font("04B", Font.TRUETYPE_FONT, 24);
+						g.drawString("Name", 520, 240);
+						g.drawString("Port", 520, 315);
+						g.drawString("Pass", 520, 390);
+						g.setColor(Color.white);
+						g.fillRect(520, 270, 360, 4);
+						g.fillRect(520, 345, 360, 4);
+						g.fillRect(520, 420, 360, 4);
+						g.setColor(Color.red);
+						g.drawRect(524, 474, 175, 44);
+						g.drawRect(704, 474, 175, 44);
 						break;
 			case Game:
 			default:

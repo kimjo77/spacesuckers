@@ -1,11 +1,12 @@
 package com.game;
 
 import java.awt.Graphics;
+import java.io.Serializable;
 import java.util.LinkedList;
 
 
 
-public class Handler {
+public class Handler implements Serializable{
 	
 	public LinkedList<GameObject> object = new LinkedList<GameObject>();
 	

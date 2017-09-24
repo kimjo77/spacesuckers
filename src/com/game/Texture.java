@@ -17,9 +17,14 @@ public class Texture {
 						 	cancel,
 						 	back,
 						 	create,
+						 	back_s,
+						 	create_s,
+						 	ready_s,
 						 	connect,
 						 	createHeader,
 						 	connectHeader,
+						 	connectedPlayers,
+						 	lobbyBox,
 						 	menuBtn[] = new BufferedImage[3],
 						 	multiBtn[] = new BufferedImage[3];
 	public Texture() {
@@ -40,9 +45,14 @@ public class Texture {
 			cancel = loader.loadImage("/images/cancel.png",.7,.7,1);
 			back = loader.loadImage("/images/c1-back.png",.7,.7,1);
 			create = loader.loadImage("/images/cs-create.png",.7,.7,1);
+			back_s = loader.loadImage("/images/c1-back.png",.6,.6,1);
+			create_s = loader.loadImage("/images/cs-create.png",.6,.6,1);
+			ready_s  = loader.loadImage("/images/cp-ready.png",.6,.6,1);
 			connect = loader.loadImage("/images/c1-connect.png",.7,.7,1);
 			createHeader = loader.loadImage("/images/createserver-header.png",.7,.7,1);
 			connectHeader = loader.loadImage("/images/c1-connect-header.png",.7,.7,1);
+			connectedPlayers = loader.loadImage("/images/cp-header.png",.7,.7,1);
+			lobbyBox = loader.loadImage("/images/cp-des.png",.7,.7,1);
 			quitwarning = loader.loadImage("/images/quitquestion.png",.7,.7,1);
 			menuBtn[0] = loader.loadImage("/images/rec6-splayer.png",.7,.7,1);
 			menuBtn[1] = loader.loadImage("/images/rec6-mplayer.png",.7,.7,1);

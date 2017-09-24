@@ -4,14 +4,12 @@ import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
-import java.awt.Image;
 import java.awt.image.BufferStrategy;
-import java.net.Socket;
 import java.util.Random;
 
-import javax.swing.JTextField;
-
 import com.main.Menu;
+import com.test.ClientTest;
+import com.test.ServerTest;
 
 
 public class Game extends Canvas implements Runnable{
@@ -33,14 +31,26 @@ public class Game extends Canvas implements Runnable{
 		Multi,
 		Create,
 		Connect,
+		Lobby,
 		Game;
 	}
 	private Menu menu;
 	
-	public static STATE gameState = STATE.Menu;
+	public static STATE gameState = STATE.Splash;
 	
 	public static Handler handler; 
 	public static Texture tex;
+	
+	//--Networking--//
+	public static ServerTest server;
+	public static ClientTest client;
+	public static int NETWORK_ID = 0;
+	public static enum NETWORK_TYPE{
+		Client,
+		Server;
+	}
+	public static NETWORK_TYPE networkType = null;
+	//--------------//
 	
 	public Game() {
 		
@@ -121,6 +131,9 @@ public class Game extends Canvas implements Runnable{
 		case Splash:
 		case Menu : 
 		case Multi:
+		case Create:
+		case Connect:
+		case Lobby:
 					menu.tick();
 					break;
 		case Game : 
@@ -153,6 +166,7 @@ public class Game extends Canvas implements Runnable{
 		case Multi:
 		case Create:
 		case Connect:
+		case Lobby:
 					menu.render(g);
 					break;
 		case Game : break;	

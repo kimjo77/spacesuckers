@@ -38,7 +38,7 @@ public class Player extends GameObject {
 	
 	private Texture tex = Game.tex;
 	
-	private HashMap<String, SoundEffects> sfx;
+	//private HashMap<String, SoundEffects> sfx;
 
 	private Rectangle rect;
 	private Area area;
@@ -53,9 +53,9 @@ public class Player extends GameObject {
 		path.append(rect.getPathIterator(at), true);
 		path.moveTo(x, y);
 		
-		sfx = new HashMap<String, SoundEffects>();
+		/*sfx = new HashMap<String, SoundEffects>();
 		sfx.put("shoot",new SoundEffects("/res/audio/Laser_Shoot.mp3"));
-		sfx.put("destroy",new SoundEffects("/res/audio/Explosion.mp3"));
+		sfx.put("destroy",new SoundEffects("/res/audio/Explosion.mp3"));*/
 	}
 
 	public void tick() {
@@ -124,7 +124,7 @@ public class Player extends GameObject {
 		Bullet b = new Bullet((int)(x+turrentX), (int)(y+turrentY), 3, 3, ID.Bullet);
 		Game.handler.addObject(b);
 //		b.playSound(b.getAudioClip()); 
-		sfx.get("shoot").play();
+//		sfx.get("shoot").play();
 		
 		switch(choice) {
 			case 0:
