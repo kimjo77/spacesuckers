@@ -104,14 +104,13 @@ public class Menu extends MouseAdapter{
 					} else if(mouseOver(mx,my,515,520,203,50)) {
 						Game.gameState = Game.STATE.Lobby;
 						Game.networkType = Game.NETWORK_TYPE.Server;
-						/*
+						
 						try {
-							Game.server = new ServerTest(null,Integer.parseUnsignedInt(port.getText()),null);
+//							Game.server = new ServerTest(name.getText(),Integer.parseUnsignedInt(port.getText()),pass.getText());
+							Game.server = new ServerTest(name.getText(),Integer.parseInt(port.getText()),pass.getText());
 						} catch (NumberFormatException e1) {
 							e1.printStackTrace();
-						} catch (IOException e1) {
-							e1.printStackTrace();
-						}*/
+						}
 						//Game.gameState = Game.STATE.Menu;
 						Game.handler.removeObject(name);
 						Game.handler.removeObject(pass);
@@ -129,14 +128,13 @@ public class Menu extends MouseAdapter{
 					} else if(mouseOver(mx,my,515,520,203,50)) {
 						Game.gameState = Game.STATE.Lobby;
 						Game.networkType = Game.NETWORK_TYPE.Client;
-						/*
+						
 						try {
-							Game.client = new ClientTest("User",Integer.parseUnsignedInt(port.getText()),null);
+//							Game.client = new ClientTest("User",Integer.parseUnsignedInt(port.getText()),null);
+							Game.client = new ClientTest(name.getText(),name.getText(),pass.getText(),Integer.parseInt(port.getText()));
 						} catch (NumberFormatException e1) {
 							e1.printStackTrace();
-						} catch (IOException e1) {
-							e1.printStackTrace();
-						}*/
+						}
 						//Game.gameState = Game.STATE.Menu;
 						Game.handler.removeObject(name);
 						Game.handler.removeObject(pass);

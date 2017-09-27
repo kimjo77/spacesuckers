@@ -36,11 +36,11 @@ public class Game extends Canvas implements Runnable{
 	}
 	private Menu menu;
 	
-	public static STATE gameState = STATE.Splash;
+	public static STATE gameState = STATE.Menu;
 	
 	public static Handler handler; 
 	public static Texture tex;
-	
+
 	//--Networking--//
 	public static ServerTest server;
 	public static ClientTest client;
@@ -141,6 +141,12 @@ public class Game extends Canvas implements Runnable{
 					break;	
 		}
 		
+/*		if(networkType == NETWORK_TYPE.Client) {
+			client.send();			
+		} else if(networkType == NETWORK_TYPE.Server) {
+
+		} else { }
+*/
 	}
 	
 	private void render() {
