@@ -1,17 +1,21 @@
 package com.test;
 
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.ArrayList;
 
-import com.game.Game;
+import com.game.Handler;
 
 public class ServerTest {
+	public static int MAX_PLAYERS = 4;
 	private static ServerSocket ss = null;
-	private static Socket s = null;
+	public static Socket[] s = new Socket[MAX_PLAYERS];
+	public static String[] names = new String[MAX_PLAYERS];
+	public static int currentcount = 0;
+	
 	public ServerTest(String name,int  port, String Password) throws IOException {
 		ss= new ServerSocket(port);
 		System.out.println("Server Started.........");
@@ -19,32 +23,67 @@ public class ServerTest {
 		new Thread(accept).start();
 	}
 	
-	public void waiting() throws IOException {
-		s=ss.accept();
-		System.out.println("Client Connected.......");
-	}
-	
 	private static Runnable accept = new Runnable(){
 		@Override
 		public void run(){
-			new Thread(send).start();
-			//new Thread(receive).start();
-			while (true){
-				try{
-					s = ss.accept();
-					System.out.println("Client Connected.......");
+			ObjectInputStream ois = null;
+			boolean accepting = true;
+			while (accepting){
+				if(s.length <= MAX_PLAYERS) {
+					try{
+						Socket socket = ss.accept();
+						System.out.println("Client has connected..");
+						s[currentcount] =  socket;
+						ois = new ObjectInputStream(s[currentcount].getInputStream());
+						names[currentcount] = (String) ois.readObject();
+						System.out.println(names[currentcount]+ "has connected.");
+						currentcount++;
+					}
+					catch (Exception ex) {}
+				} else {
+					accepting = false;
+					System.out.println("Lobby is full");
 				}
-				catch (Exception ex) {}
 			}
 		}
 	};
 	
-	private static Runnable send = new Runnable(){
+	public void send(boolean[] status, String[] names) {
+		Data data = new Data(status,names);
+		writeData(data);
+	}
+	public void send(boolean isReady) {
+		Data data = new Data(isReady);
+		writeData(data);
+	}
+	public void send(String[] inputs) {
+		Data data = new Data(inputs);
+		writeData(data);
+	}
+	public void send(Handler handler) {
+		Data data = new Data(handler);
+		writeData(data);
+	}
+	
+	public void writeData(Data data) {
+		ObjectOutputStream oos = null;
+		for(int i=0; i<currentcount; i++) {
+			try {
+				oos = new ObjectOutputStream(s[currentcount].getOutputStream());
+				oos.writeObject(data);
+				System.out.println("Data Sent..");
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+	}
+	
+/*	private static Runnable send = new Runnable(){
 		public void run(){
 			ObjectOutputStream oos = null;
 			while (true){
 				try {
-					oos = new ObjectOutputStream(s.getOutputStream());
+					oos = new ObjectOutputStream(s[currentIndex].getOutputStream());
 					oos.writeObject(Game.handler);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -58,19 +97,23 @@ public class ServerTest {
 			while (true){
 				try
 				{
-					/*ois = new ObjectInputStream(list_sockets.get(i).getInputStream());
-					int receive_state = (Integer) ois.readObject();
+					//ois = new ObjectInputStream(list_sockets.get(i).getInputStream());
+					//int receive_state = (Integer) ois.readObject();
 
-					ois = new ObjectInputStream(list_sockets.get(i).getInputStream());
-					DataPackage dp = (DataPackage) ois.readObject();
+					//ois = new ObjectInputStream(list_sockets.get(i).getInputStream());
+					//DataPackage dp = (DataPackage) ois.readObject();
 
-					//list_data.set(i, dp); */
+					//list_data.set(i, dp);
+					
+					ois = new ObjectInputStream(s[currentIndex].getInputStream());
+					names[currentIndex] = (String) ois.readObject();
+					System.out.println(names[currentIndex] + "has connected.");
 				}
 				catch (Exception e) // Client Disconnected (Client Didn't Notify Server About Disconnecting)
 				{
-					e.printStackTrace();
+					//e.printStackTrace();
 				}
 			}
 		}
-	};
+	};*/
 }

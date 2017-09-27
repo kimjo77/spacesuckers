@@ -12,11 +12,20 @@ import com.game.Handler;
 public class ClientTest {
 	private static Socket s = null;
 	public ClientTest(String name,int  port, String Password) throws IOException {
+		ObjectOutputStream oos = null;
+		
 		s=new Socket("localhost",port);
 		System.out.println("Connected.........");
-		new Thread(receive).start();
+		try {
+			oos = new ObjectOutputStream(s.getOutputStream());
+			oos.writeObject(name);
+			System.out.println("Sent");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		//new Thread(receive).start();
 	}
-	
+/*	
 	private static Runnable send = new Runnable(){
 		public void run(){
 			ObjectOutputStream oos = null;
@@ -40,5 +49,5 @@ public class ClientTest {
 				}
 			}
 		}
-	};
+	};*/
 }

@@ -45,10 +45,7 @@ public class Menu extends MouseAdapter{
 		case Menu:
 					if(!quit) {
 						if(mouseOver(mx,my,345,350+(0*85),285,73)) {
-							Game.handler.addObject(new Blackhole(Game.WIDTH/2,Game.HEIGHT/2,16,16,ID.Blackhole));
-							Game.handler.addObject(new AsteroidController(0,0,0,0,ID.AsteroidController));
-							Game.handler.addObject(new Asteroid(0,0,16,16,ID.Asteroid));
-							Game.handler.addObject(new Player(Game.WIDTH/2,Game.HEIGHT/2,24,12,ID.Player));
+							Game.gamestart();
 							Game.gameState = Game.STATE.Game;
 						}else if(mouseOver(mx,my,345,350+(1*85),285,73)) {
 							Game.gameState = Game.STATE.Multi;
@@ -57,90 +54,60 @@ public class Menu extends MouseAdapter{
 						}	
 					} else {
 						if(mouseOver(mx,my,270,350,203,51)) {
-							System.out.println("Quit!");
 							System.exit(0);
 						} else if(mouseOver(mx,my,530,350,203,51)) {
 							quit = false;
-							System.out.println("CANCEL!");
 						}
 					}
 					break;
 		case Multi:
-			//--Create--//
 					if(mouseOver(mx,my,345,350+(0*85),285,73)) {
-						name = new CustomTextField(310, 230, 390, 40,ID.CustomTextField);
-						port = new CustomTextField(310, 320, 390, 40,ID.CustomTextField);
-						pass = new CustomTextField(310, 410, 390, 40,ID.CustomTextField);
-						
-						Game.handler.addObject(name);
-						Game.handler.addObject(pass);
-						Game.handler.addObject(port);
-						
+						createCustomTextFields();
 						Game.gameState = Game.STATE.Create;
-						System.out.println("Create!");
 					}else if(mouseOver(mx,my,345,350+(1*85),285,73)) {
-						name = new CustomTextField(310, 230, 390, 40,ID.CustomTextField);
-						port = new CustomTextField(310, 320, 390, 40,ID.CustomTextField);
-						pass = new CustomTextField(310, 410, 390, 40,ID.CustomTextField);
-						
-						Game.handler.addObject(name);
-						Game.handler.addObject(pass);
-						Game.handler.addObject(port);
-						
+						createCustomTextFields();
 						Game.gameState = Game.STATE.Connect;
-						System.out.println("Connect!");
 					}else if(mouseOver(mx,my,345,350+(2*85),285,73)) {
 						Game.gameState = Game.STATE.Menu;
-						System.out.println("Back!");
 					}
 					break;
 		case Create:
 					if(mouseOver(mx,my,295,520,203,50)) {
 						Game.gameState = Game.STATE.Multi;
-						Game.handler.removeObject(name);
-						Game.handler.removeObject(pass);
-						Game.handler.removeObject(port);
+						Game.ui.clearObject();
 						System.out.println("Multi!");
 					} else if(mouseOver(mx,my,515,520,203,50)) {
 						Game.gameState = Game.STATE.Lobby;
 						Game.networkType = Game.NETWORK_TYPE.Server;
-						/*
 						try {
-							Game.server = new ServerTest(null,Integer.parseUnsignedInt(port.getText()),null);
+							Game.server = new ServerTest(name.getText(),Integer.parseUnsignedInt(port.getText()),pass.getText());
 						} catch (NumberFormatException e1) {
 							e1.printStackTrace();
 						} catch (IOException e1) {
 							e1.printStackTrace();
-						}*/
+						}
 						//Game.gameState = Game.STATE.Menu;
-						Game.handler.removeObject(name);
-						Game.handler.removeObject(pass);
-						Game.handler.removeObject(port);
+						Game.ui.clearObject();
 						
 					}
 					break;
 		case Connect:
 					if(mouseOver(mx,my,295,520,203,50)) {
 						Game.gameState = Game.STATE.Multi;
-						Game.handler.removeObject(name);
-						Game.handler.removeObject(pass);
-						Game.handler.removeObject(port);
+						Game.ui.clearObject();
 						System.out.println("Multi!");
 					} else if(mouseOver(mx,my,515,520,203,50)) {
 						Game.gameState = Game.STATE.Lobby;
 						Game.networkType = Game.NETWORK_TYPE.Client;
-						/*
 						try {
-							Game.client = new ClientTest("User",Integer.parseUnsignedInt(port.getText()),null);
+							Game.client = new ClientTest(name.getText(),Integer.parseUnsignedInt(port.getText()),pass.getText());
 						} catch (NumberFormatException e1) {
 							e1.printStackTrace();
 						} catch (IOException e1) {
 							e1.printStackTrace();
-						}*/
+						}
 						//Game.gameState = Game.STATE.Menu;
-						Game.handler.removeObject(name);
-						Game.handler.removeObject(pass);
-						Game.handler.removeObject(port);
+						Game.ui.clearObject();
 					}
 					break;
 					
@@ -150,7 +117,8 @@ public class Menu extends MouseAdapter{
 						Game.gameState = Game.STATE.Multi;
 						Game.networkType = null;
 					} else if(mouseOver(mx,my, 704, 474, 175, 44)) {
-							//Start Game
+						Game.gamestart();
+						Game.gameState = Game.STATE.Game;
 					}
 					break;
 		case Game:
@@ -344,5 +312,15 @@ public class Menu extends MouseAdapter{
 	public AlphaComposite setAlpha(float alpha) {
 		int type = AlphaComposite.SRC_OVER;
 		return(AlphaComposite.getInstance(type, alpha));
+	}
+	
+	public void createCustomTextFields() {
+		name = new CustomTextField(310, 230, 390, 40,ID.CustomTextField);
+		port = new CustomTextField(310, 320, 390, 40,ID.CustomTextField);
+		pass = new CustomTextField(310, 410, 390, 40,ID.CustomTextField);
+		
+		Game.ui.addObject(name);
+		Game.ui.addObject(pass);
+		Game.ui.addObject(port);
 	}
 }

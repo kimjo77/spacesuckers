@@ -33,7 +33,6 @@ public class MouseInput extends MouseAdapter{
 				tempTF = (CustomTextField)tempObject;
 				if(mouseOver(mx, my, tempTF.getX(), tempTF.getY(), tempTF.getWidth(), tempTF.getHeight())){
 					tempTF.setFocus(true);
-					System.out.println("INSIDE!!!");
 				} else {
 					tempTF.setFocus(false);
 				}
