@@ -7,44 +7,37 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
 
-import com.game.Game;
 import com.game.Handler;
 
 public class ServerTest {
 	public static int MAX_PLAYERS = 4;
-	private ServerSocket ss = null;
-	public Socket[] s = new Socket[MAX_PLAYERS];
-	public String[] names = new String[MAX_PLAYERS];
-	public int currentcount = 0;
-	public boolean[] isReady = new boolean[MAX_PLAYERS];
+	private static ServerSocket ss = null;
+	public static Socket[] s = new Socket[MAX_PLAYERS];
+	public static String[] names = new String[MAX_PLAYERS];
+	public static int currentcount = 0;
 	
 	public ServerTest(String name,int  port, String Password) throws IOException {
 		ss= new ServerSocket(port);
-		this.names[currentcount] = name;
-		this.isReady[currentcount] = true;
-		currentcount++;
-		System.out.println("Server Started...");
-		Game.data = new Data(isReady,names);
+		System.out.println("Server Started.........");
+		//waiting();	
 		new Thread(accept).start();
 	}
 	
-	private Runnable accept = new Runnable(){
+	private static Runnable accept = new Runnable(){
 		@Override
 		public void run(){
 			ObjectInputStream ois = null;
 			boolean accepting = true;
 			while (accepting){
-				if(currentcount <= MAX_PLAYERS) {
+				if(s.length <= MAX_PLAYERS) {
 					try{
 						Socket socket = ss.accept();
 						System.out.println("Client has connected..");
 						s[currentcount] =  socket;
 						ois = new ObjectInputStream(s[currentcount].getInputStream());
 						names[currentcount] = (String) ois.readObject();
-						System.out.println(names[currentcount]+ " has connected.");
+						System.out.println(names[currentcount]+ "has connected.");
 						currentcount++;
-						
-						Game.data = new Data(isReady,names);
 					}
 					catch (Exception ex) {}
 				} else {
@@ -76,10 +69,11 @@ public class ServerTest {
 		ObjectOutputStream oos = null;
 		for(int i=0; i<currentcount; i++) {
 			try {
-				oos = new ObjectOutputStream(s[i].getOutputStream());
+				oos = new ObjectOutputStream(s[currentcount].getOutputStream());
 				oos.writeObject(data);
 				System.out.println("Data Sent..");
 			} catch (Exception e) {
+				e.printStackTrace();
 			}
 		}
 	}

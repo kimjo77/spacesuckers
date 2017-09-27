@@ -9,7 +9,6 @@ import java.util.Random;
 
 import com.main.Menu;
 import com.test.ClientTest;
-import com.test.Data;
 import com.test.ServerTest;
 
 
@@ -22,7 +21,6 @@ public class Game extends Canvas implements Runnable{
 	private boolean running = false;
 	public static Font fnt = new Font("04B", Font.PLAIN, 24);
 	public static int SCORE = 0;
-	public static Data data;
 	
 	private MouseInput mouse,mouseUI;
 	private Random rand = new Random();
@@ -140,8 +138,7 @@ public class Game extends Canvas implements Runnable{
 		case Lobby:
 					menu.tick();
 					if(networkType == NETWORK_TYPE.Server)
-						if(server != null)
-						server.send(server.isReady, server.names);
+						//server.send(server, server.names);
 					break;
 		case Game : 
 					handler.tick();
@@ -179,7 +176,8 @@ public class Game extends Canvas implements Runnable{
 					menu.render(g);
 					break;
 		case Game : 
-					handler.render(g);
+					if(networkType == NETWORK_TYPE.Server)
+						handler.render(g);
 					break;	
 		}
 		
