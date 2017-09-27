@@ -14,8 +14,9 @@ public class ClientTest {
 	public ClientTest(String name,int  port, String Password) throws IOException {
 		ObjectOutputStream oos = null;
 		
-		s=new Socket("localhost",port);
+		s = new Socket("localhost",port);
 		System.out.println("Connected.........");
+		
 		try {
 			oos = new ObjectOutputStream(s.getOutputStream());
 			oos.writeObject(name);
@@ -23,8 +24,22 @@ public class ClientTest {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		//new Thread(receive).start();
+		new Thread(receive).start();
 	}
+	
+	private Runnable receive = new Runnable() {
+		public void run() {
+			ObjectInputStream ois = null;
+			while(true) {
+				try {
+					ois = new ObjectInputStream(s.getInputStream());
+					Game.data = (Data) ois.readObject();
+				} catch (IOException e) {
+				} catch (ClassNotFoundException e) {
+				}
+			}
+		}
+	};
 /*	
 	private static Runnable send = new Runnable(){
 		public void run(){

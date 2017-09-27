@@ -287,6 +287,23 @@ public class Menu extends MouseAdapter{
 						g.drawString("Name", 520, 240);
 						g.drawString("Port", 520, 315);
 						g.drawString("Pass", 520, 390);
+						Game.fnt = new Font("04B", Font.TRUETYPE_FONT, 32);
+						if(Game.networkType == Game.NETWORK_TYPE.Server) {
+							if(Game.server != null) {
+								for(int i=0; i < Game.data.names.length; i++) {
+									if(Game.data.names[i] != null)
+									g.drawString(Game.data.names[i],70,250+(100*i));
+								}
+							}
+						} else if(Game.networkType == Game.NETWORK_TYPE.Client) {
+							if(Game.client != null) {
+								if(Game.data != null)
+								for(int i=0; i < Game.data.names.length; i++) {
+									if(Game.data.names[i] != null)
+									g.drawString(Game.data.names[i],70,250+(100*i));
+								}
+							}
+						}
 						g.setColor(Color.white);
 						g.fillRect(520, 270, 360, 4);
 						g.fillRect(520, 345, 360, 4);
