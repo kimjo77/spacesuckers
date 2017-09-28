@@ -5,10 +5,10 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
-import java.util.Random;
 
 import com.main.Menu;
 import com.test.ClientTest;
+import com.test.Data;
 import com.test.ServerTest;
 
 
@@ -21,9 +21,9 @@ public class Game extends Canvas implements Runnable{
 	private boolean running = false;
 	public static Font fnt = new Font("04B", Font.PLAIN, 24);
 	public static int SCORE = 0;
+	public static Data data;
 	
-	private MouseInput mouse;
-	private Random rand = new Random();
+	private MouseInput mouse,mouseUI;
 	
 	public static enum STATE{
 		Splash,
@@ -39,9 +39,13 @@ public class Game extends Canvas implements Runnable{
 	public static STATE gameState = STATE.Menu;
 	
 	public static Handler handler; 
+	public static Handler ui;
 	public static Texture tex;
-
+	
 	//--Networking--//
+	//Lobby
+	public static boolean isReady = false;
+	//
 	public static ServerTest server;
 	public static ClientTest client;
 	public static int NETWORK_ID = 0;
@@ -53,17 +57,20 @@ public class Game extends Canvas implements Runnable{
 	//--------------//
 	
 	public Game() {
-		
 		tex = new Texture();
 		
 		menu = new Menu();
 		
 		handler = new Handler();
+		ui = new Handler();
 		mouse = new MouseInput(handler);
-		
+		mouseUI = new MouseInput(ui);
 		this.addKeyListener(new KeyInput(handler));
+		this.addKeyListener(new KeyInput(ui));
 		this.addMouseListener(mouse);
 		this.addMouseMotionListener(mouse);
+		this.addMouseListener(mouseUI);
+		this.addMouseMotionListener(mouseUI);
 		this.addMouseListener(menu);
 		this.addMouseMotionListener(menu);
 		new Window(WIDTH, HEIGHT,"Space Suckers",this);
@@ -71,10 +78,7 @@ public class Game extends Canvas implements Runnable{
 		
 		switch(gameState) {
 			case Game : 
-						handler.addObject(new Blackhole(WIDTH/2,HEIGHT/2,16,16,ID.Blackhole));
-						handler.addObject(new AsteroidController(0,0,0,0,ID.AsteroidController));
-						handler.addObject(new Asteroid(0,0,16,16,ID.Asteroid));
-						handler.addObject(new Player(WIDTH/2,HEIGHT/2,24,12,ID.Player));
+						gamestart();
 						break;	
 			default:
 		}
@@ -118,7 +122,7 @@ public class Game extends Canvas implements Runnable{
 			frames++;
 			if(System.currentTimeMillis() - timer > 1000) {
 				timer += 1000;
-				System.out.println("FPS: " + frames);
+				//System.out.println("FPS: " + frames);
 				frames = 0;
 			}
 		}
@@ -135,18 +139,17 @@ public class Game extends Canvas implements Runnable{
 		case Connect:
 		case Lobby:
 					menu.tick();
+					if(networkType == NETWORK_TYPE.Server)
+						if(server != null)
+							server.send(server.status, server.names);
 					break;
 		case Game : 
 					handler.tick();
+					if(networkType == NETWORK_TYPE.Server)
+						server.send(handler);
 					break;	
 		}
 		
-/*		if(networkType == NETWORK_TYPE.Client) {
-			client.send();			
-		} else if(networkType == NETWORK_TYPE.Server) {
-
-		} else { }
-*/
 	}
 	
 	private void render() {
@@ -175,10 +178,16 @@ public class Game extends Canvas implements Runnable{
 		case Lobby:
 					menu.render(g);
 					break;
-		case Game : break;	
+					
+		case Game : 
+					handler.render(g);
+					if(networkType == NETWORK_TYPE.Client)
+						handler = data.handler;
+					break;	
 		}
 		
-		handler.render(g);
+		
+		ui.render(g);
 		
 		g.dispose();
 		bs.show();
@@ -186,6 +195,15 @@ public class Game extends Canvas implements Runnable{
 	
 	public static void main(String args[]) {
 		new Game();
+	}
+	
+	
+	//--Others
+	public static void gamestart() {
+		handler.addObject(new Player(WIDTH/2,HEIGHT/2,24,12,ID.Player));
+		handler.addObject(new Blackhole(WIDTH/2,HEIGHT/2,16,16,ID.Blackhole));
+		handler.addObject(new AsteroidController(0,0,0,0,ID.AsteroidController));
+		handler.addObject(new Asteroid(0,0,16,16,ID.Asteroid));
 	}
 
 }

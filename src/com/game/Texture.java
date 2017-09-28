@@ -25,6 +25,7 @@ public class Texture {
 						 	connectHeader,
 						 	connectedPlayers,
 						 	lobbyBox,
+						 	ready,
 						 	menuBtn[] = new BufferedImage[3],
 						 	multiBtn[] = new BufferedImage[3];
 	public Texture() {
@@ -54,6 +55,7 @@ public class Texture {
 			connectedPlayers = loader.loadImage("/images/cp-header.png",.7,.7,1);
 			lobbyBox = loader.loadImage("/images/cp-des.png",.7,.7,1);
 			quitwarning = loader.loadImage("/images/quitquestion.png",.7,.7,1);
+			ready = loader.loadImage("/images/ready1.png",2.5,2.5,0);
 			menuBtn[0] = loader.loadImage("/images/rec6-splayer.png",.7,.7,1);
 			menuBtn[1] = loader.loadImage("/images/rec6-mplayer.png",.7,.7,1);
 			menuBtn[2] = loader.loadImage("/images/rec6-quit.png",.7,.7,1);

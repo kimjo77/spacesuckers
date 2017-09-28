@@ -9,12 +9,8 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
 
-import com.game.Asteroid;
-import com.game.AsteroidController;
-import com.game.Blackhole;
 import com.game.Game;
 import com.game.ID;
-import com.game.Player;
 import com.game.Texture;
 import com.test.ClientTest;
 import com.test.ServerTest;
@@ -45,10 +41,7 @@ public class Menu extends MouseAdapter{
 		case Menu:
 					if(!quit) {
 						if(mouseOver(mx,my,345,350+(0*85),285,73)) {
-							Game.handler.addObject(new Blackhole(Game.WIDTH/2,Game.HEIGHT/2,16,16,ID.Blackhole));
-							Game.handler.addObject(new AsteroidController(0,0,0,0,ID.AsteroidController));
-							Game.handler.addObject(new Asteroid(0,0,16,16,ID.Asteroid));
-							Game.handler.addObject(new Player(Game.WIDTH/2,Game.HEIGHT/2,24,12,ID.Player));
+							Game.gamestart();
 							Game.gameState = Game.STATE.Game;
 						}else if(mouseOver(mx,my,345,350+(1*85),285,73)) {
 							Game.gameState = Game.STATE.Multi;
@@ -57,88 +50,60 @@ public class Menu extends MouseAdapter{
 						}	
 					} else {
 						if(mouseOver(mx,my,270,350,203,51)) {
-							System.out.println("Quit!");
 							System.exit(0);
 						} else if(mouseOver(mx,my,530,350,203,51)) {
 							quit = false;
-							System.out.println("CANCEL!");
 						}
 					}
 					break;
 		case Multi:
-			//--Create--//
 					if(mouseOver(mx,my,345,350+(0*85),285,73)) {
-						name = new CustomTextField(310, 230, 390, 40,ID.CustomTextField);
-						port = new CustomTextField(310, 320, 390, 40,ID.CustomTextField);
-						pass = new CustomTextField(310, 410, 390, 40,ID.CustomTextField);
-						
-						Game.handler.addObject(name);
-						Game.handler.addObject(pass);
-						Game.handler.addObject(port);
-						
+						createCustomTextFields();
 						Game.gameState = Game.STATE.Create;
-						System.out.println("Create!");
 					}else if(mouseOver(mx,my,345,350+(1*85),285,73)) {
-						name = new CustomTextField(310, 230, 390, 40,ID.CustomTextField);
-						port = new CustomTextField(310, 320, 390, 40,ID.CustomTextField);
-						pass = new CustomTextField(310, 410, 390, 40,ID.CustomTextField);
-						
-						Game.handler.addObject(name);
-						Game.handler.addObject(pass);
-						Game.handler.addObject(port);
-						
+						createCustomTextFields();
 						Game.gameState = Game.STATE.Connect;
-						System.out.println("Connect!");
 					}else if(mouseOver(mx,my,345,350+(2*85),285,73)) {
 						Game.gameState = Game.STATE.Menu;
-						System.out.println("Back!");
 					}
 					break;
 		case Create:
 					if(mouseOver(mx,my,295,520,203,50)) {
 						Game.gameState = Game.STATE.Multi;
-						Game.handler.removeObject(name);
-						Game.handler.removeObject(pass);
-						Game.handler.removeObject(port);
+						Game.ui.clearObject();
 						System.out.println("Multi!");
 					} else if(mouseOver(mx,my,515,520,203,50)) {
 						Game.gameState = Game.STATE.Lobby;
 						Game.networkType = Game.NETWORK_TYPE.Server;
-						
 						try {
-//							Game.server = new ServerTest(name.getText(),Integer.parseUnsignedInt(port.getText()),pass.getText());
-							Game.server = new ServerTest(name.getText(),Integer.parseInt(port.getText()),pass.getText());
+							Game.server = new ServerTest(name.getText(),Integer.parseUnsignedInt(port.getText()),pass.getText());
 						} catch (NumberFormatException e1) {
+							e1.printStackTrace();
+						} catch (IOException e1) {
 							e1.printStackTrace();
 						}
 						//Game.gameState = Game.STATE.Menu;
-						Game.handler.removeObject(name);
-						Game.handler.removeObject(pass);
-						Game.handler.removeObject(port);
+						Game.ui.clearObject();
 						
 					}
 					break;
 		case Connect:
 					if(mouseOver(mx,my,295,520,203,50)) {
 						Game.gameState = Game.STATE.Multi;
-						Game.handler.removeObject(name);
-						Game.handler.removeObject(pass);
-						Game.handler.removeObject(port);
+						Game.ui.clearObject();
 						System.out.println("Multi!");
 					} else if(mouseOver(mx,my,515,520,203,50)) {
 						Game.gameState = Game.STATE.Lobby;
 						Game.networkType = Game.NETWORK_TYPE.Client;
-						
 						try {
-//							Game.client = new ClientTest("User",Integer.parseUnsignedInt(port.getText()),null);
-							Game.client = new ClientTest(name.getText(),name.getText(),pass.getText(),Integer.parseInt(port.getText()));
+							Game.client = new ClientTest(name.getText(),Integer.parseUnsignedInt(port.getText()),pass.getText());
 						} catch (NumberFormatException e1) {
+							e1.printStackTrace();
+						} catch (IOException e1) {
 							e1.printStackTrace();
 						}
 						//Game.gameState = Game.STATE.Menu;
-						Game.handler.removeObject(name);
-						Game.handler.removeObject(pass);
-						Game.handler.removeObject(port);
+						Game.ui.clearObject();
 					}
 					break;
 					
@@ -148,7 +113,15 @@ public class Menu extends MouseAdapter{
 						Game.gameState = Game.STATE.Multi;
 						Game.networkType = null;
 					} else if(mouseOver(mx,my, 704, 474, 175, 44)) {
-							//Start Game
+						switch(Game.networkType) {
+							case Server:
+										Game.gamestart();
+										Game.gameState = Game.STATE.Game;
+										break;
+							case Client:
+										Game.client.send(Game.isReady = !Game.isReady);
+										break;
+						}
 					}
 					break;
 		case Game:
@@ -317,6 +290,29 @@ public class Menu extends MouseAdapter{
 						g.drawString("Name", 520, 240);
 						g.drawString("Port", 520, 315);
 						g.drawString("Pass", 520, 390);
+						Game.fnt = new Font("04B", Font.TRUETYPE_FONT, 32);
+						if(Game.networkType == Game.NETWORK_TYPE.Server) {
+							if(Game.server != null) {
+								for(int i=0; i < ServerTest.MAX_PLAYERS; i++) {
+									if(Game.server.names[i] != null) {
+										g.drawString(Game.server.names[i],100,250+(100*i));
+										if(Game.server.status[i])
+											g2d.drawImage(tex.ready, 300, 225+(100*i), null);
+									}
+								}
+							}
+						} else if(Game.networkType == Game.NETWORK_TYPE.Client) {
+							if(Game.client != null) {
+								if(Game.data != null)
+								for(int i=0; i < ServerTest.MAX_PLAYERS; i++) {
+									if(Game.data.names[i] != null) {
+										g.drawString(Game.data.names[i],100,250+(100*i));
+										if(Game.data.status[i])
+											g2d.drawImage(tex.ready, 300, 225+(100*i), null);
+									}
+								}
+							}
+						}
 						g.setColor(Color.white);
 						g.fillRect(520, 270, 360, 4);
 						g.fillRect(520, 345, 360, 4);
@@ -342,5 +338,15 @@ public class Menu extends MouseAdapter{
 	public AlphaComposite setAlpha(float alpha) {
 		int type = AlphaComposite.SRC_OVER;
 		return(AlphaComposite.getInstance(type, alpha));
+	}
+	
+	public void createCustomTextFields() {
+		name = new CustomTextField(310, 230, 390, 40,ID.CustomTextField);
+		port = new CustomTextField(310, 320, 390, 40,ID.CustomTextField);
+		pass = new CustomTextField(310, 410, 390, 40,ID.CustomTextField);
+		
+		Game.ui.addObject(name);
+		Game.ui.addObject(pass);
+		Game.ui.addObject(port);
 	}
 }

@@ -35,4 +35,8 @@ public class Handler implements Serializable{
 		this.object.remove(object);
 	}
 	
+	public void clearObject() {
+		object.clear();
+	}
+	
 }
