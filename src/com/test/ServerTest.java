@@ -3,6 +3,7 @@ package com.test;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.LinkedList;
@@ -13,17 +14,19 @@ import com.game.Handler;
 public class ServerTest extends Thread{
 	public static int MAX_PLAYERS = 4;
 	private ServerSocket ss = null;
+	private InetAddress serverIP;
 	//--Client Info
 	public Socket[] s = new Socket[MAX_PLAYERS];
 	public boolean[] status = new boolean[MAX_PLAYERS];
 	public String[] names = new String[MAX_PLAYERS];
 	public int currentcount = 0;
-	
 	private ObjectOutputStream oos = null;
 	private ObjectInputStream ois = null;
 	
 	public ServerTest(String name,int  port, String Password) throws IOException {
-		ss = new ServerSocket(port,MAX_PLAYERS);
+		serverIP = InetAddress.getLocalHost();
+		System.out.println(serverIP);
+		ss = new ServerSocket(port,MAX_PLAYERS,serverIP);
 		this.names[currentcount] = name;
 		this.status[currentcount] = true;
 		currentcount++;

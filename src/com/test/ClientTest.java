@@ -10,10 +10,12 @@ import com.game.Handler;
 
 public class ClientTest {
 	private Socket s = null;
+	private String serverIP = "";
 	private ObjectOutputStream oos = null;
 	private ObjectInputStream ois = null;
-	public ClientTest(String name,int  port, String Password) throws IOException {
-		s = new Socket("localhost",port);
+	public ClientTest(String name,int  port, String ip) throws IOException {
+		s = new Socket(ip,port);
+		serverIP = ip;
 		System.out.println("Connected.........");
 		send(name);
 		new Thread(receive).start();
