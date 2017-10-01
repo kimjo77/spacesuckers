@@ -74,7 +74,8 @@ public class Asteroid extends GameObject {
 					tempArea.intersect(bulletObject.getArea());
 					if(!tempArea.isEmpty()) {
 						//Game.soundfx.get("shoot").play(Game.soundfx.get("shoot").getShoot());
-						Game.SCORE += 20;
+						//Game.SCORE += 20;
+						generateCoins();
 						Game.handler.addObject(new Explosion(x,y,32,32,ID.Explosion));
 						generateAsteroidSmall(bulletObject);
 						Game.handler.removeObject(bulletObject);
@@ -86,6 +87,10 @@ public class Asteroid extends GameObject {
 			}
 		}
 		
+	}
+	
+	public void generateCoins() {
+		Game.handler.addObject(new Coin(x,y,7,7,ID.Coin));
 	}
 	
 	public void generateAsteroidSmall(Bullet bullet) {

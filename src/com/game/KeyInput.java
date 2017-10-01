@@ -29,6 +29,7 @@ public class KeyInput extends KeyAdapter{
 							tempTF.setText(tempTF.getText().substring(0, tempTF.getText().length()-1));
 						}
 					}else {
+						Game.soundfx.play(Game.soundfx.type);
 						tempTF.setText(tempTF.getText() + e.getKeyChar());
 					}
 				}
@@ -64,10 +65,6 @@ public class KeyInput extends KeyAdapter{
 						if(key == KeyEvent.VK_SPACE) {
 							if(tempPlayer.key_shoot == 0) {
 								tempPlayer.key_shoot = 1;
-								if(tempPlayer.stunTime < 0) {
-//									Game.soundfx.play(Game.soundfx.shoot);
-									//Game.soundfx.get("shoot").play(Game.soundfx.get("shoot").getShoot());
-								}
 							}
 						}
 					}

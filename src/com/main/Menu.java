@@ -11,6 +11,7 @@ import java.io.IOException;
 
 import com.game.Game;
 import com.game.ID;
+import com.game.SoundEffects;
 import com.game.Texture;
 import com.test.ClientTest;
 import com.test.ServerTest;
@@ -37,10 +38,12 @@ public class Menu extends MouseAdapter{
 	public void mousePressed(MouseEvent e) {
 		mx = e.getX();
 		my = e.getY();
+		
 		switch(Game.gameState) {
 		case Menu:
 					if(!quit) {
 						if(mouseOver(mx,my,345,350+(0*85),285,73)) {
+							Game.soundfx.stop(SoundEffects.bgmenuClip);
 							Game.gamestart("single");
 							Game.gameState = Game.STATE.Game;
 						}else if(mouseOver(mx,my,345,350+(1*85),285,73)) {
@@ -58,10 +61,10 @@ public class Menu extends MouseAdapter{
 					break;
 		case Multi:
 					if(mouseOver(mx,my,345,350+(0*85),285,73)) {
-						createCustomTextFields();
+						createCreateTextFields();
 						Game.gameState = Game.STATE.Create;
 					}else if(mouseOver(mx,my,345,350+(1*85),285,73)) {
-						createCustomTextFields();
+						createConnectTextFields();
 						Game.gameState = Game.STATE.Connect;
 					}else if(mouseOver(mx,my,345,350+(2*85),285,73)) {
 						Game.gameState = Game.STATE.Menu;
@@ -230,11 +233,9 @@ public class Menu extends MouseAdapter{
 						Game.fnt = new Font("04B", Font.TRUETYPE_FONT, 32);
 						g.drawString("Name", 310, 230);
 						g.drawString("Port", 310, 320);
-						g.drawString("Pass", 310, 410);
 						g.setColor(Color.white);
 						g.fillRect(310, 270, 390, 6);
 						g.fillRect(310, 360, 390, 6);
-						g.fillRect(310, 450, 390, 6);
 						//g.setColor(Color.red);
 						//g.drawRect(295,520,203,50);
 						//g.drawRect(515,520,203,50);
@@ -327,8 +328,10 @@ public class Menu extends MouseAdapter{
 	public boolean mouseOver(double mx, double my, int x,int y, int width, int height) {
 		boolean ans = false;
 		if(mx > x && mx < x+width)
-			if(my > y && my < y+height)
+			if(my > y && my < y+height) {
 				ans = true;
+				Game.soundfx.play(Game.soundfx.blip);
+			}
 		
 		return ans;
 	}
@@ -338,13 +341,21 @@ public class Menu extends MouseAdapter{
 		return(AlphaComposite.getInstance(type, alpha));
 	}
 	
-	public void createCustomTextFields() {
+	public void createConnectTextFields() {
 		name = new CustomTextField(310, 230, 390, 40,ID.CustomTextField);
 		port = new CustomTextField(310, 320, 390, 40,ID.CustomTextField);
 		pass = new CustomTextField(310, 410, 390, 40,ID.CustomTextField);
 		
 		Game.ui.addObject(name);
+		Game.ui.addObject(port);
 		Game.ui.addObject(pass);
+	}
+	
+	public void createCreateTextFields() {
+		name = new CustomTextField(310, 230, 390, 40,ID.CustomTextField);
+		port = new CustomTextField(310, 320, 390, 40,ID.CustomTextField);
+		
+		Game.ui.addObject(name);
 		Game.ui.addObject(port);
 	}
 }

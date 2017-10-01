@@ -58,6 +58,7 @@ public class AsteroidController extends GameObject{
 	public void render(Graphics g) {
 	
 	}
+
 	public Rectangle getBounds() {
 		return null;
 	}

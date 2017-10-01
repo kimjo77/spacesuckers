@@ -1,6 +1,7 @@
 package com.entities;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
@@ -179,6 +180,13 @@ public class Player extends GameObject {
 		g.setColor(Color.red);
 		g2d.drawImage(Game.tex.cursor[playerID], gat, null);
 		//g.drawRect((int)(x+turrentX) ,(int)(y+turrentY)-2,4,4);
+		
+		if(Game.networkType != null) {
+			Game.fnt = new Font("04B", Font.PLAIN, 14);
+			g.setColor(Color.white);
+			g.setFont(Game.fnt);
+			g.drawString(Game.data.names[playerID], x-24, y-24);
+		} 
 	}
 	
 	public void setPullX(double pullX) {

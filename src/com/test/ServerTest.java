@@ -9,6 +9,7 @@ import java.net.Socket;
 import java.util.LinkedList;
 
 import com.entities.GameObject;
+import com.game.Game;
 import com.game.Handler;
 
 public class ServerTest extends Thread{
@@ -29,6 +30,8 @@ public class ServerTest extends Thread{
 		ss = new ServerSocket(port,MAX_PLAYERS,serverIP);
 		this.names[currentcount] = name;
 		this.status[currentcount] = true;
+		Game.data.names[currentcount] = name;
+		Game.data.status[currentcount] = true;
 		currentcount++;
 		//new Thread(accept).start();
 		this.start();
@@ -44,6 +47,8 @@ public class ServerTest extends Thread{
 				Data d = (Data)ois.readObject();
 				names[currentcount] = d.name;
 				status[currentcount] = false;
+				Game.data.names[currentcount] = d.name;
+				Game.data.status[currentcount] = false;
 				System.out.println(names[currentcount]+ " has connected." + currentcount);
 				new ClientThread(socket,currentcount).start();
 				currentcount++;

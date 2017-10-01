@@ -95,6 +95,10 @@ public class Game extends Canvas implements Runnable{
 		new Window(WIDTH, HEIGHT,"Space Suckers",this);
 		
 		switch(gameState) {
+			case Menu :
+						//Game.soundfx.loop(Game.soundfx.bgmenu);
+						soundfx.loop(SoundEffects.bgmenuClip);
+						break;
 			case Game : 
 						gamestart("single");
 						break;	
@@ -237,8 +241,7 @@ public class Game extends Canvas implements Runnable{
 	public static void gamestart(String type) {
 		switch(type){
 		case "single":
-			Game.soundfx.loop(Game.soundfx.blackholeBG);
-			Game.soundfx.loop(Game.soundfx.spaceshift);
+			soundfx.loop(SoundEffects.bgsingleClip);
 			handler.addObject(new Blackhole(WIDTH/2,HEIGHT/2,16,16,ID.Blackhole));
 			handler.addObject(new AsteroidController(0,0,0,0,ID.AsteroidController));
 			handler.addObject(new Asteroid(0,0,16,16,ID.Asteroid));

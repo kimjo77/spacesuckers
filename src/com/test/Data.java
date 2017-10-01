@@ -28,6 +28,8 @@ public class Data implements Serializable {
 	
 	
 	public Data() {
+		status = new boolean[ServerTest.MAX_PLAYERS];
+		names = new String[ServerTest.MAX_PLAYERS];
 	}
 	
 	public Data(boolean[] status, String[] names) {

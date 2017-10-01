@@ -9,6 +9,7 @@ public enum ID {
 	Muzzle,
 	Explosion,
 	AsteroidController,
+	Coin,
 //--Menu Entities
 	CustomTextField,
 //--Networking

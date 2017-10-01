@@ -18,6 +18,7 @@ public class Blackhole extends GameObject {
 	private Player playerObject;
 	private Asteroid asteroidObject;
 	private Bullet bulletObject;
+	private Coin coinObject;
 	
 	private Rectangle rect;
 	private transient Area area;
@@ -89,6 +90,14 @@ public class Blackhole extends GameObject {
 					tempArea.intersect(bulletObject.getArea());
 					if(!tempArea.isEmpty()) {
 						Game.handler.removeObject(bulletObject);
+					}
+				}
+			} else if(tempObject.getId() == ID.Coin) {
+				coinObject = (Coin)tempObject;
+				if(coinObject.getArea() != null) {
+					tempArea.intersect(coinObject.getArea());
+					if(!tempArea.isEmpty()) {
+						Game.handler.removeObject(coinObject);
 					}
 				}
 			}
