@@ -6,7 +6,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 
-import com.game.GameObject;
+import com.entities.GameObject;
 import com.game.ID;
 
 public class CustomTextField extends GameObject {

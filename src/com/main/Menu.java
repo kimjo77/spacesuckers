@@ -41,7 +41,7 @@ public class Menu extends MouseAdapter{
 		case Menu:
 					if(!quit) {
 						if(mouseOver(mx,my,345,350+(0*85),285,73)) {
-							Game.gamestart();
+							Game.gamestart("single");
 							Game.gameState = Game.STATE.Game;
 						}else if(mouseOver(mx,my,345,350+(1*85),285,73)) {
 							Game.gameState = Game.STATE.Multi;
@@ -69,11 +69,10 @@ public class Menu extends MouseAdapter{
 					break;
 		case Create:
 					if(mouseOver(mx,my,295,520,203,50)) {
-						Game.gameState = Game.STATE.Multi;
 						Game.ui.clearObject();
 						System.out.println("Multi!");
+						Game.gameState = Game.STATE.Multi;
 					} else if(mouseOver(mx,my,515,520,203,50)) {
-						Game.gameState = Game.STATE.Lobby;
 						Game.networkType = Game.NETWORK_TYPE.Server;
 						try {
 							Game.server = new ServerTest(name.getText(),Integer.parseUnsignedInt(port.getText()),pass.getText());
@@ -82,18 +81,16 @@ public class Menu extends MouseAdapter{
 						} catch (IOException e1) {
 							e1.printStackTrace();
 						}
-						//Game.gameState = Game.STATE.Menu;
 						Game.ui.clearObject();
-						
+						Game.gameState = Game.STATE.Lobby;
 					}
 					break;
 		case Connect:
 					if(mouseOver(mx,my,295,520,203,50)) {
-						Game.gameState = Game.STATE.Multi;
 						Game.ui.clearObject();
 						System.out.println("Multi!");
+						Game.gameState = Game.STATE.Multi;
 					} else if(mouseOver(mx,my,515,520,203,50)) {
-						Game.gameState = Game.STATE.Lobby;
 						Game.networkType = Game.NETWORK_TYPE.Client;
 						try {
 							Game.client = new ClientTest(name.getText(),Integer.parseUnsignedInt(port.getText()),pass.getText());
@@ -102,20 +99,21 @@ public class Menu extends MouseAdapter{
 						} catch (IOException e1) {
 							e1.printStackTrace();
 						}
-						//Game.gameState = Game.STATE.Menu;
 						Game.ui.clearObject();
+						Game.gameState = Game.STATE.Lobby;
 					}
 					break;
 					
 		case Lobby:
 					if(mouseOver(mx,my,524, 474, 175, 44)) {
 							//Disconnect / delete lobby
-						Game.gameState = Game.STATE.Multi;
 						Game.networkType = null;
+						Game.gameState = Game.STATE.Multi;
 					} else if(mouseOver(mx,my, 704, 474, 175, 44)) {
 						switch(Game.networkType) {
 							case Server:
-										Game.gamestart();
+										Game.gamestart("multi");
+										Game.server.send(true);
 										Game.gameState = Game.STATE.Game;
 										break;
 							case Client:
@@ -303,7 +301,7 @@ public class Menu extends MouseAdapter{
 							}
 						} else if(Game.networkType == Game.NETWORK_TYPE.Client) {
 							if(Game.client != null) {
-								if(Game.data != null)
+								if(Game.data.names != null && Game.data.status != null)
 								for(int i=0; i < ServerTest.MAX_PLAYERS; i++) {
 									if(Game.data.names[i] != null) {
 										g.drawString(Game.data.names[i],100,250+(100*i));

@@ -3,6 +3,8 @@ package com.game;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
+import com.entities.GameObject;
+import com.entities.Player;
 import com.main.CustomTextField;
 
 public class MouseInput extends MouseAdapter{
@@ -19,45 +21,64 @@ public class MouseInput extends MouseAdapter{
 	public void mousePressed(MouseEvent e) {
 		int mx = e.getX();
 		int my = e.getY();
-		for(int i=0; i < handler.object.size(); i++) {
-			tempObject = handler.object.get(i);
-			if(tempObject.getId() == ID.Player) {
-				playerObject = (Player)tempObject;
-				if(e.getButton() == MouseEvent.BUTTON1) {
-					if(playerObject.mouse_shoot == 0) {
-						playerObject.mouse_shoot = 1;
+		if(Game.networkType == Game.NETWORK_TYPE.Client) {
+			if(e.getButton() == MouseEvent.BUTTON1) Game.pi.mouse_shoot = 1;
+		} else {
+			for(int i=0; i < handler.object.size(); i++) {
+				tempObject = handler.object.get(i);
+				if(tempObject.getId() == ID.Player) {
+					playerObject = (Player)tempObject;
+					if(playerObject.playerID == 0) {
+						if(e.getButton() == MouseEvent.BUTTON1) {
+							if(playerObject.mouse_shoot == 0) {
+								playerObject.mouse_shoot = 1;
+							}
+						}
 					}
 				}
-			}
-			if(tempObject.getId() == ID.CustomTextField) {
-				tempTF = (CustomTextField)tempObject;
-				if(mouseOver(mx, my, tempTF.getX(), tempTF.getY(), tempTF.getWidth(), tempTF.getHeight())){
-					tempTF.setFocus(true);
-					System.out.println("INSIDE!!!");
-				} else {
-					tempTF.setFocus(false);
+				if(tempObject.getId() == ID.CustomTextField) {
+					tempTF = (CustomTextField)tempObject;
+					if(mouseOver(mx, my, tempTF.getX(), tempTF.getY(), tempTF.getWidth(), tempTF.getHeight())){
+						tempTF.setFocus(true);
+						System.out.println("INSIDE!!!");
+					} else {
+						tempTF.setFocus(false);
+					}
 				}
 			}
 		}
 	}
 	
 	public void mouseReleased(MouseEvent e) {
-		for(int i=0; i < handler.object.size(); i++) {
-			tempObject = handler.object.get(i);
-			if(tempObject.getId() == ID.Player) {
-				playerObject = (Player)tempObject;
-				if(e.getButton() == MouseEvent.BUTTON1) playerObject.mouse_shoot = 0;
+		if(Game.networkType == Game.NETWORK_TYPE.Client) {
+			if(e.getButton() == MouseEvent.BUTTON1) Game.pi.mouse_shoot = 0;
+		} else {
+			for(int i=0; i < handler.object.size(); i++) {
+				tempObject = handler.object.get(i);
+				if(tempObject.getId() == ID.Player) {
+					playerObject = (Player)tempObject;
+					if(playerObject.playerID == 0) {
+						if(e.getButton() == MouseEvent.BUTTON1) playerObject.mouse_shoot = 0;
+					}
+				}
 			}
 		}
 	}
 	
 	public void mouseMoved(MouseEvent e) {
-		for(int i=0; i < handler.object.size(); i++) {
-			tempObject = handler.object.get(i);
-			if(tempObject.getId() == ID.Player) {
-				playerObject = (Player)tempObject;
-				playerObject.mouseX = e.getX();
-				playerObject.mouseY = e.getY();
+		if(Game.networkType == Game.NETWORK_TYPE.Client) {
+			Game.pi.mouseX = e.getX();
+			Game.pi.mouseY = e.getY();
+		} else {
+			for(int i=0; i < handler.object.size(); i++) {
+				tempObject = handler.object.get(i);
+				if(tempObject.getId() == ID.Player) {
+					playerObject = (Player)tempObject;
+					if(playerObject.playerID == 0) {
+						playerObject.mouseX = e.getX();
+						playerObject.mouseY = e.getY();
+					}
+				}
 			}
 		}
 	}

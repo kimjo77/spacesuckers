@@ -5,23 +5,32 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
+import java.util.HashMap;
+import java.util.Random;
 
+import com.entities.Asteroid;
+import com.entities.AsteroidController;
+import com.entities.Blackhole;
+import com.entities.Player;
 import com.main.Menu;
 import com.test.ClientTest;
 import com.test.Data;
+import com.test.PlayerInputs;
 import com.test.ServerTest;
 
 
 public class Game extends Canvas implements Runnable{
 	
 	private static final long serialVersionUID = -6244201119884380285L;
+	
 	public final static int WIDTH = 1000, HEIGHT = WIDTH / 12 * 9;
 	public static double DELTA_TIME;	
 	private Thread thread;
 	private boolean running = false;
 	public static Font fnt = new Font("04B", Font.PLAIN, 24);
 	public static int SCORE = 0;
-	public static Data data;
+	
+	private static Random rand = new Random();
 	
 	private MouseInput mouse,mouseUI;
 	
@@ -42,9 +51,14 @@ public class Game extends Canvas implements Runnable{
 	public static Handler ui;
 	public static Texture tex;
 	
+	public static SoundEffects soundfx;
+	
 	//--Networking--//
+	public static Data data;
+	public static PlayerInputs pi;
 	//Lobby
 	public static boolean isReady = false;
+	public static boolean START = false;
 	//
 	public static ServerTest server;
 	public static ClientTest client;
@@ -57,28 +71,32 @@ public class Game extends Canvas implements Runnable{
 	//--------------//
 	
 	public Game() {
+		data = new Data();
+		pi = new PlayerInputs();
 		tex = new Texture();
-		
 		menu = new Menu();
-		
+		soundfx = new SoundEffects();
 		handler = new Handler();
 		ui = new Handler();
+
 		mouse = new MouseInput(handler);
 		mouseUI = new MouseInput(ui);
+		
 		this.addKeyListener(new KeyInput(handler));
 		this.addKeyListener(new KeyInput(ui));
+		
 		this.addMouseListener(mouse);
 		this.addMouseMotionListener(mouse);
 		this.addMouseListener(mouseUI);
 		this.addMouseMotionListener(mouseUI);
 		this.addMouseListener(menu);
 		this.addMouseMotionListener(menu);
-		new Window(WIDTH, HEIGHT,"Space Suckers",this);
 		
+		new Window(WIDTH, HEIGHT,"Space Suckers",this);
 		
 		switch(gameState) {
 			case Game : 
-						gamestart();
+						gamestart("single");
 						break;	
 			default:
 		}
@@ -139,14 +157,34 @@ public class Game extends Canvas implements Runnable{
 		case Connect:
 		case Lobby:
 					menu.tick();
-					if(networkType == NETWORK_TYPE.Server)
+					if(networkType == NETWORK_TYPE.Server) {
 						if(server != null)
 							server.send(server.status, server.names);
+					} else if(networkType == NETWORK_TYPE.Client) {
+						
+					}
 					break;
 		case Game : 
-					handler.tick();
-					if(networkType == NETWORK_TYPE.Server)
-						server.send(handler);
+					if(START) {
+					//	Game.soundfx.loop(Game.soundfx.blackholeBG);
+					//	Game.soundfx.loop(Game.soundfx.spaceshift);						
+						if(networkType == NETWORK_TYPE.Server) {
+							server.send(handler.object);
+							handler.tick();
+						} else if(networkType == NETWORK_TYPE.Client) {
+							if(data.handler != null) {
+								handler.object = data.handler.object;
+							}
+							client.send(pi);
+							if(pi.key_shoot == 1) {
+								pi.key_shoot = 2;
+							} else if( pi.mouse_shoot == 1) {
+								pi.mouse_shoot = 2;
+							}
+						} else {
+							handler.tick();
+						}
+					}
 					break;	
 		}
 		
@@ -178,11 +216,8 @@ public class Game extends Canvas implements Runnable{
 		case Lobby:
 					menu.render(g);
 					break;
-					
-		case Game : 
+		case Game : 	
 					handler.render(g);
-					if(networkType == NETWORK_TYPE.Client)
-						handler = data.handler;
 					break;	
 		}
 		
@@ -199,11 +234,31 @@ public class Game extends Canvas implements Runnable{
 	
 	
 	//--Others
-	public static void gamestart() {
-		handler.addObject(new Player(WIDTH/2,HEIGHT/2,24,12,ID.Player));
-		handler.addObject(new Blackhole(WIDTH/2,HEIGHT/2,16,16,ID.Blackhole));
-		handler.addObject(new AsteroidController(0,0,0,0,ID.AsteroidController));
-		handler.addObject(new Asteroid(0,0,16,16,ID.Asteroid));
+	public static void gamestart(String type) {
+		switch(type){
+		case "single":
+			Game.soundfx.loop(Game.soundfx.blackholeBG);
+			Game.soundfx.loop(Game.soundfx.spaceshift);
+			handler.addObject(new Blackhole(WIDTH/2,HEIGHT/2,16,16,ID.Blackhole));
+			handler.addObject(new AsteroidController(0,0,0,0,ID.AsteroidController));
+			handler.addObject(new Asteroid(0,0,16,16,ID.Asteroid));
+			handler.addObject(new Player(WIDTH/2,HEIGHT/2,24,12,ID.Player,0));
+			
+//			ui.addObject(new Gameover(0,0,0,0,ID.))
+			START = true;
+			break;
+		case "multi":
+			Game.soundfx.loop(Game.soundfx.blackholeBG);
+			Game.soundfx.loop(Game.soundfx.spaceshift);
+			handler.addObject(new Blackhole(WIDTH/2,HEIGHT/2,16,16,ID.Blackhole));
+			handler.addObject(new AsteroidController(0,0,0,0,ID.AsteroidController));
+			handler.addObject(new Asteroid(0,0,16,16,ID.Asteroid));
+			for(int i=0; i<server.currentcount; i++) {
+				handler.addObject(new Player(rand.nextInt(WIDTH),rand.nextInt(HEIGHT),24,12,ID.Player,i));
+			}
+			START = true;
+			break;
+		}
 	}
 
 }

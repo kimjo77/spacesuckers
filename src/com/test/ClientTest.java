@@ -9,43 +9,57 @@ import com.game.Game;
 import com.game.Handler;
 
 public class ClientTest {
-	private static Socket s = null;
+	private Socket s = null;
 	private ObjectOutputStream oos = null;
 	private ObjectInputStream ois = null;
 	public ClientTest(String name,int  port, String Password) throws IOException {
-		//ObjectOutputStream oos = null;
-		
 		s = new Socket("localhost",port);
 		System.out.println("Connected.........");
-		
-		try {
-			oos = new ObjectOutputStream(s.getOutputStream());
-			oos.writeObject(name);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		send(name);
 		new Thread(receive).start();
 	}
 	
 	private Runnable receive = new Runnable() {
 		public void run() {
-			//ObjectInputStream ois = null;
 			while(true) {
-				try {
+				try {//System.out.println("WORKING");
 					ois = new ObjectInputStream(s.getInputStream());
-					Game.data = (Data) ois.readObject();
+					Data d = (Data) ois.readObject();
+					switch(d.areatype) {
+					case lobby:
+						Game.data.names = d.names;
+						Game.data.status = d.status;
+						Game.data.bool = d.bool;
+						if(d.bool) {
+							Game.START = true;
+							Game.gameState = Game.STATE.Game;
+						}
+						break;
+					case game:
+						Game.data.handler = d.handler;
+						Game.data.object = d.object;
+						Game.handler.object = d.object;
+						break;
+					}
 				} catch (IOException e) {
-				} catch (ClassNotFoundException e) {}
+					e.printStackTrace();
+				} catch (ClassNotFoundException e) {
+					e.printStackTrace();
+				}
 			}
 		}
 	};
 	
-	public void send(boolean[] status, String[] names) {
+	public void send(boolean[] status, String[] names, boolean start) {
 		Data data = new Data(status,names);
 		writeData(data);
 	}
-	public void send(boolean isReady) {
-		Data data = new Data(isReady);
+	public void send(boolean bool) {
+		Data data = new Data(bool);
+		writeData(data);
+	}
+	public void send(String name) {
+		Data data = new Data(name);
 		writeData(data);
 	}
 	public void send(String[] inputs) {
@@ -56,39 +70,18 @@ public class ClientTest {
 		Data data = new Data(handler);
 		writeData(data);
 	}
+	public void send(PlayerInputs pi) {
+		Data data = new Data(pi);
+		writeData(data);
+	}
 	
 	public void writeData(Data data) {
-		//ObjectOutputStream oos = null;
 		try {
 			oos = new ObjectOutputStream(s.getOutputStream());
 			oos.writeObject(data);
+			s.getOutputStream().flush();
 		} catch (Exception e) {
 			System.out.println("Data Not Sent");
 		}
 	}
-/*	
-	private static Runnable send = new Runnable(){
-		public void run(){
-			ObjectOutputStream oos = null;
-			FileOutputStream fout = null;
-			while (true){
-				
-			}
-		}
-	};
-	private static Runnable receive = new Runnable(){
-		public void run(){
-			ObjectInputStream ois = null;
-			while (true){
-				try{
-					ois = new ObjectInputStream(s.getInputStream());
-					Game.handler = (Handler) ois.readObject();
-					System.out.println("Receiving!");
-				}
-				catch (Exception e){
-					e.printStackTrace();
-				}
-			}
-		}
-	};*/
 }

@@ -2,11 +2,14 @@ package com.game;
 
 import java.awt.image.BufferedImage;
 
-public class Texture {
-	
-	public BufferedImage[] 	player = new BufferedImage[2],
-							cursor = new BufferedImage[2],
-							asteroid = new BufferedImage[3];
+public class Texture{
+
+	public BufferedImage[] 	player = new BufferedImage[4],
+							cursor = new BufferedImage[4],
+							asteroid = new BufferedImage[3],
+							muzzle = new BufferedImage[6],
+							explode_med = new BufferedImage[6],
+							explode_large = new BufferedImage[6];
 	
 	public BufferedImage 	logo,
 							team,
@@ -31,12 +34,35 @@ public class Texture {
 	public Texture() {
 		BufferedImageLoader loader = new BufferedImageLoader();
 		try {
-			player[1] = loader.loadImage("/sprites/spr_PlayerBlue.png",1.5,1.5,0);
-			player[0] = loader.loadImage("/sprites/spr_playerOrange.png",1.5,1.5,0);
+			player[0] = loader.loadImage("/sprites/spr_PlayerBlue.png",1.5,1.5,0);
+			player[1] = loader.loadImage("/sprites/spr_playerOrange.png",1.5,1.5,0);
+			player[2] = loader.loadImage("/sprites/spr_playerRed.png",1.5,1.5,0);
+			player[3] = loader.loadImage("/sprites/spr_playerGreen.png",1.5,1.5,0);
 			cursor[0] = loader.loadImage("/sprites/spr_CursorBlue.png",1.5,1.5,0);
+			cursor[1] = loader.loadImage("/sprites/spr_CursorOrange.png",1.5,1.5,0);
+			cursor[2] = loader.loadImage("/sprites/spr_CursorRed.png",1.5,1.5,0);
+			cursor[3] = loader.loadImage("/sprites/spr_CursorGreen.png",1.5,1.5,0);
 			asteroid[0] = loader.loadImage("/sprites/spr_Asteroid1.png",2,2,0);
 			asteroid[1] = loader.loadImage("/sprites/spr_Asteroid2.png",2,2,0);
 			asteroid[2] = loader.loadImage("/sprites/spr_Asteroid3.png",2,2,0);
+			muzzle[0] = loader.loadImage("/sprites/muzzle1.png",2,2,0);
+			muzzle[1] = loader.loadImage("/sprites/muzzle2.png",2,2,0);
+			muzzle[2] = loader.loadImage("/sprites/muzzle3.png",2,2,0);
+			muzzle[3] = loader.loadImage("/sprites/muzzle4.png",2,2,0);
+			muzzle[4] = loader.loadImage("/sprites/muzzle5.png",2,2,0);
+			muzzle[5] = loader.loadImage("/sprites/muzzle6.png",2,2,0);
+			explode_med[0] = loader.loadImage("/sprites/spr_explosion_medium1.png",1,1,0);
+			explode_med[1] = loader.loadImage("/sprites/spr_explosion_medium2.png",1,1,0);
+			explode_med[2] = loader.loadImage("/sprites/spr_explosion_medium3.png",1,1,0);
+			explode_med[3] = loader.loadImage("/sprites/spr_explosion_medium4.png",1,1,0);
+			explode_med[4] = loader.loadImage("/sprites/spr_explosion_medium5.png",1,1,0);
+			explode_med[5] = loader.loadImage("/sprites/spr_explosion_medium6.png",1,1,0);
+			explode_large[0] = loader.loadImage("/sprites/spr_explosion_large1.png",1,1,0);
+			explode_large[1] = loader.loadImage("/sprites/spr_explosion_large2.png",1,1,0);
+			explode_large[2] = loader.loadImage("/sprites/spr_explosion_large3.png",1,1,0);
+			explode_large[3] = loader.loadImage("/sprites/spr_explosion_large4.png",1,1,0);
+			explode_large[4] = loader.loadImage("/sprites/spr_explosion_large5.png",1,1,0);
+			explode_large[5] = loader.loadImage("/sprites/spr_explosion_large6.png",1,1,0);
 			
 			logo = loader.loadImage("/images/logo.png",.7,.7,1);
 			team = loader.loadImage("/images/ws-logo.png",1,1,1);	
