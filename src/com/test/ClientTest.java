@@ -34,6 +34,8 @@ public class ClientTest {
 						Game.data.bool = d.bool;
 						if(d.bool) {
 							Game.START = true;
+							Game.soundfx.loop(Game.soundfx.blackholeBG);
+							Game.soundfx.loop(Game.soundfx.spaceshift);
 							Game.gameState = Game.STATE.Game;
 						}
 						break;
