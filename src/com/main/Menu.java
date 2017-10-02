@@ -70,11 +70,12 @@ public class Menu extends MouseAdapter{
 					}
 					break;
 		case Create:
-					if(mouseOver(mx,my,295,520,203,50)) {
+
+					if(mouseOver(mx,my,355,450,150,50)) {
 						Game.ui.clearObject();
 						System.out.println("Multi!");
 						Game.gameState = Game.STATE.Multi;
-					} else if(mouseOver(mx,my,515,520,203,50)) {
+					} else if(mouseOver(mx,my,515,450,150,50)) {
 						Game.networkType = Game.NETWORK_TYPE.Server;
 						try {
 							Game.server = new ServerTest(name.getText(),Integer.parseUnsignedInt(port.getText()),null);

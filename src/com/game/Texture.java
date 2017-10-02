@@ -18,6 +18,7 @@ public class Texture{
 	public BufferedImage 	logo,
 							team,
 						 	bg,
+						 	bgpane,
 						 	splash,
 						 	quitwarning,
 						 	quit,
@@ -64,14 +65,15 @@ public class Texture{
 			for(int i=0; i<pull.length; i++)
 				pull[i] = loader.loadImage("/sprites/spr_pull" + (i+1) + ".png",2,2,0);
 
-			logo = loader.loadImage("/images/logo.png",.7,.7,1);
+			logo = loader.loadImage("/images/logo.png",.6,.6,1);
 			team = loader.loadImage("/images/ws-logo.png",1,1,1);	
 			bg = loader.loadImage("/images/menu-bg.png",.7,.7,1);
+			bgpane = loader.loadImage("/images/bgpane.png",1.4,1.4,0);
 			splash = loader.loadImage("/images/splash.png",.7,.7,1);
-			quit = loader.loadImage("/images/cp-quit.png",.7,.7,1);
-			cancel = loader.loadImage("/images/cancel.png",.7,.7,1);
-			back = loader.loadImage("/images/c1-back.png",.7,.7,1);
-			create = loader.loadImage("/images/cs-create.png",.7,.7,1);
+			quit = loader.loadImage("/images/cp-quit.png",.5,.5,0);
+			cancel = loader.loadImage("/images/cancel.png",.5,.5,0);
+			back = loader.loadImage("/images/c1-back.png",.5,.5,1);
+			create = loader.loadImage("/images/cs-create.png",.5,.5,1);
 			back_s = loader.loadImage("/images/c1-back.png",.6,.6,1);
 			create_s = loader.loadImage("/images/cs-create.png",.6,.6,1);
 			ready_s  = loader.loadImage("/images/cp-ready.png",.6,.6,1);
@@ -80,7 +82,7 @@ public class Texture{
 			connectHeader = loader.loadImage("/images/c1-connect-header.png",.7,.7,1);
 			connectedPlayers = loader.loadImage("/images/cp-header.png",.7,.7,1);
 			lobbyBox = loader.loadImage("/images/cp-des.png",.7,.7,1);
-			quitwarning = loader.loadImage("/images/quitquestion.png",.7,.7,1);
+			quitwarning = loader.loadImage("/images/quitquestion.png",.6,.6,1);
 			ready = loader.loadImage("/images/ready1.png",2.5,2.5,0);
 			menuBtn[0] = loader.loadImage("/images/rec6-splayer.png",.7,.7,1);
 			menuBtn[1] = loader.loadImage("/images/rec6-mplayer.png",.7,.7,1);

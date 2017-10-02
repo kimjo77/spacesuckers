@@ -10,6 +10,7 @@ import com.entities.GameObject;
 import com.game.ID;
 
 public class CustomTextField extends GameObject {
+	
 	private Font font;
 	private String text,fontStyle;
 	private Color textColor,backgroundColor,foregroundColor;
@@ -119,4 +120,5 @@ public class CustomTextField extends GameObject {
 	public void setThickness(int thickness) {
 		this.thickness = thickness;
 	}
+
 }
