@@ -51,9 +51,9 @@ public class Menu extends MouseAdapter{
 							quit = true;
 						}	
 					} else {
-						if(mouseOver(mx,my,270,350,203,51)) {
+						if(mouseOver(mx,my,370,340,145,36)) {
 							System.exit(0);
-						} else if(mouseOver(mx,my,530,350,203,51)) {
+						} else if(mouseOver(mx,my,530,340,145,36)) {
 							quit = false;
 						}
 					}
@@ -70,11 +70,11 @@ public class Menu extends MouseAdapter{
 					}
 					break;
 		case Create:
-					if(mouseOver(mx,my,355,450,150,50)) {
+					if(mouseOver(mx,my,355,450,145,36)) {
 						Game.ui.clearObject();
 						System.out.println("Multi!");
 						Game.gameState = Game.STATE.Multi;
-					} else if(mouseOver(mx,my,515,450,150,50)) {
+					} else if(mouseOver(mx,my,515,450,145,36)) {
 						Game.networkType = Game.NETWORK_TYPE.Server;
 						try {
 							Game.server = new ServerTest(name.getText(),Integer.parseUnsignedInt(port.getText()),null);
@@ -87,12 +87,12 @@ public class Menu extends MouseAdapter{
 						Game.gameState = Game.STATE.Lobby;
 					}
 					break;
-		case Connect:						
-					if(mouseOver(mx,my,355,450,203,50)) {
+		case Connect:		
+					if(mouseOver(mx,my,355,450,145,36)) {
 						Game.ui.clearObject();
 						System.out.println("Back!");
 						Game.gameState = Game.STATE.Multi;
-					} else if(mouseOver(mx,my,515,450,203,50)) {
+					} else if(mouseOver(mx,my,515,450,145,36)) {
 						Game.networkType = Game.NETWORK_TYPE.Client;
 						try {
 							Game.client = new ClientTest(name.getText(),Integer.parseUnsignedInt(port.getText()),pass.getText());
@@ -196,6 +196,7 @@ public class Menu extends MouseAdapter{
 						g2d.drawString("SINGLE PLAYER", 500, 460 + (35));
 						g2d.drawString("MULTIPLAYER", 520, 470 + (2*35));
 						g2d.drawString("QUIT GAME", 540, 480 + (3*35));
+						g.setColor(Color.red);
 						g.drawRect(500,475,280,20);
 						g.drawRect(520, 520, 240,20);
 						g.drawRect(540, 565,192,20);
@@ -211,6 +212,9 @@ public class Menu extends MouseAdapter{
 							g2d.drawImage(tex.quitwarning, 255, 260, null);
 							g2d.drawImage(tex.quit, 370, 340, null);
 							g2d.drawImage(tex.cancel, 530, 340, null);
+							g.setColor(Color.red);
+							g.drawRect(370,340,145,36);
+							g.drawRect(530,340,145,36);
 						}
 						
 						break;
@@ -220,6 +224,7 @@ public class Menu extends MouseAdapter{
 						g2d.drawString("CREATE",440,310);
 						g2d.drawString("CONNECT",430,355);
 						g2d.drawString("BACK",465,400);
+						g.setColor(Color.red);
 						g.drawRect(440,290,140,20);
 						g.drawRect(430,335,160,20);
 						g.drawRect(465,380,90,20);
@@ -232,19 +237,13 @@ public class Menu extends MouseAdapter{
 						g2d.drawString("PORT",330, 370);
 						g2d.drawImage(tex.back, 355, 450, null);
 						g2d.drawImage(tex.create, 515, 450, null);
-/*						g.setColor(Color.white);
-						g.fillRect(280, 180, 450, 300);
-						g.setColor(Color.black);
-						g.fillRect(280+6, 180+6, 450-12, 300-12);
-						g.setColor(Color.white);
-*/						g.setFont(Game.fnt);
-						Game.fnt = new Font("Connection", Font.TRUETYPE_FONT, 32);
+						
 						g.setColor(Color.white);
 						g.fillRect(330, 320, 350, 4);
 						g.fillRect(330, 410, 350, 4);
-						//g.setColor(Color.red);
-						//g.drawRect(295,520,203,50);
-						//g.drawRect(515,520,203,50);
+						g.setColor(Color.red);
+						g.drawRect(355,450,145,36);
+						g.drawRect(515,450,145,36);
 						break;
 			case Connect:
 						g2d.drawImage(tex.bg, 0, 0, null);
@@ -259,9 +258,9 @@ public class Menu extends MouseAdapter{
 						g.fillRect(330, 240, 350, 4);
 						g.fillRect(330, 330, 350, 4);
 						g.fillRect(330, 410, 350, 4);
-						//g.setColor(Color.red);
-						//g.drawRect(295,520,203,50);
-						//g.drawRect(515,520,203,50);
+						g.setColor(Color.red);
+						g.drawRect(355,450,145,36);
+						g.drawRect(515,450,145,36);
 						break;
 			case Lobby:
 						g2d.drawImage(tex.bg, 0, 0, null);
