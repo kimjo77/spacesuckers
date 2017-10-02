@@ -91,12 +91,12 @@ public class Menu extends MouseAdapter{
 						Game.gameState = Game.STATE.Lobby;
 					}
 					break;
-		case Connect:		
-					if(mouseOver(mx,my,355,450,145,36)) {
+		case Connect:
+					if(mouseOver(mx,my,355,480,145,36)) {
 						Game.ui.clearObject();
 						System.out.println("Back!");
 						Game.gameState = Game.STATE.Multi;
-					} else if(mouseOver(mx,my,515,450,145,36)) {
+					} else if(mouseOver(mx,my,515,480,145,36)) {
 						Game.networkType = Game.NETWORK_TYPE.Client;
 						try {
 							Game.client = new ClientTest(name.getText(),Integer.parseUnsignedInt(port.getText()),pass.getText());
@@ -252,50 +252,41 @@ public class Menu extends MouseAdapter{
 						break;
 			case Connect:
 						g2d.drawImage(tex.bg, 0, 0, null);
-						g2d.drawImage(tex.connectHeader, 295, 170, null);
-						g2d.drawString("NAME",330,260);
-						g2d.drawString("PORT",330,340);
-						g2d.drawString("IP",330,420);
-						g2d.drawImage(tex.back, 355, 450, null);
-						g2d.drawImage(tex.connect, 515, 450, null);
+						g2d.drawImage(tex.connectHeader, 375, 120, null);
+						g2d.drawString("NAME",330,210);
+						g2d.drawString("PORT",330,290);
+						g2d.drawString("IP",330,370);
+						g2d.drawImage(tex.back, 355, 430, null);
+						g2d.drawImage(tex.connect, 515, 430, null);
 
 						g.setColor(Color.white);
-						g.fillRect(330, 20, 350, 4);
-						g.fillRect(330, 330, 350, 4);
-						g.fillRect(330, 410, 350, 4);
+						g.fillRect(330, 240, 350, 4);
+						g.fillRect(330, 320, 350, 4);
+						g.fillRect(330, 400, 350, 4);
 						g.setColor(Color.red);
-						g.drawRect(355,450,145,36);
-						g.drawRect(515,450,145,36);
+						g.drawRect(355,430,145,36);
+						g.drawRect(515,430,145,36);
 						break;
 			case Lobby:
 						g2d.drawImage(tex.bg, 0, 0, null);
 						if(Game.networkType == Game.NETWORK_TYPE.Server) {
 							g2d.drawImage(tex.createHeader, 295, 170, null);
 							g2d.drawString("START", 540, 517);
-//							g2d.drawImage(tex.create_s, 705, 475, null);
 						} else if(Game.networkType == Game.NETWORK_TYPE.Client) {
 							g2d.drawImage(tex.connectedPlayers,175,125,null);
 							g2d.drawImage(tex.ready_s, 540, 517, null);
 						}
-//						g2d.drawImage(tex.lobbyBox, 70, 200, null);
-//						g2d.drawImage(tex.lobbyBox, 70, 300, null);
-//						g2d.drawImage(tex.lobbyBox, 70, 400, null);
-//						g2d.drawImage(tex.lobbyBox, 70, 500, null);
 						g2d.drawImage(tex.back_s, 323, 485, null);
 											
-	//					g.setColor(Color.white);
-//						g.fillRect(500, 200, 400, 250);
 						g2d.drawString("NAME",330, 260);
 						g2d.drawString("PORT",330, 340);
-						g.drawString("IP", 330, 420);
+						g2d.drawString("IP", 330, 420);
 
 						g.setColor(Color.white);
 						g.fillRect(330, 290, 350, 4);
 						g.fillRect(330, 370, 350, 4);
 						g.fillRect(330, 450, 350, 4);
 						
-//						g.setColor(Color.black);
-//						g.fillRect(500+4, 200+4, 400-8, 250-8);
 						g.setColor(Color.white);
 						g.setFont(Game.fnt);
 						Game.fnt = new Font("04B", Font.TRUETYPE_FONT, 24);
@@ -305,9 +296,6 @@ public class Menu extends MouseAdapter{
 								for(int i=0; i < ServerTest.MAX_PLAYERS; i++) {
 									if(Game.server.names[i] != null) {
 										g.drawImage(tex.player[i],300,300,null);
-//										g.drawString(Game.server.names[i],100,250+(100*i));
-//										if(Game.server.status[i])
-//											g2d.drawImage(tex.ready, 300, 225+(100*i), null);
 									}
 								}
 							}
@@ -323,10 +311,6 @@ public class Menu extends MouseAdapter{
 								}
 							}
 						}
-//						g.setColor(Color.white);
-//						g.fillRect(520, 270, 360, 4);
-//						g.fillRect(520, 345, 360, 4);
-//						g.fillRect(520, 420, 360, 4);
 						g.setColor(Color.red);
 						g.drawRect(323, 485, 175, 44);
 						g.drawRect(510, 485, 175, 44);
@@ -353,9 +337,9 @@ public class Menu extends MouseAdapter{
 	}
 	
 	public void createConnectTextFields() {
-		name = new CustomTextField(330, 200, 350, 15, ID.CustomTextField);
-		port = new CustomTextField(330, 290, 350, 15, ID.CustomTextField);
-		pass = new CustomTextField(330, 370, 350, 15, ID.CustomTextField);
+		name = new CustomTextField(330, 220, 350, 15, ID.CustomTextField);
+		port = new CustomTextField(330, 300, 350, 15, ID.CustomTextField);
+		pass = new CustomTextField(330, 380, 350, 15, ID.CustomTextField);
 		
 		Game.ui.addObject(name);
 		Game.ui.addObject(port);
