@@ -36,8 +36,8 @@ public class ClientTest {
 						Game.data.bool = d.bool;
 						if(d.bool) {
 							Game.START = true;
-							Game.soundfx.loop(SoundEffects.bgmultiClip);
-							Game.soundfx.loop(Game.soundfx.blackholeBG);
+							//Game.soundfx.loop(SoundEffects.bgmultiClip);
+							//Game.soundfx.loop(Game.soundfx.blackholeBG);
 							Game.gameState = Game.STATE.Game;
 						}
 						break;
@@ -48,8 +48,9 @@ public class ClientTest {
 						break;
 					}
 				} catch (Exception e) {
-					e.printStackTrace();
-				} 			}
+					//e.printStackTrace();
+				} 			
+			}
 		}
 	};
 	

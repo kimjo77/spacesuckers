@@ -22,7 +22,7 @@ public class ClientThread extends Thread {
 		public void run() {
 			ObjectInputStream ois = null;
 			while(true) {
-				if(s.isConnected()) {
+//				if(s.isConnected()) {
 					try {
 						ois = new ObjectInputStream(s.getInputStream());
 						Data d = (Data) ois.readObject();
@@ -52,9 +52,9 @@ public class ClientThread extends Thread {
 								break;
 						}
 					} catch (Exception e) {
-						e.printStackTrace();
+						//e.printStackTrace();
 					}
 				}
 			}
-		}
+//		}
 }

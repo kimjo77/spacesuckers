@@ -131,6 +131,7 @@ public class Menu extends MouseAdapter{
 											System.out.println("string churva");
 											connectSuccess = false;
 										} catch (IOException e1) {
+											System.out.println("here");
 											connectSuccess = false;
 										} catch (NullPointerException e1) {
 											System.out.println("null churva");
@@ -382,30 +383,21 @@ public class Menu extends MouseAdapter{
 						} else if(Game.networkType == Game.NETWORK_TYPE.Client) {
 							g2d.drawString(pass.getText(), 330, 425);							
 							if(Game.client != null) {
-								for(int i=0; i < ServerTest.MAX_PLAYERS; i++) {
-									if(Game.data.names[i] != null) {
-										g.drawImage(tex.player[i],240 + (i*150),570,null);
-										if(Game.client != null && Game.data.status[i] == true) {
-											g.drawString(Game.data.names[i] + " ready", 220 + (i*150), 640);
-										} else {
-											g.drawString("waiting for", 210 + (i*150), 640);
-											g.drawString(Game.data.names[i], 240 + (i*150), 657);
-										}
-									}
-								}/*if(Game.data.names != null && Game.data.status != null) {
-									for(int i=0; i < ServerTest.MAX_PLAYERS; i++) {
+								if(Game.data.names != null) {
+									for(int i=0; i<ServerTest.MAX_PLAYERS; i++) {
 										if(Game.data.names[i] != null) {
 											g.drawImage(tex.player[i],240 + (i*150),570,null);
-											g.drawString("waiting for", 210 + (i*150), 640);
-											g.drawString(Game.data.names[i], 240 + (i*150), 657);										
-										} else if(Game.data.status[i]) {
-											g.drawString(Game.data.names[i] + " ready", 220 + (i*150), 640);										
-										} else {
-										
+											if(Game.data.status[i]) {
+												g.drawString(Game.data.names[i] + " ready", 220 + (i*150), 640);
+												System.out.println(Game.data.status[i]);
+											} else {
+												g.drawString("waiting for", 210 + (i*150), 640);
+												g.drawString(Game.data.names[i], 240 + (i*150), 657);
+											}
 										}
 									}
-								}*/
-							}				
+								}
+							}
 						}
 						g.setColor(Color.red);
 						g.drawRect(323, 465, 175, 44);
