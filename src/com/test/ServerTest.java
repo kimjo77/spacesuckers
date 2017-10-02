@@ -89,7 +89,9 @@ public class ServerTest extends Thread{
 					oos = new ObjectOutputStream(s[i].getOutputStream());
 					oos.writeObject(data);
 					s[i].getOutputStream().flush();
-				} catch (Exception e) {
+				} catch (IOException e) {
+					System.out.println(s[i].getPort() + " has disconnected");
+					e.printStackTrace();
 				}
 			}
 		}
