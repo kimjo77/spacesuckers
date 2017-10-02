@@ -70,7 +70,6 @@ public class Menu extends MouseAdapter{
 					}
 					break;
 		case Create:
-
 					if(mouseOver(mx,my,355,450,150,50)) {
 						Game.ui.clearObject();
 						System.out.println("Multi!");

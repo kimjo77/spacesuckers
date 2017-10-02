@@ -18,7 +18,6 @@ public class Blackhole extends GameObject {
 	private Player playerObject;
 	private Asteroid asteroidObject;
 	private Bullet bulletObject;
-	private Coin coinObject;
 	
 	private int spiralFrame = 0,
 				max_spiralFrame = 13,
@@ -141,15 +140,7 @@ public class Blackhole extends GameObject {
 						Game.handler.removeObject(bulletObject);
 					}
 				}
-			} else if(tempObject.getId() == ID.Coin) {
-				coinObject = (Coin)tempObject;
-				if(coinObject.getArea() != null) {
-					tempArea.intersect(coinObject.getArea());
-					if(!tempArea.isEmpty()) {
-						Game.handler.removeObject(coinObject);
-					}
-				}
-			}
+			} 
 		}
 		
 	}

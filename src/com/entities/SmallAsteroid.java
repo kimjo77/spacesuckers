@@ -79,6 +79,7 @@ public class SmallAsteroid extends Asteroid{
 				if(bulletObject.getArea() != null) {
 					tempArea.intersect(bulletObject.getArea());
 					if(!tempArea.isEmpty()) {
+						generateSmallCoins();
 						Game.handler.addObject(new SmallExplosion(x,y,32,32,ID.Explosion));
 						Game.handler.removeObject(bulletObject);
 						Game.soundfx.play(Game.soundfx.explosion);
@@ -110,6 +111,10 @@ public class SmallAsteroid extends Asteroid{
 		//g2d.draw(path);
 	}
 
+	public void generateSmallCoins() {
+		Game.handler.addObject(new SmallCoin(x,y,7,7,ID.Coin));
+	}
+	
 	public Rectangle getBounds() {
 		return new Rectangle(x-originX,y-originY,24,24);
 	}

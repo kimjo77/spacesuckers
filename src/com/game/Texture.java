@@ -11,6 +11,7 @@ public class Texture{
 							explode_med = new BufferedImage[6],
 							explode_large = new BufferedImage[6],
 							coin = new BufferedImage[6],
+							coin_small = new BufferedImage[6],
 							blackhole = new BufferedImage[13],
 							spiral = new BufferedImage[13],
 							pull = new BufferedImage[28];
@@ -58,6 +59,8 @@ public class Texture{
 				explode_large[i] = loader.loadImage("/sprites/spr_explosion_large" + (i+1) + ".png",1,1,0);
 			for(int i=0; i<coin.length; i++)
 				coin[i] = loader.loadImage("/sprites/spr_coin" + (i+1) + ".png",2,2,0);
+			for(int i=0; i<coin_small.length; i++)
+				coin_small[i] = loader.loadImage("/sprites/spr_coin" + (i+1) + ".png",1.5,1.5,0);
 			for(int i=0; i<blackhole.length; i++)
 				blackhole[i] = loader.loadImage("/sprites/spr_blackhole" + (i+1) + ".png",2,2,0);
 			for(int i=0; i<spiral.length; i++)
