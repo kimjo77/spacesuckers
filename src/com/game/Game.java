@@ -242,7 +242,7 @@ public class Game extends Canvas implements Runnable{
 		case "single":
 			soundfx.loop(SoundEffects.bgsingleClip);
 			soundfx.loop(soundfx.blackholeBG);
-			handler.addObject(new Player(WIDTH - WIDTH/4, HEIGHT/4,24,12,ID.Player,0,315));
+			handler.addObject(new Player(WIDTH, 0,24,12,ID.Player,0,315));
 			handler.addObject(new Blackhole(WIDTH/2,HEIGHT/2,16,16,ID.Blackhole));
 			handler.addObject(new AsteroidController(0,0,0,0,ID.AsteroidController));
 			handler.addObject(new Asteroid(0,0,16,16,ID.Asteroid));
@@ -255,16 +255,16 @@ public class Game extends Canvas implements Runnable{
 			for(int i=0; i<server.currentcount; i++) {
 				switch(i) {
 				case 0:
-						handler.addObject(new Player(WIDTH/4,HEIGHT/4,24,12,ID.Player,i,225));
+						handler.addObject(new Player(0,0,24,12,ID.Player,i,225));
 						break;
 				case 1:
-						handler.addObject(new Player(WIDTH - WIDTH/4, HEIGHT - HEIGHT/4,24,12,ID.Player,i,45));
+						handler.addObject(new Player(WIDTH, HEIGHT,24,12,ID.Player,i,45));
 						break;
 				case 2:
-						handler.addObject(new Player(WIDTH - WIDTH/4, HEIGHT/4,24,12,ID.Player,i,315));
+						handler.addObject(new Player(WIDTH, 0,24,12,ID.Player,i,315));
 						break;
 				case 3:
-						handler.addObject(new Player(WIDTH/4,HEIGHT - HEIGHT/4,24,12,ID.Player,i,135));
+						handler.addObject(new Player(0,HEIGHT,24,12,ID.Player,i,135));
 						break;
 				}
 			}

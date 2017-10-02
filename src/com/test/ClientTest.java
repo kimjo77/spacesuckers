@@ -7,6 +7,7 @@ import java.net.Socket;
 
 import com.game.Game;
 import com.game.Handler;
+import com.game.SoundEffects;
 
 public class ClientTest {
 	private Socket s = null;
@@ -34,8 +35,8 @@ public class ClientTest {
 						Game.data.bool = d.bool;
 						if(d.bool) {
 							Game.START = true;
+							Game.soundfx.loop(SoundEffects.bgmultiClip);
 							Game.soundfx.loop(Game.soundfx.blackholeBG);
-							Game.soundfx.loop(Game.soundfx.spaceshift);
 							Game.gameState = Game.STATE.Game;
 						}
 						break;
