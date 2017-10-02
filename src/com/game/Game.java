@@ -254,13 +254,17 @@ public class Game extends Canvas implements Runnable{
 			for(int i=0; i<server.currentcount; i++) {
 				switch(i) {
 				case 0:
-					handler.addObject(new Player(WIDTH/4,HEIGHT/4,24,12,ID.Player,i,225));
+						handler.addObject(new Player(WIDTH/4,HEIGHT/4,24,12,ID.Player,i,225));
+						break;
 				case 1:
-					handler.addObject(new Player(WIDTH - WIDTH/4, HEIGHT - HEIGHT/4,24,12,ID.Player,i,45));
+						handler.addObject(new Player(WIDTH - WIDTH/4, HEIGHT - HEIGHT/4,24,12,ID.Player,i,45));
+						break;
 				case 2:
-					handler.addObject(new Player(WIDTH - WIDTH/4, HEIGHT/4,24,12,ID.Player,i,315));
+						handler.addObject(new Player(WIDTH - WIDTH/4, HEIGHT/4,24,12,ID.Player,i,315));
+						break;
 				case 3:
-					handler.addObject(new Player(WIDTH/4,HEIGHT - HEIGHT/4,24,12,ID.Player,i,135));
+						handler.addObject(new Player(WIDTH/4,HEIGHT - HEIGHT/4,24,12,ID.Player,i,135));
+						break;
 				}
 			}
 			handler.addObject(new Blackhole(WIDTH/2,HEIGHT/2,16,16,ID.Blackhole));

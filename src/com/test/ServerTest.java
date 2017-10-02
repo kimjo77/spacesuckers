@@ -27,7 +27,7 @@ public class ServerTest extends Thread{
 	public ServerTest(String name,int  port, String Password) throws IOException {
 		serverIP = InetAddress.getLocalHost();
 		System.out.println(serverIP);
-		ss = new ServerSocket(port,MAX_PLAYERS,serverIP);
+		ss = new ServerSocket(port,0,serverIP);
 		this.names[currentcount] = name;
 		this.status[currentcount] = true;
 		Game.data.names[currentcount] = name;
