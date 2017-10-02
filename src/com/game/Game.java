@@ -241,27 +241,34 @@ public class Game extends Canvas implements Runnable{
 		case "single":
 			soundfx.loop(SoundEffects.bgsingleClip);
 			soundfx.loop(soundfx.blackholeBG);
+			handler.addObject(new Player(WIDTH - WIDTH/4, HEIGHT/4,24,12,ID.Player,0,315));
 			handler.addObject(new Blackhole(WIDTH/2,HEIGHT/2,16,16,ID.Blackhole));
 			handler.addObject(new AsteroidController(0,0,0,0,ID.AsteroidController));
 			handler.addObject(new Asteroid(0,0,16,16,ID.Asteroid));
-			handler.addObject(new Player(WIDTH/2,HEIGHT/2,24,12,ID.Player,0));
-			
 //			ui.addObject(new Gameover(0,0,0,0,ID.))
 			START = true;
 			break;
 		case "multi":
 			soundfx.loop(SoundEffects.bgmultiClip);
 			soundfx.loop(soundfx.blackholeBG);
+			for(int i=0; i<server.currentcount; i++) {
+				switch(i) {
+				case 0:
+					handler.addObject(new Player(WIDTH/4,HEIGHT/4,24,12,ID.Player,i,225));
+				case 1:
+					handler.addObject(new Player(WIDTH - WIDTH/4, HEIGHT - HEIGHT/4,24,12,ID.Player,i,45));
+				case 2:
+					handler.addObject(new Player(WIDTH - WIDTH/4, HEIGHT/4,24,12,ID.Player,i,315));
+				case 3:
+					handler.addObject(new Player(WIDTH/4,HEIGHT - HEIGHT/4,24,12,ID.Player,i,135));
+				}
+			}
 			handler.addObject(new Blackhole(WIDTH/2,HEIGHT/2,16,16,ID.Blackhole));
 			handler.addObject(new AsteroidController(0,0,0,0,ID.AsteroidController));
 			handler.addObject(new Asteroid(0,0,16,16,ID.Asteroid));
-			for(int i=0; i<server.currentcount; i++) {
-				handler.addObject(new Player(rand.nextInt(WIDTH),rand.nextInt(HEIGHT),24,12,ID.Player,i));
-			}
 			START = true;
 			break;
 		}
 	}
-
 }
 	

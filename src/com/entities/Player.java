@@ -49,9 +49,10 @@ public class Player extends GameObject {
 	private transient AffineTransform 	at = new AffineTransform(),
 										gat = new AffineTransform();
 	
-	public Player(int x, int y, int originX, int originY, ID id, int playerID) {
-		super(200, 200, originX, originY, id);
+	public Player(int x, int y, int originX, int originY, ID id, int playerID,double angle) {
+		super(x, y, originX, originY, id);
 		this.playerID = playerID;
+		this.angle = angle;
 		rect = this.getBounds();
 		at.rotate(Math.toRadians(dir), x, y);
 		path.append(rect.getPathIterator(at), true);
@@ -109,15 +110,15 @@ public class Player extends GameObject {
 		y += velY + pullY;
 		
 		if(x <= 0) {
-			x = Game.WIDTH;
-		}else if(x >= Game.WIDTH) {
 			x = 0;
+		}else if(x >= Game.WIDTH) {
+			x = Game.WIDTH;
 		}
 		
 		if(y <= 0) {
-			y = Game.HEIGHT;
-		}else if(y >= Game.HEIGHT) {
 			y = 0;
+		}else if(y >= Game.HEIGHT) {
+			y = Game.HEIGHT;
 		}
 		
 	}
