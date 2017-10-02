@@ -87,12 +87,12 @@ public class Menu extends MouseAdapter{
 						Game.gameState = Game.STATE.Lobby;
 					}
 					break;
-		case Connect:
-					if(mouseOver(mx,my,295,520,203,50)) {
+		case Connect:						
+					if(mouseOver(mx,my,355,450,203,50)) {
 						Game.ui.clearObject();
-						System.out.println("Multi!");
+						System.out.println("Back!");
 						Game.gameState = Game.STATE.Multi;
-					} else if(mouseOver(mx,my,515,520,203,50)) {
+					} else if(mouseOver(mx,my,515,450,203,50)) {
 						Game.networkType = Game.NETWORK_TYPE.Client;
 						try {
 							Game.client = new ClientTest(name.getText(),Integer.parseUnsignedInt(port.getText()),pass.getText());
@@ -216,6 +216,7 @@ public class Menu extends MouseAdapter{
 						break;
 			case Multi:
 						g2d.drawImage(tex.bg,0,0,null);
+						g2d.drawImage(tex.blackhole[0],200,200,null);
 						g2d.drawString("CREATE",440,310);
 						g2d.drawString("CONNECT",430,355);
 						g2d.drawString("BACK",465,400);
@@ -247,23 +248,17 @@ public class Menu extends MouseAdapter{
 						break;
 			case Connect:
 						g2d.drawImage(tex.bg, 0, 0, null);
-						g2d.drawImage(tex.connectHeader, 380, 110, null);
-						g2d.drawImage(tex.back, 295, 520, null);
-						g2d.drawImage(tex.connect, 515, 520, null);
+						g2d.drawImage(tex.connectHeader, 380, 100, null);
+						g2d.drawString("NAME",330,200);
+						g2d.drawString("PORT",330,290);
+						g2d.drawString("IP",330,370);
+						g2d.drawImage(tex.back, 355, 450, null);
+						g2d.drawImage(tex.connect, 515, 450, null);
+
 						g.setColor(Color.white);
-						g.fillRect(280, 180, 450, 300);
-						g.setColor(Color.black);
-						g.fillRect(280+6, 180+6, 450-12, 300-12);
-						g.setColor(Color.white);
-						g.setFont(Game.fnt);
-						Game.fnt = new Font("04B", Font.TRUETYPE_FONT, 32);
-						g.drawString("Name", 310, 230);
-						g.drawString("Port", 310, 320);
-						g.drawString("Pass", 310, 410);
-						g.setColor(Color.white);
-						g.fillRect(310, 270, 390, 6);
-						g.fillRect(310, 360, 390, 6);
-						g.fillRect(310, 450, 390, 6);
+						g.fillRect(330, 240, 350, 4);
+						g.fillRect(330, 330, 350, 4);
+						g.fillRect(330, 410, 350, 4);
 						//g.setColor(Color.red);
 						//g.drawRect(295,520,203,50);
 						//g.drawRect(515,520,203,50);
@@ -347,9 +342,9 @@ public class Menu extends MouseAdapter{
 	}
 	
 	public void createConnectTextFields() {
-		name = new CustomTextField(310, 230, 390, 40,ID.CustomTextField);
-		port = new CustomTextField(310, 320, 390, 40,ID.CustomTextField);
-		pass = new CustomTextField(310, 410, 390, 40,ID.CustomTextField);
+		name = new CustomTextField(330, 200, 350, 40,ID.CustomTextField);
+		port = new CustomTextField(330, 290, 350, 40,ID.CustomTextField);
+		pass = new CustomTextField(330, 370, 350, 40,ID.CustomTextField);
 		
 		Game.ui.addObject(name);
 		Game.ui.addObject(port);

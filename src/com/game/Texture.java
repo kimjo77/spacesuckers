@@ -80,7 +80,7 @@ public class Texture{
 			back_s = loader.loadImage("/images/c1-back.png",.6,.6,1);
 			create_s = loader.loadImage("/images/cs-create.png",.6,.6,1);
 			ready_s  = loader.loadImage("/images/cp-ready.png",.6,.6,1);
-			connect = loader.loadImage("/images/c1-connect.png",.7,.7,1);
+			connect = loader.loadImage("/images/c1-connect.png",.5,.5,1);
 			createHeader = loader.loadImage("/images/createserver-header.png",.7,.7,1);
 			connectHeader = loader.loadImage("/images/c1-connect-header.png",.7,.7,1);
 			connectedPlayers = loader.loadImage("/images/cp-header.png",.7,.7,1);
