@@ -9,6 +9,7 @@ import java.awt.geom.Area;
 import java.awt.geom.GeneralPath;
 
 import com.game.Game;
+import com.game.Gameover;
 import com.game.ID;
 
 public class Blackhole extends GameObject {
@@ -130,6 +131,9 @@ public class Blackhole extends GameObject {
 				tempArea.intersect(playerObject.getArea());
 					if(!tempArea.isEmpty()) {
 						Game.handler.removeObject(playerObject);
+						if(Game.networkType == null) {
+							Game.ui.addObject(new Gameover(x,y,0,0,ID.Gameover));
+						}
 					}
 				}
 			} else if(tempObject.getId() == ID.Bullet) {
@@ -173,6 +177,8 @@ public class Blackhole extends GameObject {
 		path.append(rect.getPathIterator(at), true);
 		area = new Area(path);
 		//g2d.draw(path);
+		
+		
 	}
 	
 	
