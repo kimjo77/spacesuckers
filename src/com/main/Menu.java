@@ -352,8 +352,8 @@ public class Menu extends MouseAdapter{
 							g2d.drawString("GAME LOBBY", 385, 150);
 							g2d.drawString("START", 540, 497);
 						} else if(Game.networkType == Game.NETWORK_TYPE.Client) {
-							g2d.drawImage(tex.connectedPlayers,175,125,null);
-							g2d.drawImage(tex.ready_s, 540, 517, null);
+							g2d.drawString("GAME LOBBY", 385, 150);
+							g2d.drawImage(tex.ready_s, 510, 465, null);
 						}
 																	
 						g.setColor(Color.white);
@@ -367,31 +367,37 @@ public class Menu extends MouseAdapter{
 //						Game.fnt = new Font("04B", Font.TRUETYPE_FONT, 32);
 						if(Game.networkType == Game.NETWORK_TYPE.Server) {
 							g2d.drawString(Game.server.getIPAddress(), 330, 425);
+							Game.fnt = new Font("Connection",Font.PLAIN,16);
+							g2d.setFont(Game.fnt);
+
 							for(int i=0; i < ServerTest.MAX_PLAYERS; i++) {
 								if(Game.server.names[i] != null) {
-									g.drawImage(tex.player[i],280 + (i*150),570,null);
+									g.drawImage(tex.player[i],240 + (i*150),570,null);
+									if(Game.server != null && Game.server.status[i] == true) {
+										g.drawString(Game.server.names[i] + " ready", 220 + (i*150), 640);										
+									} else {
+										g.drawString("waiting for", 210 + (i*150), 640);
+										g.drawString(Game.server.names[i], 240 + (i*150), 657);
+									}
 								}
-							}
-
-							if(Game.server != null) {
-//								for(int i=0; i < ServerTest.MAX_PLAYERS; i++) {
-//									if(Game.server.names[i] != null) {
-//										g.drawImage(tex.player[i],280,570,null);
-//									}
-//								}
-							}
+							}		
 						} else if(Game.networkType == Game.NETWORK_TYPE.Client) {
-							g2d.drawString(pass.getText(), 330, 445);							
+							g2d.drawString(pass.getText(), 330, 425);							
 							if(Game.client != null) {
 								if(Game.data.names != null && Game.data.status != null)
 								for(int i=0; i < ServerTest.MAX_PLAYERS; i++) {
-									if(Game.data.names[i] != null) {
-										g.drawString(Game.data.names[i],100,250+(100*i));
-										if(Game.data.status[i])
-											g2d.drawImage(tex.ready, 300, 225+(100*i), null);
+									if(Game.data.names[i] != null && !Game.data.status[i]) {
+										g.drawString("waiting for", 210 + (i*150), 640);
+										g.drawString(Game.data.names[i], 240 + (i*150), 657);
+									} else {
+										g.drawImage(tex.player[i],240 + (i*150),570,null);
+										g.drawString(Game.data.names[i] + " ready", 220 + (i*150), 640);										
 									}
-								}
-							}
+//										g.drawString(Game.data.names[i],100,250+(100*i));
+//										if(Game.data.status[i])
+//											g2d.drawImage(tex.ready, 300, 225+(100*i), null);
+									}
+								}				
 						}
 						g.setColor(Color.red);
 						g.drawRect(323, 465, 175, 44);
