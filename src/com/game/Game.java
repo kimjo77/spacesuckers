@@ -5,7 +5,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
-import java.util.HashMap;
+import java.io.IOException;
 import java.util.Random;
 
 import com.entities.Asteroid;
@@ -275,10 +275,9 @@ public class Game extends Canvas implements Runnable{
 			break;
 		}
 	}
-	public static void gameRestart() {
-		ui.clearObject();
-		handler.clearObject();
-		gamestart("single");
-	}
+    public static void gameRestart() {
+        ui.clearObject();
+        handler.clearObject();
+        gamestart("single");
+    }
 }
-	

@@ -13,7 +13,8 @@ public class MouseInput extends MouseAdapter{
 	private GameObject tempObject;
 	private Player playerObject;
 	private CustomTextField tempTF;
-	private Gameover gameoverObject;
+    private Gameover gameoverObject;
+
 	
 	public MouseInput(Handler handler) {
 		this.handler = handler;
@@ -43,21 +44,23 @@ public class MouseInput extends MouseAdapter{
 						tempTF.setFocus(true);
 						System.out.println("INSIDE!!!");
 					} else {
+						System.out.println("NOT!!!");
 						tempTF.setFocus(false);
 					}
 				}
-				if(tempObject.getId() == ID.Gameover) {
-					//g.fillRect(x+40, y+120, 150, 40);
-					//g.fillRect(x+210, y+120, 150, 40);
-					gameoverObject = (Gameover)tempObject;
-					if(mouseOver(mx, my, gameoverObject.getX()+40, gameoverObject.getY()+120, 150, 40)) {
-						Game.gameRestart();
-					} else if(mouseOver(mx, my, gameoverObject.getX()+210, gameoverObject.getY()+120, 150, 40)) {
-						Game.handler.clearObject();
-						Game.ui.clearObject();
-						Game.gameState = Game.STATE.Menu;
-					}
-				}
+                if(tempObject.getId() == ID.Gameover) {
+                    //g.fillRect(x+40, y+120, 150, 40);
+                    //g.fillRect(x+210, y+120, 150, 40);
+                    gameoverObject = (Gameover)tempObject;
+                    if(mouseOver(mx, my, gameoverObject.getX()+40, gameoverObject.getY()+120, 150, 40)) {
+                        Game.gameRestart();
+                    } else if(mouseOver(mx, my, gameoverObject.getX()+210, gameoverObject.getY()+120, 150, 40)) {
+                        Game.handler.clearObject();
+                        Game.ui.clearObject();
+                        Game.gameState = Game.STATE.Menu;
+                    }
+                }
+
 			}
 		}
 	}
@@ -105,3 +108,4 @@ public class MouseInput extends MouseAdapter{
 		return ans;
 	}
 }
+
