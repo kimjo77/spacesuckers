@@ -51,11 +51,7 @@ public class ClientThread extends Thread {
 								}
 								break;
 						}
-					} catch (IOException e) {
-						System.out.println(s + " disconnected");
-						e.printStackTrace();
-					} catch (ClassNotFoundException e) {
-						// TODO Auto-generated catch block
+					} catch (Exception e) {
 						e.printStackTrace();
 					}
 				}
