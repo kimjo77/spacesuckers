@@ -182,6 +182,7 @@ public class Game extends Canvas implements Runnable{
 							} else if( pi.mouse_shoot == 1) {
 								pi.mouse_shoot = 2;
 							}
+							//handler.tick();
 						} else {
 							handler.tick();
 						}

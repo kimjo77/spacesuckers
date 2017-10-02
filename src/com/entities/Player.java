@@ -183,12 +183,12 @@ public class Player extends GameObject {
 		g2d.drawImage(Game.tex.cursor[playerID], gat, null);
 		//g.drawRect((int)(x+turrentX) ,(int)(y+turrentY)-2,4,4);
 		
-		if(Game.networkType != null) {
+		/*if(Game.networkType != null) {
 			Game.fnt = new Font("04B", Font.PLAIN, 14);
 			g.setColor(Color.white);
 			g.setFont(Game.fnt);
-			g.drawString(Game.data.names[playerID], x-24, y-24);
-		} 
+			//g.drawString(Game.data.names[playerID], x-24, y-24);
+		} */
 	}
 	
 	public void setPullX(double pullX) {
