@@ -136,7 +136,7 @@ public class Player extends GameObject {
 	}
 
 	public void shoot(int choice) {
-		Bullet b = new Bullet((int)(x+turrentX), (int)(y+turrentY), 3, 3, ID.Bullet);
+		Bullet b = new Bullet((int)(x+turrentX), (int)(y+turrentY), 3, 3, ID.Bullet, playerID);
 		Game.handler.addObject(b);
 //		b.playSound(b.getAudioClip()); 
 //		sfx.get("shoot").play();

@@ -275,5 +275,10 @@ public class Game extends Canvas implements Runnable{
 			break;
 		}
 	}
+	public static void gameRestart() {
+		ui.clearObject();
+		handler.clearObject();
+		gamestart("single");
+	}
 }
 	

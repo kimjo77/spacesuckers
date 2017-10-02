@@ -17,18 +17,21 @@ import com.game.ID;
 
 public class Bullet extends GameObject {
 
+	private int bulletID = 0;
 	private double angle = 0; 
 	private final int spd = 15 ;
 	
 	private Rectangle rect;
 	private transient Area area;
 	private transient GeneralPath path = new GeneralPath();
-	private transient AffineTransform at = new AffineTransform();
+	private transient AffineTransform 	at = new AffineTransform(),
+										gat = new AffineTransform();
 	
 	//private File audio;
 	
-	public Bullet(int x, int y, int originX, int originY, ID id) {
+	public Bullet(int x, int y, int originX, int originY, ID id, int bulletID) {
 		super(x, y, originX, originY, id);
+		this.bulletID = bulletID;
 		rect = this.getBounds();
 		at.rotate(Math.toRadians(angle), x, y);
 		path.append(rect.getPathIterator(at), true);
@@ -80,9 +83,14 @@ public class Bullet extends GameObject {
 		g.setColor(Color.GREEN);
 		Graphics2D g2d = (Graphics2D) g;
 		at = new AffineTransform();
+		gat = new AffineTransform();
 		path = new GeneralPath();
 		
 		rect = this.getBounds();
+		
+		gat.rotate(Math.toRadians(angle), x, y);
+		gat.translate(x-(Game.tex.bullet[bulletID].getWidth()/2),y-(Game.tex.bullet[bulletID].getHeight()/2));
+		g2d.drawImage(Game.tex.bullet[bulletID], gat, null);
 		
 		at.rotate(Math.toRadians(angle), x, y);
 		path.append(rect.getPathIterator(at), true);

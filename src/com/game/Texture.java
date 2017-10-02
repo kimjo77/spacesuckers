@@ -6,6 +6,7 @@ public class Texture{
 
 	public BufferedImage[] 	player = new BufferedImage[4],
 							cursor = new BufferedImage[4],
+							bullet = new BufferedImage[4],
 							asteroid = new BufferedImage[3],
 							muzzle = new BufferedImage[6],
 							explode_med = new BufferedImage[6],
@@ -14,9 +15,7 @@ public class Texture{
 							coin_small = new BufferedImage[6],
 							blackhole = new BufferedImage[13],
 							spiral = new BufferedImage[13],
-							pull = new BufferedImage[28],
-							menu_blackhole = new BufferedImage[13],
-							menu_pull = new BufferedImage[28];	
+							pull = new BufferedImage[28];
 							
 	public BufferedImage 	logo,
 							team,
@@ -38,7 +37,9 @@ public class Texture{
 						 	lobbyBox,
 						 	ready,
 						 	menuBtn[] = new BufferedImage[3],
-						 	multiBtn[] = new BufferedImage[3];
+						 	multiBtn[] = new BufferedImage[3],
+				 			menu_blackhole[] = new BufferedImage[13],
+							menu_pull[] = new BufferedImage[28];	
 	public Texture() {
 		BufferedImageLoader loader = new BufferedImageLoader();		
 		int muzzle_length = muzzle.length,
@@ -61,11 +62,13 @@ public class Texture{
 			cursor[1] = loader.loadImage("/sprites/spr_CursorOrange.png",1.5,1.5,0);
 			cursor[2] = loader.loadImage("/sprites/spr_CursorRed.png",1.5,1.5,0);
 			cursor[3] = loader.loadImage("/sprites/spr_CursorGreen.png",1.5,1.5,0);
-			asteroid[0] = loader.loadImage("/sprites/spr_Asteroid1.png",2,2,0);
-			asteroid[1] = loader.loadImage("/sprites/spr_Asteroid2.png",2,2,0);
-			asteroid[2] = loader.loadImage("/sprites/spr_Asteroid3.png",2,2,0);
+			bullet[0] = loader.loadImage("/sprites/spr_bulletBlue.png",1.5,1.5,0);
+			bullet[1] = loader.loadImage("/sprites/spr_bulletOrange.png",1.5,1.5,0);
+			bullet[2] = loader.loadImage("/sprites/spr_bulletRed.png",1.5,1.5,0);
+			bullet[3] = loader.loadImage("/sprites/spr_bulletGreen.png",1.5,1.5,0);
 			
-			
+			for(int i=0; i<asteroid.length; i++)
+				asteroid[i] = loader.loadImage("/sprites/spr_Asteroid" + (i+1) + ".png",2,2,0);
 			for(int i=0; i<muzzle_length; i++)
 				muzzle[i] = loader.loadImage("/sprites/muzzle" + (i+1) + ".png",2,2,0);
 			for(int i=0; i<explodeMed_length; i++)
