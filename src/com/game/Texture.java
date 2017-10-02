@@ -14,8 +14,10 @@ public class Texture{
 							coin_small = new BufferedImage[6],
 							blackhole = new BufferedImage[13],
 							spiral = new BufferedImage[13],
-							pull = new BufferedImage[28];
-	
+							pull = new BufferedImage[28],
+							menu_blackhole = new BufferedImage[13],
+							menu_pull = new BufferedImage[28];	
+							
 	public BufferedImage 	logo,
 							team,
 						 	bg,
@@ -38,7 +40,18 @@ public class Texture{
 						 	menuBtn[] = new BufferedImage[3],
 						 	multiBtn[] = new BufferedImage[3];
 	public Texture() {
-		BufferedImageLoader loader = new BufferedImageLoader();
+		BufferedImageLoader loader = new BufferedImageLoader();		
+		int muzzle_length = muzzle.length,
+			explodeMed_length = explode_med.length,
+			explodeLarge_length = explode_large.length,
+			coin_length = coin.length,
+			smallCoin_length = coin_small.length,
+			blackhole_length = blackhole.length,
+			spiral_length = spiral.length,
+			pull_length = pull.length,
+			menuBlackhole_length = menu_blackhole.length,
+			menuPull_length = menu_pull.length;
+		
 		try {
 			player[0] = loader.loadImage("/sprites/spr_PlayerBlue.png",1.5,1.5,0);
 			player[1] = loader.loadImage("/sprites/spr_playerOrange.png",1.5,1.5,0);
@@ -51,22 +64,29 @@ public class Texture{
 			asteroid[0] = loader.loadImage("/sprites/spr_Asteroid1.png",2,2,0);
 			asteroid[1] = loader.loadImage("/sprites/spr_Asteroid2.png",2,2,0);
 			asteroid[2] = loader.loadImage("/sprites/spr_Asteroid3.png",2,2,0);
-			for(int i=0; i<muzzle.length; i++)
+			
+			
+			for(int i=0; i<muzzle_length; i++)
 				muzzle[i] = loader.loadImage("/sprites/muzzle" + (i+1) + ".png",2,2,0);
-			for(int i=0; i<explode_med.length; i++)
+			for(int i=0; i<explodeMed_length; i++)
 				explode_med[i] = loader.loadImage("/sprites/spr_explosion_medium" + (i+1) + ".png",1,1,0);
-			for(int i=0; i<explode_large.length; i++)
+			for(int i=0; i<explodeLarge_length; i++)
 				explode_large[i] = loader.loadImage("/sprites/spr_explosion_large" + (i+1) + ".png",1,1,0);
-			for(int i=0; i<coin.length; i++)
+			for(int i=0; i<coin_length; i++)
 				coin[i] = loader.loadImage("/sprites/spr_coin" + (i+1) + ".png",2,2,0);
-			for(int i=0; i<coin_small.length; i++)
+			for(int i=0; i<smallCoin_length; i++)
 				coin_small[i] = loader.loadImage("/sprites/spr_coin" + (i+1) + ".png",1.5,1.5,0);
-			for(int i=0; i<blackhole.length; i++)
+			for(int i=0; i<blackhole_length; i++)
 				blackhole[i] = loader.loadImage("/sprites/spr_blackhole" + (i+1) + ".png",2,2,0);
-			for(int i=0; i<spiral.length; i++)
+			for(int i=0; i<spiral_length; i++)
 				spiral[i] = loader.loadImage("/sprites/spr_spiral" + (i+1) + ".png",3,3,0);
-			for(int i=0; i<pull.length; i++)
+			for(int i=0; i<pull_length; i++)
 				pull[i] = loader.loadImage("/sprites/spr_pull" + (i+1) + ".png",2,2,0);
+			
+			for(int i =0; i<menuBlackhole_length; i++) 
+				menu_blackhole[i] = loader.loadImage("/sprites/spr_blackhole" + (i+1) + ".png",13,13,0);				
+			for(int i =0; i<menuPull_length; i++) 
+				menu_pull[i] = loader.loadImage("/sprites/spr_pull" + (i+1) + ".png",5,5,0);
 
 			logo = loader.loadImage("/images/logo.png",.6,.6,1);
 			team = loader.loadImage("/images/ws-logo.png",1,1,1);	
@@ -81,7 +101,7 @@ public class Texture{
 			create_s = loader.loadImage("/images/cs-create.png",.6,.6,1);
 			ready_s  = loader.loadImage("/images/cp-ready.png",.6,.6,1);
 			connect = loader.loadImage("/images/c1-connect.png",.5,.5,1);
-			createHeader = loader.loadImage("/images/createserver-header.png",.7,.7,1);
+			createHeader = loader.loadImage("/images/createserver-header.png",.6,.6,1);
 			connectHeader = loader.loadImage("/images/c1-connect-header.png",.7,.7,1);
 			connectedPlayers = loader.loadImage("/images/cp-header.png",.7,.7,1);
 			lobbyBox = loader.loadImage("/images/cp-des.png",.7,.7,1);
@@ -96,7 +116,5 @@ public class Texture{
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
-		
 	}
-
 }

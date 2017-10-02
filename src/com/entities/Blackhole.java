@@ -173,8 +173,6 @@ public class Blackhole extends GameObject {
 		path.append(rect.getPathIterator(at), true);
 		area = new Area(path);
 		//g2d.draw(path);
-		
-		
 	}
 	
 	

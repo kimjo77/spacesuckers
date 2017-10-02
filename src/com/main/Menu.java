@@ -5,8 +5,12 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Rectangle;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.geom.AffineTransform;
+import java.awt.geom.Area;
+import java.awt.geom.GeneralPath;
 import java.io.IOException;
 
 import com.game.Game;
@@ -34,7 +38,7 @@ public class Menu extends MouseAdapter{
 	private CustomTextField name,
 							port,
 							pass;
-	
+		
 	public void mousePressed(MouseEvent e) {
 		mx = e.getX();
 		my = e.getY();
@@ -70,11 +74,11 @@ public class Menu extends MouseAdapter{
 					}
 					break;
 		case Create:
-					if(mouseOver(mx,my,355,450,145,36)) {
+					if(mouseOver(mx,my,355,410,145,36)) {
 						Game.ui.clearObject();
 						System.out.println("Multi!");
 						Game.gameState = Game.STATE.Multi;
-					} else if(mouseOver(mx,my,515,450,145,36)) {
+					} else if(mouseOver(mx,my,515,410,145,36)) {
 						Game.networkType = Game.NETWORK_TYPE.Server;
 						try {
 							Game.server = new ServerTest(name.getText(),Integer.parseUnsignedInt(port.getText()),null);
@@ -220,7 +224,7 @@ public class Menu extends MouseAdapter{
 						break;
 			case Multi:
 						g2d.drawImage(tex.bg,0,0,null);
-						g2d.drawImage(tex.blackhole[0],200,200,null);
+						g2d.drawImage(tex.menu_blackhole[0],90,-70,null);
 						g2d.drawString("CREATE",440,310);
 						g2d.drawString("CONNECT",430,355);
 						g2d.drawString("BACK",465,400);
@@ -232,30 +236,31 @@ public class Menu extends MouseAdapter{
 						break;
 			case Create:
 						g2d.drawImage(tex.bg, 0, 0, null);
-						g2d.drawImage(tex.createHeader, 265, 160, null);
-						g2d.drawString("NAME",330, 280);
-						g2d.drawString("PORT",330, 370);
-						g2d.drawImage(tex.back, 355, 450, null);
-						g2d.drawImage(tex.create, 515, 450, null);
+//						g2d.drawImage(tex.menu_blackhole[0],90,-70,null);
+						g2d.drawImage(tex.createHeader, 295, 170, null);
+						g2d.drawString("NAME",330, 260);
+						g2d.drawString("PORT",330, 340);
+						g2d.drawImage(tex.back, 355, 410, null);
+						g2d.drawImage(tex.create, 515, 410, null);
 						
 						g.setColor(Color.white);
-						g.fillRect(330, 320, 350, 4);
-						g.fillRect(330, 410, 350, 4);
+						g.fillRect(330, 290, 350, 4);
+						g.fillRect(330, 370, 350, 4);
 						g.setColor(Color.red);
-						g.drawRect(355,450,145,36);
-						g.drawRect(515,450,145,36);
+						g.drawRect(355,410,145,36);
+						g.drawRect(515,410,145,36);
 						break;
 			case Connect:
 						g2d.drawImage(tex.bg, 0, 0, null);
-						g2d.drawImage(tex.connectHeader, 380, 100, null);
-						g2d.drawString("NAME",330,200);
-						g2d.drawString("PORT",330,290);
-						g2d.drawString("IP",330,370);
+						g2d.drawImage(tex.connectHeader, 295, 170, null);
+						g2d.drawString("NAME",330,260);
+						g2d.drawString("PORT",330,340);
+						g2d.drawString("IP",330,420);
 						g2d.drawImage(tex.back, 355, 450, null);
 						g2d.drawImage(tex.connect, 515, 450, null);
 
 						g.setColor(Color.white);
-						g.fillRect(330, 240, 350, 4);
+						g.fillRect(330, 20, 350, 4);
 						g.fillRect(330, 330, 350, 4);
 						g.fillRect(330, 410, 350, 4);
 						g.setColor(Color.red);
@@ -265,37 +270,44 @@ public class Menu extends MouseAdapter{
 			case Lobby:
 						g2d.drawImage(tex.bg, 0, 0, null);
 						if(Game.networkType == Game.NETWORK_TYPE.Server) {
-							g2d.drawImage(tex.createHeader,250,125,null);
-							g2d.drawImage(tex.create_s, 705, 475, null);
+							g2d.drawImage(tex.createHeader, 295, 170, null);
+							g2d.drawString("START", 540, 517);
+//							g2d.drawImage(tex.create_s, 705, 475, null);
 						} else if(Game.networkType == Game.NETWORK_TYPE.Client) {
 							g2d.drawImage(tex.connectedPlayers,175,125,null);
-							g2d.drawImage(tex.ready_s, 705, 475, null);
+							g2d.drawImage(tex.ready_s, 540, 517, null);
 						}
-						g2d.drawImage(tex.lobbyBox, 70, 200, null);
-						g2d.drawImage(tex.lobbyBox, 70, 300, null);
-						g2d.drawImage(tex.lobbyBox, 70, 400, null);
-						g2d.drawImage(tex.lobbyBox, 70, 500, null);
-						g2d.drawImage(tex.back_s, 525, 475, null);
-						
-						
+//						g2d.drawImage(tex.lobbyBox, 70, 200, null);
+//						g2d.drawImage(tex.lobbyBox, 70, 300, null);
+//						g2d.drawImage(tex.lobbyBox, 70, 400, null);
+//						g2d.drawImage(tex.lobbyBox, 70, 500, null);
+						g2d.drawImage(tex.back_s, 323, 485, null);
+											
+	//					g.setColor(Color.white);
+//						g.fillRect(500, 200, 400, 250);
+						g2d.drawString("NAME",330, 260);
+						g2d.drawString("PORT",330, 340);
+						g.drawString("IP", 330, 420);
+
 						g.setColor(Color.white);
-						g.fillRect(500, 200, 400, 250);
-						g.setColor(Color.black);
-						g.fillRect(500+4, 200+4, 400-8, 250-8);
+						g.fillRect(330, 290, 350, 4);
+						g.fillRect(330, 370, 350, 4);
+						g.fillRect(330, 450, 350, 4);
+						
+//						g.setColor(Color.black);
+//						g.fillRect(500+4, 200+4, 400-8, 250-8);
 						g.setColor(Color.white);
 						g.setFont(Game.fnt);
 						Game.fnt = new Font("04B", Font.TRUETYPE_FONT, 24);
-						g.drawString("Name", 520, 240);
-						g.drawString("Port", 520, 315);
-						g.drawString("Pass", 520, 390);
 						Game.fnt = new Font("04B", Font.TRUETYPE_FONT, 32);
 						if(Game.networkType == Game.NETWORK_TYPE.Server) {
 							if(Game.server != null) {
 								for(int i=0; i < ServerTest.MAX_PLAYERS; i++) {
 									if(Game.server.names[i] != null) {
-										g.drawString(Game.server.names[i],100,250+(100*i));
-										if(Game.server.status[i])
-											g2d.drawImage(tex.ready, 300, 225+(100*i), null);
+										g.drawImage(tex.player[i],300,300,null);
+//										g.drawString(Game.server.names[i],100,250+(100*i));
+//										if(Game.server.status[i])
+//											g2d.drawImage(tex.ready, 300, 225+(100*i), null);
 									}
 								}
 							}
@@ -311,13 +323,13 @@ public class Menu extends MouseAdapter{
 								}
 							}
 						}
-						g.setColor(Color.white);
-						g.fillRect(520, 270, 360, 4);
-						g.fillRect(520, 345, 360, 4);
-						g.fillRect(520, 420, 360, 4);
+//						g.setColor(Color.white);
+//						g.fillRect(520, 270, 360, 4);
+//						g.fillRect(520, 345, 360, 4);
+//						g.fillRect(520, 420, 360, 4);
 						g.setColor(Color.red);
-						g.drawRect(524, 474, 175, 44);
-						g.drawRect(704, 474, 175, 44);
+						g.drawRect(323, 485, 175, 44);
+						g.drawRect(510, 485, 175, 44);
 						break;
 			case Game:
 			default:
@@ -341,9 +353,9 @@ public class Menu extends MouseAdapter{
 	}
 	
 	public void createConnectTextFields() {
-		name = new CustomTextField(330, 200, 350, 40,ID.CustomTextField);
-		port = new CustomTextField(330, 290, 350, 40,ID.CustomTextField);
-		pass = new CustomTextField(330, 370, 350, 40,ID.CustomTextField);
+		name = new CustomTextField(330, 200, 350, 15, ID.CustomTextField);
+		port = new CustomTextField(330, 290, 350, 15, ID.CustomTextField);
+		pass = new CustomTextField(330, 370, 350, 15, ID.CustomTextField);
 		
 		Game.ui.addObject(name);
 		Game.ui.addObject(port);
@@ -351,10 +363,11 @@ public class Menu extends MouseAdapter{
 	}
 	
 	public void createCreateTextFields() {
-		name = new CustomTextField(330, 280, 350, 40,ID.CustomTextField);
-		port = new CustomTextField(330, 370, 350, 40,ID.CustomTextField);
+		name = new CustomTextField(330, 270, 350, 15, ID.CustomTextField);
+		port = new CustomTextField(330, 350, 350, 15, ID.CustomTextField);
 		
 		Game.ui.addObject(name);
 		Game.ui.addObject(port);
 	}
+	
 }

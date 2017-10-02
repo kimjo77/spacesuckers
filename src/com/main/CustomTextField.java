@@ -24,11 +24,11 @@ public class CustomTextField extends GameObject {
 		textColor = Color.white;
 		text = "";
 		fontStyle = "Connection";
-		fontSize = 30;
+		fontSize = 24;
 		font = new Font(fontStyle, Font.PLAIN, fontSize);
 		thickness = 0;
-		backgroundColor = Color.black;
-		foregroundColor = Color.black;
+		backgroundColor = Color.green;
+		foregroundColor = Color.green;
 		focus = false;
 	}
 	public void tick() {
