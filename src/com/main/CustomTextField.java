@@ -22,8 +22,8 @@ public class CustomTextField extends GameObject {
 		this.height = height;
 		textColor = Color.white;
 		text = "";
-		fontStyle = "04B";
-		fontSize = 10;
+		fontStyle = "Connection";
+		fontSize = 30;
 		font = new Font(fontStyle, Font.PLAIN, fontSize);
 		thickness = 0;
 		backgroundColor = Color.black;
@@ -35,6 +35,7 @@ public class CustomTextField extends GameObject {
 	}
 	public void render(Graphics g) {	
 		Graphics2D g2d = (Graphics2D) g;
+		g.setFont(font);
 		g.setColor(backgroundColor);
 		g.fillRect(x, y, width, height);
 		g.setColor(foregroundColor);

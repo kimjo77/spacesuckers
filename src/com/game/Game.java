@@ -96,8 +96,7 @@ public class Game extends Canvas implements Runnable{
 		
 		switch(gameState) {
 			case Menu :
-						//Game.soundfx.loop(Game.soundfx.bgmenu);
-						soundfx.loop(SoundEffects.bgmenuClip);
+//						soundfx.loop(SoundEffects.bgmenuClip);
 						break;
 			case Game : 
 						gamestart("single");
@@ -170,8 +169,6 @@ public class Game extends Canvas implements Runnable{
 					break;
 		case Game : 
 					if(START) {
-					//	Game.soundfx.loop(Game.soundfx.blackholeBG);
-					//	Game.soundfx.loop(Game.soundfx.spaceshift);						
 						if(networkType == NETWORK_TYPE.Server) {
 							server.send(handler.object);
 							handler.tick();
@@ -239,9 +236,11 @@ public class Game extends Canvas implements Runnable{
 	
 	//--Others
 	public static void gamestart(String type) {
+		Game.soundfx.stop(SoundEffects.bgmenuClip);
 		switch(type){
 		case "single":
 			soundfx.loop(SoundEffects.bgsingleClip);
+			soundfx.loop(soundfx.blackholeBG);
 			handler.addObject(new Blackhole(WIDTH/2,HEIGHT/2,16,16,ID.Blackhole));
 			handler.addObject(new AsteroidController(0,0,0,0,ID.AsteroidController));
 			handler.addObject(new Asteroid(0,0,16,16,ID.Asteroid));
@@ -251,8 +250,8 @@ public class Game extends Canvas implements Runnable{
 			START = true;
 			break;
 		case "multi":
-			Game.soundfx.loop(Game.soundfx.blackholeBG);
-			Game.soundfx.loop(Game.soundfx.spaceshift);
+			soundfx.loop(SoundEffects.bgmultiClip);
+			soundfx.loop(soundfx.blackholeBG);
 			handler.addObject(new Blackhole(WIDTH/2,HEIGHT/2,16,16,ID.Blackhole));
 			handler.addObject(new AsteroidController(0,0,0,0,ID.AsteroidController));
 			handler.addObject(new Asteroid(0,0,16,16,ID.Asteroid));
