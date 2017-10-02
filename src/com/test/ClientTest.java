@@ -47,12 +47,9 @@ public class ClientTest {
 						Game.handler.object = d.object;
 						break;
 					}
-				} catch (IOException e) {
+				} catch (Exception e) {
 					e.printStackTrace();
-				} catch (ClassNotFoundException e) {
-					e.printStackTrace();
-				}
-			}
+				} 			}
 		}
 	};
 	

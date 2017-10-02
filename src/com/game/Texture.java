@@ -91,7 +91,7 @@ public class Texture{
 			for(int i =0; i<menuPull_length; i++) 
 				menu_pull[i] = loader.loadImage("/sprites/spr_pull" + (i+1) + ".png",5,5,0);
 
-			logo = loader.loadImage("/images/logo.png",.6,.6,1);
+			logo = loader.loadImage("/images/logo2.png",.6,.6,1);
 			team = loader.loadImage("/images/ws-logo.png",1,1,1);	
 			bg = loader.loadImage("/images/menu-bg.png",.7,.7,1);
 			bgpane = loader.loadImage("/images/bgpane.png",1.4,1.4,0);

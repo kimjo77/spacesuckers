@@ -386,7 +386,7 @@ public class Menu extends MouseAdapter{
 									if(Game.data.names[i] != null) {
 										g.drawImage(tex.player[i],240 + (i*150),570,null);
 										if(Game.client != null && Game.data.status[i] == true) {
-											g.drawString(Game.data.names[i] + " ready", 220 + (i*150), 640);										
+											g.drawString(Game.data.names[i] + " ready", 220 + (i*150), 640);
 										} else {
 											g.drawString("waiting for", 210 + (i*150), 640);
 											g.drawString(Game.data.names[i], 240 + (i*150), 657);
