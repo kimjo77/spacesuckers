@@ -10,7 +10,10 @@ public class Texture{
 							muzzle = new BufferedImage[6],
 							explode_med = new BufferedImage[6],
 							explode_large = new BufferedImage[6],
-							coin = new BufferedImage[6];
+							coin = new BufferedImage[6],
+							blackhole = new BufferedImage[13],
+							spiral = new BufferedImage[13],
+							pull = new BufferedImage[28];
 	
 	public BufferedImage 	logo,
 							team,
@@ -46,30 +49,20 @@ public class Texture{
 			asteroid[0] = loader.loadImage("/sprites/spr_Asteroid1.png",2,2,0);
 			asteroid[1] = loader.loadImage("/sprites/spr_Asteroid2.png",2,2,0);
 			asteroid[2] = loader.loadImage("/sprites/spr_Asteroid3.png",2,2,0);
-			muzzle[0] = loader.loadImage("/sprites/muzzle1.png",2,2,0);
-			muzzle[1] = loader.loadImage("/sprites/muzzle2.png",2,2,0);
-			muzzle[2] = loader.loadImage("/sprites/muzzle3.png",2,2,0);
-			muzzle[3] = loader.loadImage("/sprites/muzzle4.png",2,2,0);
-			muzzle[4] = loader.loadImage("/sprites/muzzle5.png",2,2,0);
-			muzzle[5] = loader.loadImage("/sprites/muzzle6.png",2,2,0);
-			explode_med[0] = loader.loadImage("/sprites/spr_explosion_medium1.png",1,1,0);
-			explode_med[1] = loader.loadImage("/sprites/spr_explosion_medium2.png",1,1,0);
-			explode_med[2] = loader.loadImage("/sprites/spr_explosion_medium3.png",1,1,0);
-			explode_med[3] = loader.loadImage("/sprites/spr_explosion_medium4.png",1,1,0);
-			explode_med[4] = loader.loadImage("/sprites/spr_explosion_medium5.png",1,1,0);
-			explode_med[5] = loader.loadImage("/sprites/spr_explosion_medium6.png",1,1,0);
-			explode_large[0] = loader.loadImage("/sprites/spr_explosion_large1.png",1,1,0);
-			explode_large[1] = loader.loadImage("/sprites/spr_explosion_large2.png",1,1,0);
-			explode_large[2] = loader.loadImage("/sprites/spr_explosion_large3.png",1,1,0);
-			explode_large[3] = loader.loadImage("/sprites/spr_explosion_large4.png",1,1,0);
-			explode_large[4] = loader.loadImage("/sprites/spr_explosion_large5.png",1,1,0);
-			explode_large[5] = loader.loadImage("/sprites/spr_explosion_large6.png",1,1,0);
-			coin[0] = loader.loadImage("/sprites/spr_coin1.png",2,2,0);
-			coin[1] = loader.loadImage("/sprites/spr_coin2.png",2,2,0);
-			coin[2] = loader.loadImage("/sprites/spr_coin3.png",2,2,0);
-			coin[3] = loader.loadImage("/sprites/spr_coin4.png",2,2,0);
-			coin[4] = loader.loadImage("/sprites/spr_coin5.png",2,2,0);
-			coin[5] = loader.loadImage("/sprites/spr_coin6.png",2,2,0);
+			for(int i=0; i<muzzle.length; i++)
+				muzzle[i] = loader.loadImage("/sprites/muzzle" + (i+1) + ".png",2,2,0);
+			for(int i=0; i<explode_med.length; i++)
+				explode_med[i] = loader.loadImage("/sprites/spr_explosion_medium" + (i+1) + ".png",1,1,0);
+			for(int i=0; i<explode_large.length; i++)
+				explode_large[i] = loader.loadImage("/sprites/spr_explosion_large" + (i+1) + ".png",1,1,0);
+			for(int i=0; i<coin.length; i++)
+				coin[i] = loader.loadImage("/sprites/spr_coin" + (i+1) + ".png",2,2,0);
+			for(int i=0; i<blackhole.length; i++)
+				blackhole[i] = loader.loadImage("/sprites/spr_blackhole" + (i+1) + ".png",2,2,0);
+			for(int i=0; i<spiral.length; i++)
+				spiral[i] = loader.loadImage("/sprites/spr_spiral" + (i+1) + ".png",3,3,0);
+			for(int i=0; i<pull.length; i++)
+				pull[i] = loader.loadImage("/sprites/spr_pull" + (i+1) + ".png",2,2,0);
 
 			logo = loader.loadImage("/images/logo.png",.7,.7,1);
 			team = loader.loadImage("/images/ws-logo.png",1,1,1);	

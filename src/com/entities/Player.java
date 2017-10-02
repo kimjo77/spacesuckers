@@ -87,6 +87,7 @@ public class Player extends GameObject {
 					trailtime--;
 				}
 			} else {
+				
 				spd -= 0.1;
 				trailtime = 0;
 			}
