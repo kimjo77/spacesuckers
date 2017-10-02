@@ -155,7 +155,7 @@ public class Menu extends MouseAdapter{
 							//Disconnect / delete lobby
 						Game.networkType = null;
 						Game.gameState = Game.STATE.Multi;
-					} else if(mouseOver(mx,my, 704, 454, 175, 44)) {
+					} else if(mouseOver(mx,my, 510, 465, 175, 44)) {
 						switch(Game.networkType) {
 							case Server:
 										Game.gamestart("multi");
@@ -386,12 +386,14 @@ public class Menu extends MouseAdapter{
 							if(Game.client != null) {
 								if(Game.data.names != null && Game.data.status != null)
 								for(int i=0; i < ServerTest.MAX_PLAYERS; i++) {
-									if(Game.data.names[i] != null && !Game.data.status[i]) {
+									if(Game.data.names[i] != null) {
 										g.drawString("waiting for", 210 + (i*150), 640);
-										g.drawString(Game.data.names[i], 240 + (i*150), 657);
-									} else {
+										g.drawString(Game.data.names[i], 240 + (i*150), 657);										
+									} else if(Game.data.status[i]) {
 										g.drawImage(tex.player[i],240 + (i*150),570,null);
 										g.drawString(Game.data.names[i] + " ready", 220 + (i*150), 640);										
+									} else {
+										
 									}
 //										g.drawString(Game.data.names[i],100,250+(100*i));
 //										if(Game.data.status[i])
