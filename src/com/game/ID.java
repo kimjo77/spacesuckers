@@ -10,6 +10,7 @@ public enum ID {
 	Explosion,
 	AsteroidController,
 	Coin,
+	Score,
 //--Menu Entities
 	CustomTextField,
 //--Networking

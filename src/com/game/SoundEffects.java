@@ -57,12 +57,12 @@ public class SoundEffects {
 	public void stop(Clip clip) {
 		if(clip != null) {
 			clip.stop();	
-			clip.close();
 		}
 	}
 	
 	public void loop(Clip clip){
 		clip.loop(Clip.LOOP_CONTINUOUSLY);
+		clip.setFramePosition(0);
     }
 	
 	public void loop(String sound){
@@ -70,6 +70,7 @@ public class SoundEffects {
 			clip = AudioSystem.getClip();
 			clip.open(AudioSystem.getAudioInputStream(getClass().getResourceAsStream(sound)));
 			clip.loop(Clip.LOOP_CONTINUOUSLY);
+			clip.setFramePosition(0);
 		} catch (LineUnavailableException | IOException | UnsupportedAudioFileException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

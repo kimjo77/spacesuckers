@@ -52,6 +52,7 @@ public class SmallCoin extends GameObject{
 	public void collision() {
 		GameObject tempObject;
 		Player playerObject;
+		Score scoreObject;
 		Area tempArea;
 		for(int i=0; i < Game.handler.object.size(); i++) {
 			tempObject = Game.handler.object.get(i);
@@ -61,7 +62,15 @@ public class SmallCoin extends GameObject{
 				if(playerObject.getArea() != null) {
 					tempArea.intersect(playerObject.getArea());
 					if(!tempArea.isEmpty()) {
-						Game.SCORE+=5;
+						int topupID = playerObject.playerID;
+						for(int j=0; j<Game.handler.object.size(); j++) {
+							tempObject = Game.handler.object.get(j);
+							if(tempObject.getId() == ID.Score) {
+								scoreObject = (Score) tempObject;
+								if(scoreObject.scoreID == topupID)
+									scoreObject.score += 5;
+							}
+						}
 						Game.soundfx.play(Game.soundfx.pickupCoin);
 						Game.handler.removeObject(this);
 					}

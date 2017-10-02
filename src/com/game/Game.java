@@ -5,13 +5,13 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
-import java.io.IOException;
 import java.util.Random;
 
 import com.entities.Asteroid;
 import com.entities.AsteroidController;
 import com.entities.Blackhole;
 import com.entities.Player;
+import com.entities.Score;
 import com.main.Menu;
 import com.test.ClientTest;
 import com.test.Data;
@@ -28,7 +28,6 @@ public class Game extends Canvas implements Runnable{
 	private Thread thread;
 	private boolean running = false;
 	public static Font fnt = new Font("04B", Font.PLAIN, 24);
-	public static int SCORE = 0;
 	
 	private static Random rand = new Random();
 	
@@ -96,7 +95,7 @@ public class Game extends Canvas implements Runnable{
 		
 		switch(gameState) {
 			case Menu :
-//						soundfx.loop(SoundEffects.bgmenuClip);
+						soundfx.loop(SoundEffects.bgmenuClip);
 						break;
 			case Game : 
 						gamestart("single");
@@ -205,8 +204,6 @@ public class Game extends Canvas implements Runnable{
 		g.fillRect(0,0,WIDTH, HEIGHT);
 		
 		g.drawImage(tex.bg, 0, 0, null);
-		g.setFont(fnt);
-		g.drawString("Score: " + SCORE, 16, 35);
 		
 		
 		switch(gameState) {
@@ -243,6 +240,7 @@ public class Game extends Canvas implements Runnable{
 			soundfx.loop(SoundEffects.bgsingleClip);
 			soundfx.loop(soundfx.blackholeBG);
 			handler.addObject(new Player(WIDTH, 0,24,12,ID.Player,0,315));
+			handler.addObject(new Score(0,0,16,16,ID.Score,0));
 			handler.addObject(new Blackhole(WIDTH/2,HEIGHT/2,16,16,ID.Blackhole));
 			handler.addObject(new AsteroidController(0,0,0,0,ID.AsteroidController));
 			handler.addObject(new Asteroid(0,0,16,16,ID.Asteroid));
@@ -256,21 +254,26 @@ public class Game extends Canvas implements Runnable{
 				switch(i) {
 				case 0:
 						handler.addObject(new Player(0,0,24,12,ID.Player,i,225));
+						handler.addObject(new Score(0,0,16,16,ID.Score,i));
 						break;
 				case 1:
 						handler.addObject(new Player(WIDTH, HEIGHT,24,12,ID.Player,i,45));
+						handler.addObject(new Score(0,0,16,16,ID.Score,i));
 						break;
 				case 2:
 						handler.addObject(new Player(WIDTH, 0,24,12,ID.Player,i,315));
+						handler.addObject(new Score(0,0,16,16,ID.Score,i));
 						break;
 				case 3:
 						handler.addObject(new Player(0,HEIGHT,24,12,ID.Player,i,135));
+						handler.addObject(new Score(0,0,16,16,ID.Score,i));
 						break;
 				}
 			}
 			handler.addObject(new Blackhole(WIDTH/2,HEIGHT/2,16,16,ID.Blackhole));
 			handler.addObject(new AsteroidController(0,0,0,0,ID.AsteroidController));
 			handler.addObject(new Asteroid(0,0,16,16,ID.Asteroid));
+			
 			START = true;
 			break;
 		}

@@ -57,6 +57,8 @@ public class MouseInput extends MouseAdapter{
                     } else if(mouseOver(mx, my, gameoverObject.getX()+210, gameoverObject.getY()+120, 150, 40)) {
                         Game.handler.clearObject();
                         Game.ui.clearObject();
+                        Game.soundfx.stop(SoundEffects.bgsingleClip);
+                        Game.soundfx.loop(SoundEffects.bgmenuClip);
                         Game.gameState = Game.STATE.Menu;
                     }
                 }
