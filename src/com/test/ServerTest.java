@@ -94,4 +94,8 @@ public class ServerTest extends Thread{
 			}
 		}
 	}
+	
+	public String getIPAddress() {
+		return serverIP.toString();
+	}
 }
