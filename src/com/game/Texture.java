@@ -87,11 +87,11 @@ public class Texture{
 				pull[i] = loader.loadImage("/sprites/spr_pull" + (i+1) + ".png",2,2,0);
 			
 			for(int i =0; i<menuBlackhole_length; i++) 
-				menu_blackhole[i] = loader.loadImage("/sprites/spr_blackhole" + (i+1) + ".png",13,13,0);				
+				menu_blackhole[i] = loader.loadImage("/sprites/spr_blackhole" + (i+1) + ".png",10,10,0);				
 			for(int i =0; i<menuPull_length; i++) 
-				menu_pull[i] = loader.loadImage("/sprites/spr_pull" + (i+1) + ".png",5,5,0);
+				menu_pull[i] = loader.loadImage("/sprites/spr_pull" + (i+1) + ".png",8,8,0);
 
-			logo = loader.loadImage("/images/logo2.png",.6,.6,1);
+			logo = loader.loadImage("/images/logo.png",.6,.6,1);
 			team = loader.loadImage("/images/ws-logo.png",1,1,1);	
 			bg = loader.loadImage("/images/menu-bg.png",.7,.7,1);
 			bgpane = loader.loadImage("/images/bgpane.png",1.4,1.4,0);

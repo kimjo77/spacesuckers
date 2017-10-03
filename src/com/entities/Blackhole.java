@@ -130,10 +130,25 @@ public class Blackhole extends GameObject {
 				if(playerObject.getArea() != null) {
 				tempArea.intersect(playerObject.getArea());
 					if(!tempArea.isEmpty()) {
-						Game.handler.removeObject(playerObject);
 						if(Game.networkType == null) {
 							Game.ui.addObject(new Gameover(x,y,0,0,ID.Gameover));
+						} else {
+							switch(playerObject.playerID) {
+							case 0:
+									Game.handler.addObject(new Player(0,0,24,12,ID.Player,0,225));
+									break;
+							case 1:
+									Game.handler.addObject(new Player(Game.WIDTH, Game.HEIGHT,24,12,ID.Player,1,45));
+									break;
+							case 2:
+									Game.handler.addObject(new Player(Game.WIDTH, 0,24,12,ID.Player,2,315));
+									break;
+							case 3:
+									Game.handler.addObject(new Player(0,Game.HEIGHT,24,12,ID.Player,3,135));
+									break;
+							}
 						}
+						Game.handler.removeObject(playerObject);
 					}
 				}
 			} else if(tempObject.getId() == ID.Bullet) {

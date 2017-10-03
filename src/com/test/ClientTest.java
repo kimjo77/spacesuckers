@@ -26,7 +26,7 @@ public class ClientTest {
 	private Runnable receive = new Runnable() {
 		public void run() {
 			while(true) {
-				try {//System.out.println("WORKING");
+				try {
 					ois = new ObjectInputStream(s.getInputStream());
 					Data d = (Data) ois.readObject();
 					switch(d.areatype) {

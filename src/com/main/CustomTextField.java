@@ -27,8 +27,8 @@ public class CustomTextField extends GameObject {
 		fontSize = 24;
 		font = new Font(fontStyle, Font.PLAIN, fontSize);
 		thickness = 0;
-		backgroundColor = Color.green;
-		foregroundColor = Color.green;
+		backgroundColor = Color.black;
+		foregroundColor = Color.black;
 		focus = false;
 	}
 	public void tick() {

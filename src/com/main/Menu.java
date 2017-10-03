@@ -7,6 +7,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.geom.AffineTransform;
 import java.io.IOException;
 
 import com.game.Game;
@@ -25,8 +26,8 @@ public class Menu extends MouseAdapter{
 	private int screenTime = 0;
 	private int stime = 0,
 				sx = 0,
-				sy = 0 - tex.splash.getHeight() + Game.HEIGHT,
-				sspd = 1;
+				sy = 0 - tex.splash.getHeight() + Game.HEIGHT;;
+	private double sspd = 1.5;
 	//Main
 	private boolean quit = false;
 	private boolean serverSuccess = true;
@@ -35,6 +36,13 @@ public class Menu extends MouseAdapter{
 	private CustomTextField name,
 							port,
 							pass;
+	//Animation
+	private int pullFrame = 0,
+				max_pullFrame = 28,
+				pull_imagespeed = 60/12,
+				pull_frametime = 0;
+	private transient AffineTransform 	gat = new AffineTransform();
+
 		
 	public void mousePressed(MouseEvent e) {
 		mx = e.getX();
@@ -217,7 +225,16 @@ public class Menu extends MouseAdapter{
 						}
 							break;
 			default:
-				
+					if(pull_frametime < 0) {
+						pull_frametime = pull_imagespeed;
+						if(pullFrame+1 == max_pullFrame) {
+							pullFrame = 0;
+						}else {
+							pullFrame++;
+						}
+					}else {
+						pull_frametime--;
+					}
 		}
 	}
 	
@@ -228,7 +245,7 @@ public class Menu extends MouseAdapter{
 		Game.fnt = new Font("04B", Font.PLAIN, 24);
 		g.setFont(Game.fnt);
 		Graphics2D g2d = (Graphics2D) g;
-		
+		gat = new AffineTransform();
 		switch(Game.gameState) {
 			case Splash:
 						g2d.drawImage(tex.splash, sx, sy, null);
@@ -237,7 +254,12 @@ public class Menu extends MouseAdapter{
 						break;
 			case Menu:
 						g2d.drawImage(tex.bg,0,0,null);
-						g2d.drawImage(tex.logo,200,130,null);
+						g2d.drawImage(tex.menu_blackhole[12],-220,330,null);
+						gat.translate(100-(Game.tex.menu_pull[pullFrame].getWidth()/2),Game.HEIGHT-100-(Game.tex.menu_pull[pullFrame].getHeight()/2));
+						g2d.drawImage(Game.tex.menu_pull[pullFrame], gat, null);
+						//g2d.drawImage(tex.menu_pull[pullFrame],Game.WIDTH/2-(Game.tex.pull[pullFrame].getWidth()/2),Game.HEIGHT/2-(Game.tex.pull[pullFrame].getHeight()/2),null);
+						
+						g2d.drawImage(tex.logo,200,150,null);
 						g2d.drawString("SINGLE PLAYER", 500, 460 + (35));
 						g2d.drawString("MULTIPLAYER", 520, 470 + (2*35));
 						g2d.drawString("QUIT GAME", 540, 480 + (3*35));
@@ -268,7 +290,11 @@ public class Menu extends MouseAdapter{
 						break;
 			case Multi:
 						g2d.drawImage(tex.bg,0,0,null);
-						g2d.drawImage(tex.menu_blackhole[0],90,-70,null);
+						gat.translate(Game.WIDTH/2-(Game.tex.menu_pull[pullFrame].getWidth()/2),Game.HEIGHT/2-(Game.tex.menu_pull[pullFrame].getHeight()/2));
+						g2d.drawImage(Game.tex.menu_pull[pullFrame], gat, null);
+						//g2d.drawImage(tex.menu_pull[pullFrame],Game.WIDTH/2-(Game.tex.pull[pullFrame].getWidth()/2),Game.HEIGHT/2-(Game.tex.pull[pullFrame].getHeight()/2),null);
+						g2d.drawImage(tex.menu_blackhole[0],190,20,null);
+	
 						g2d.drawString("CREATE",440,310);
 						g2d.drawString("CONNECT",430,355);
 						g2d.drawString("BACK",465,400);
@@ -281,6 +307,7 @@ public class Menu extends MouseAdapter{
 			case Create:
 						g2d.drawImage(tex.bg, 0, 0, null);
 //						g2d.drawImage(tex.menu_blackhole[0],90,-70,null);
+						//g2d.drawImage(tex.menu_pull[pullFrame],Game.WIDTH/2-(Game.tex.pull[pullFrame].getWidth()/2),Game.HEIGHT/2-(Game.tex.pull[pullFrame].getHeight()/2),null);
 						g2d.drawImage(tex.createHeader, 295, 170, null);
 						g2d.drawString("NAME",330, 260);
 						g2d.drawString("PORT",330, 340);

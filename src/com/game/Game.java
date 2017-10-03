@@ -12,6 +12,7 @@ import com.entities.AsteroidController;
 import com.entities.Blackhole;
 import com.entities.Player;
 import com.entities.Score;
+import com.entities.Scoreboard;
 import com.main.Menu;
 import com.test.ClientTest;
 import com.test.Data;
@@ -44,7 +45,7 @@ public class Game extends Canvas implements Runnable{
 	}
 	private Menu menu;
 	
-	public static STATE gameState = STATE.Menu;
+	public static STATE gameState = STATE.Splash;
 	
 	public static Handler handler; 
 	public static Handler ui;
@@ -94,7 +95,9 @@ public class Game extends Canvas implements Runnable{
 		new Window(WIDTH, HEIGHT,"Space Suckers",this);
 		
 		switch(gameState) {
+			case Splash :
 			case Menu :
+						//ui.addObject(new Scoreboard(0,0,0,0,ID.Scoreboard));
 						soundfx.loop(SoundEffects.bgmenuClip);
 						break;
 			case Game : 

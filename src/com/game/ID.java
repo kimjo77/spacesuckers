@@ -16,5 +16,6 @@ public enum ID {
 //--Networking
 	DataKeys,
 //--UserInterace
-	Gameover;
+	Gameover,
+	Scoreboard;
 }
