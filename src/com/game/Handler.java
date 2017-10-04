@@ -40,7 +40,6 @@ public class Handler implements Serializable{
 	}
 	
 	public void clearObject() {
-		System.out.println("Cleared!");
 		object.clear();
 	}
 	

@@ -35,7 +35,6 @@ public class Score extends GameObject{
 		g.setFont(Game.fnt);
 		switch(scoreID) {
 		case 0:
-			//Blue, orange, red ,green
 				g.setColor(new Color(20,115,207));//Blue
 				g.drawString("Score: " + score, 35, 40);
 				break;

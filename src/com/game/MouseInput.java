@@ -49,8 +49,6 @@ public class MouseInput extends MouseAdapter{
 					}
 				}
                 if(tempObject.getId() == ID.Gameover) {
-                    //g.fillRect(x+40, y+120, 150, 40);
-                    //g.fillRect(x+210, y+120, 150, 40);
                     gameoverObject = (Gameover)tempObject;
                     if(mouseOver(mx, my, gameoverObject.getX()+40, gameoverObject.getY()+120, 150, 40)) {
                         Game.gameRestart();

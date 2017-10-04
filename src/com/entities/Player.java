@@ -40,8 +40,6 @@ public class Player extends GameObject {
 					turrentX,
 					turrentY;
 	final static double MAX_SPEED = 6,MIN_SPEED = -3;
-	
-	//private HashMap<String, SoundEffects> sfx;
 
 	private Rectangle rect;
 	private transient Area area;
@@ -57,10 +55,6 @@ public class Player extends GameObject {
 		at.rotate(Math.toRadians(dir), x, y);
 		path.append(rect.getPathIterator(at), true);
 		path.moveTo(x, y);
-		
-		/*sfx = new HashMap<String, SoundEffects>();
-		sfx.put("shoot",new SoundEffects("/res/audio/Laser_Shoot.mp3"));
-		sfx.put("destroy",new SoundEffects("/res/audio/Explosion.mp3"));*/
 	}
 
 	public void tick() {
@@ -138,9 +132,6 @@ public class Player extends GameObject {
 	public void shoot(int choice) {
 		Bullet b = new Bullet((int)(x+turrentX), (int)(y+turrentY), 3, 3, ID.Bullet, playerID);
 		Game.handler.addObject(b);
-//		b.playSound(b.getAudioClip()); 
-//		sfx.get("shoot").play();
-		
 		switch(choice) {
 			case 0:
 				int dx = mouseX - x;

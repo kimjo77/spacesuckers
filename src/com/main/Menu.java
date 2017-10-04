@@ -13,8 +13,8 @@ import java.io.IOException;
 import com.game.Game;
 import com.game.ID;
 import com.game.Texture;
-import com.test.ClientTest;
-import com.test.ServerTest;
+import com.networking.ClientTest;
+import com.networking.ServerTest;
 
 public class Menu extends MouseAdapter{
 	

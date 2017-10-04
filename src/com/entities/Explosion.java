@@ -16,10 +16,12 @@ public class Explosion extends GameObject{
 				max_frames = 6,
 				imagespeed = 60/12,
 				frametime = 0;
+	
 	private Rectangle rect;
 	private transient GeneralPath path = new GeneralPath();
 	private transient AffineTransform 	at = new AffineTransform(),
 										gat = new AffineTransform();
+	
 	public Explosion(int x, int y, int originX, int originY, ID id) {
 		super(x, y, originX, originY, id);
 		rect = this.getBounds();
@@ -56,12 +58,15 @@ public class Explosion extends GameObject{
 		g2d.drawImage(Game.tex.explode_large[frame], gat, null);
 		//g2d.draw(path);
 	}
+	
 	public Rectangle getBounds() {
 		return new Rectangle(x-originX,y-originY,64,64);
 	}
+	
 	public void setAngle(double angle) {
 		this.angle=angle;
 	}
+	
 	public double getAngle() {
 		return angle;
 	}

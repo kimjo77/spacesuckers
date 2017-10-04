@@ -84,7 +84,6 @@ public class SmallAsteroid extends Asteroid{
 						Game.handler.removeObject(bulletObject);
 						Game.soundfx.play(Game.soundfx.explosion);
 						Game.handler.removeObject(this);
-						System.out.println("Tiny_Deadz");
 						//Game.soundfx.play(Game.soundfx.explosion);
 					}
 				}

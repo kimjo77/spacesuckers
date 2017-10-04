@@ -27,7 +27,6 @@ public class Bullet extends GameObject {
 	private transient AffineTransform 	at = new AffineTransform(),
 										gat = new AffineTransform();
 	
-	//private File audio;
 	
 	public Bullet(int x, int y, int originX, int originY, ID id, int bulletID) {
 		super(x, y, originX, originY, id);
@@ -36,8 +35,6 @@ public class Bullet extends GameObject {
 		at.rotate(Math.toRadians(angle), x, y);
 		path.append(rect.getPathIterator(at), true);
 		area = new Area(path);
-		//audio = new File("C://Users/Matugas LKJ/Documents/spacesuckers/res/audio/Laser_Shoot.wav");
-		
 	}
 
 	public void tick() {
@@ -60,24 +57,6 @@ public class Bullet extends GameObject {
 	public double getAngle() {
 		return angle;
 	}
-	
-	/*public File getAudioClip() {
-		return audio;
-	}
-	
-	public void playSound(File sound) { //still need to fix this so that no more interruptions
-		try {
-			Clip clip = AudioSystem.getClip();
-			clip.open(AudioSystem.getAudioInputStream(sound));
-			clip.start();
-			Thread.sleep(clip.getMicrosecondLength()/1000);
-			clip.stop();
-			clip.close();
-		} catch(Exception e) {
-			e.printStackTrace();
-		}
-		
-	}*/
 	
 	public void render(Graphics g) {
 		g.setColor(Color.GREEN);

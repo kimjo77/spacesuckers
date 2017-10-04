@@ -14,10 +14,10 @@ import com.entities.Player;
 import com.entities.Score;
 import com.entities.Scoreboard;
 import com.main.Menu;
-import com.test.ClientTest;
-import com.test.Data;
-import com.test.PlayerInputs;
-import com.test.ServerTest;
+import com.networking.ClientTest;
+import com.networking.Data;
+import com.networking.PlayerInputs;
+import com.networking.ServerTest;
 
 
 public class Game extends Canvas implements Runnable{

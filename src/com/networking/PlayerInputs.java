@@ -1,4 +1,4 @@
-package com.test;
+package com.networking;
 
 import java.awt.Graphics;
 import java.awt.Rectangle;

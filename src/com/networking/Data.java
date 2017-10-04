@@ -1,4 +1,4 @@
-package com.test;
+package com.networking;
 
 import java.io.Serializable;
 import java.util.LinkedList;

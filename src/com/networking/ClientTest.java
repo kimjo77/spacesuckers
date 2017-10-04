@@ -1,4 +1,4 @@
-package com.test;
+package com.networking;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -36,8 +36,6 @@ public class ClientTest {
 						Game.data.bool = d.bool;
 						if(d.bool) {
 							Game.START = true;
-							//Game.soundfx.loop(SoundEffects.bgmultiClip);
-							//Game.soundfx.loop(Game.soundfx.blackholeBG);
 							Game.gameState = Game.STATE.Game;
 						}
 						break;

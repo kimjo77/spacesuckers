@@ -1,4 +1,4 @@
-package com.test;
+package com.networking;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -33,7 +33,6 @@ public class ServerTest extends Thread{
 		Game.data.names[currentcount] = name;
 		Game.data.status[currentcount] = true;
 		currentcount++;
-		//new Thread(accept).start();
 		this.start();
 	}
 	
