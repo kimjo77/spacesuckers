@@ -9,6 +9,11 @@ import com.game.ID;
 
 public class AsteroidController extends GameObject{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
 	private int spawnTime,incTime;
 	private Random rand = new Random();
 	private int offset = 32 * 2;	

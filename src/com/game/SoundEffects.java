@@ -1,10 +1,12 @@
 package com.game;
 
+import java.io.BufferedInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 
+import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
-import javax.sound.sampled.FloatControl;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
@@ -26,16 +28,17 @@ public class SoundEffects {
 						bgsingleClip,
 						bgmultiClip,
 						bgscoresClip;
+	
 	public SoundEffects() {
 		try {
 			bgmenuClip = AudioSystem.getClip();
-			bgmenuClip.open(AudioSystem.getAudioInputStream(getClass().getResourceAsStream(bgmenu)));
+			bgmenuClip.open(markResetSupport(bgmenu));
 			bgsingleClip = AudioSystem.getClip();
-			bgsingleClip.open(AudioSystem.getAudioInputStream(getClass().getResourceAsStream(bgsingle)));
+			bgsingleClip.open(markResetSupport(bgsingle));
 			bgmultiClip = AudioSystem.getClip();
-			bgmultiClip.open(AudioSystem.getAudioInputStream(getClass().getResourceAsStream(bgmulti)));
+			bgmultiClip.open(markResetSupport(bgmulti));
 			bgscoresClip = AudioSystem.getClip();
-			bgscoresClip.open(AudioSystem.getAudioInputStream(getClass().getResourceAsStream(bgscores)));
+			bgscoresClip.open(markResetSupport(bgscores));
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
@@ -76,6 +79,22 @@ public class SoundEffects {
 			e.printStackTrace();
 		}
     }
+	
+	//--Helping Functions
+	private AudioInputStream markResetSupport(String path) {
+		//read audio data from whatever source (file/classloader/etc.)
+		InputStream audioSrc = getClass().getResourceAsStream(path);
+		//add buffer for mark/reset support
+		InputStream bufferedIn = new BufferedInputStream(audioSrc);
+		AudioInputStream audioStream = null;
+		try {
+			audioStream = AudioSystem.getAudioInputStream(bufferedIn);
+		} catch (UnsupportedAudioFileException | IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return audioStream;
+	}
 		
 }
 

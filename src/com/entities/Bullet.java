@@ -7,16 +7,15 @@ import java.awt.Rectangle;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Area;
 import java.awt.geom.GeneralPath;
-import java.io.File;
-
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.Clip;
-
 import com.game.Game;
 import com.game.ID;
 
 public class Bullet extends GameObject {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private int bulletID = 0;
 	private double angle = 0; 
 	private final int spd = 15 ;
@@ -74,7 +73,7 @@ public class Bullet extends GameObject {
 		at.rotate(Math.toRadians(angle), x, y);
 		path.append(rect.getPathIterator(at), true);
 		area = new Area(path);
-		g2d.draw(path);
+		//g2d.draw(path);
 	}
 	
 		

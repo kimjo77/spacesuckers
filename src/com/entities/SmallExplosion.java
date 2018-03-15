@@ -11,6 +11,10 @@ import com.game.ID;
 
 public class SmallExplosion extends Explosion{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private double angle = 0;
 	private int frame = 0,
 				max_frames = 6,

@@ -14,6 +14,10 @@ import com.game.ID;
 
 public class SmallAsteroid extends Asteroid{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private double rot=0;
 	public int pullTime = 0;
 	
@@ -71,6 +75,8 @@ public class SmallAsteroid extends Asteroid{
 					tempArea.intersect(playerObject.getArea());
 					if(!tempArea.isEmpty()) {
 						playerObject.stunTime=30;
+						Game.handler.addObject(new SmallExplosion(x,y,32,32,ID.Explosion));
+						Game.soundfx.play(Game.soundfx.explosion);
 						Game.handler.removeObject(this);
 					}
 				}

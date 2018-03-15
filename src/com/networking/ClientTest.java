@@ -4,11 +4,9 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
-import java.net.UnknownHostException;
 
 import com.game.Game;
 import com.game.Handler;
-import com.game.SoundEffects;
 
 public class ClientTest {
 	private Socket s = null;
@@ -17,7 +15,7 @@ public class ClientTest {
 	private ObjectInputStream ois = null;
 	public ClientTest(String name,int  port, String ip) throws IOException {
 		s = new Socket(ip,port);
-		serverIP = ip;
+		setServerIP(ip);
 		System.out.println("Connected.........");
 		send(name);
 		new Thread(receive).start();
@@ -85,5 +83,11 @@ public class ClientTest {
 		} catch (Exception e) {
 			System.out.println("Data Not Sent");
 		}
+	}
+	public String getServerIP() {
+		return serverIP;
+	}
+	public void setServerIP(String serverIP) {
+		this.serverIP = serverIP;
 	}
 }

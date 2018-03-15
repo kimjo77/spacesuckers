@@ -1,20 +1,22 @@
 package com.entities;
 
 import java.awt.Color;
-import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Area;
 import java.awt.geom.GeneralPath;
-import java.util.HashMap;
 
 import com.game.Game;
 import com.game.ID;
 
 public class Player extends GameObject {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	public int playerID = 0;
 	public int 
 					key_up = 0,

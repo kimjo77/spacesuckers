@@ -1,11 +1,7 @@
 package com.networking;
 
-import java.awt.Graphics;
-import java.awt.Rectangle;
 import java.io.Serializable;
 
-import com.entities.GameObject;
-import com.game.ID;
 
 public class PlayerInputs implements Serializable {
 

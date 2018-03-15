@@ -257,22 +257,15 @@ public class Menu extends MouseAdapter{
 						g2d.drawImage(tex.menu_blackhole[12],-220,330,null);
 						gat.translate(100-(Game.tex.menu_pull[pullFrame].getWidth()/2),Game.HEIGHT-100-(Game.tex.menu_pull[pullFrame].getHeight()/2));
 						g2d.drawImage(Game.tex.menu_pull[pullFrame], gat, null);
-						//g2d.drawImage(tex.menu_pull[pullFrame],Game.WIDTH/2-(Game.tex.pull[pullFrame].getWidth()/2),Game.HEIGHT/2-(Game.tex.pull[pullFrame].getHeight()/2),null);
-						
+				
 						g2d.drawImage(tex.logo,200,150,null);
 						g2d.drawString("SINGLE PLAYER", 500, 460 + (35));
 						g2d.drawString("MULTIPLAYER", 520, 470 + (2*35));
 						g2d.drawString("QUIT GAME", 540, 480 + (3*35));
 						g.setColor(Color.red);
-						g.drawRect(500,475,280,20);
-						g.drawRect(520, 520, 240,20);
-						g.drawRect(540, 565,192,20);
-							//g2d.drawString(string,x,y);
-							//Game.fnt = new Font("Connection", Font.PLAIN, int size);
-							//g.setColor(Color color);
-							//g.setFont(Font font);
-							//g.fillRect(x,y,width,height)
-							//g.drawRect(x,y,width,height)
+						//g.drawRect(500,475,280,20);
+						//g.drawRect(520, 520, 240,20);
+						//g.drawRect(540, 565,192,20);
 						
 						if(quit) {							
 							g.setColor(Color.white);
@@ -283,8 +276,8 @@ public class Menu extends MouseAdapter{
 							g2d.drawImage(tex.quit, 350, 340, null);
 							g2d.drawImage(tex.cancel, 520, 340, null);
 							g.setColor(Color.red);
-							g.drawRect(350,340,145,36);
-							g.drawRect(520,340,145,36);
+							//g.drawRect(350,340,145,36);
+							//g.drawRect(520,340,145,36);
 						}
 						
 						break;
@@ -299,9 +292,9 @@ public class Menu extends MouseAdapter{
 						g2d.drawString("CONNECT",430,355);
 						g2d.drawString("BACK",465,400);
 						g.setColor(Color.red);
-						g.drawRect(440,290,140,20);
-						g.drawRect(430,335,160,20);
-						g.drawRect(465,380,90,20);
+						//g.drawRect(440,290,140,20);
+						//g.drawRect(430,335,160,20);
+						//g.drawRect(465,380,90,20);
 
 						break;
 			case Create:
@@ -318,8 +311,8 @@ public class Menu extends MouseAdapter{
 						g.fillRect(330, 290, 350, 4);
 						g.fillRect(330, 370, 350, 4);
 						g.setColor(Color.red);
-						g.drawRect(355,410,145,36);
-						g.drawRect(515,410,145,36);
+						//g.drawRect(355,410,145,36);
+						//g.drawRect(515,410,145,36);
 
 						if(!serverSuccess) {
 							g.setColor(Color.white);
@@ -331,7 +324,7 @@ public class Menu extends MouseAdapter{
 							g2d.drawString("Please try again", 340, 320);
 							g2d.drawString("OKAY", 450, 371);
 							g.setColor(Color.red);
-							g.drawRect(425,343,145,36);
+							//g.drawRect(425,343,145,36);
 						}
 						
 						break;						
@@ -349,8 +342,8 @@ public class Menu extends MouseAdapter{
 						g.fillRect(330, 320, 350, 4);
 						g.fillRect(330, 400, 350, 4);
 						g.setColor(Color.red);
-						g.drawRect(355,430,145,36);
-						g.drawRect(515,430,145,36);
+						//g.drawRect(355,430,145,36);
+						//g.drawRect(515,430,145,36);
 						
 						if(!connectSuccess) {
 							g.setColor(Color.white);
@@ -362,7 +355,7 @@ public class Menu extends MouseAdapter{
 							g2d.drawString("Please try again", 340, 320);
 							g2d.drawString("OKAY", 450, 371);
 							g.setColor(Color.red);
-							g.drawRect(425,343,145,36);
+							//g.drawRect(425,343,145,36);
 						}
 						break;
 			case Lobby:
@@ -427,8 +420,8 @@ public class Menu extends MouseAdapter{
 							}
 						}
 						g.setColor(Color.red);
-						g.drawRect(323, 465, 175, 44);
-						g.drawRect(510, 465, 175, 44);
+						//g.drawRect(323, 465, 175, 44);
+						//g.drawRect(510, 465, 175, 44);
 						break;
 			case Game:
 			default:
@@ -471,6 +464,7 @@ public class Menu extends MouseAdapter{
 	
 	public static boolean isNumeric(String str) {  
 		try {  
+			@SuppressWarnings("unused")
 			double d = Double.parseDouble(str);  
 		} catch(NumberFormatException nfe) {  
 			return false;  

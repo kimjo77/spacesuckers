@@ -3,17 +3,17 @@ package com.entities;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.awt.Rectangle;
-import java.awt.geom.AffineTransform;
-import java.awt.geom.Area;
-import java.awt.geom.GeneralPath;
 
 import com.game.Game;
 import com.game.ID;
 
 public class Score extends GameObject{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	public int scoreID = 0,
 				score = 0;
 	
@@ -29,7 +29,6 @@ public class Score extends GameObject{
 
 	@Override
 	public void render(Graphics g) {
-		Graphics2D g2d = (Graphics2D) g;
 		g.setColor(Color.white);
 		Game.fnt = new Font("Connection", Font.PLAIN, 24);
 		g.setFont(Game.fnt);

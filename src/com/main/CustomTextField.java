@@ -11,6 +11,10 @@ import com.game.ID;
 
 public class CustomTextField extends GameObject {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private Font font;
 	private String text,fontStyle;
 	private Color textColor,backgroundColor,foregroundColor;

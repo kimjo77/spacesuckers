@@ -3,13 +3,17 @@ package com.game;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.awt.Rectangle;
 
 import com.entities.GameObject;
 
 public class Gameover extends GameObject{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	public Gameover(int x, int y, int originX, int originY, ID id) {
 		super(x, y, originX, originY, id);
 		// TODO Auto-generated constructor stub
@@ -20,7 +24,6 @@ public class Gameover extends GameObject{
 	}
 
 	public void render(Graphics g) {
-		Graphics2D g2d = (Graphics2D) g;
 		g.setColor(Color.white);
 		g.fillRect(x, y, 400, 200);
 		g.setColor(Color.black);

@@ -1,9 +1,7 @@
 package com.networking;
 
-import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.net.Socket;
-import java.net.SocketException;
 
 import com.entities.GameObject;
 import com.entities.Player;

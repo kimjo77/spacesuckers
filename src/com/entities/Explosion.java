@@ -5,12 +5,14 @@ import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.GeneralPath;
-import java.awt.image.BufferedImage;
-
 import com.game.Game;
 import com.game.ID;
 
 public class Explosion extends GameObject{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private double angle = 0;
 	private int frame = 0,
 				max_frames = 6,

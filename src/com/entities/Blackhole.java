@@ -13,7 +13,12 @@ import com.game.Gameover;
 import com.game.ID;
 
 public class Blackhole extends GameObject {
-	private double pull=4, dx, dy, angle, dis, rot=0,spiral_angle=0;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	private double pull=4, dx, dy, angle , rot=0;
 	
 	private GameObject tempObject;
 	private Player playerObject;

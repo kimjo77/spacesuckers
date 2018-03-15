@@ -5,14 +5,12 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
-import java.util.Random;
 
 import com.entities.Asteroid;
 import com.entities.AsteroidController;
 import com.entities.Blackhole;
 import com.entities.Player;
 import com.entities.Score;
-import com.entities.Scoreboard;
 import com.main.Menu;
 import com.networking.ClientTest;
 import com.networking.Data;
@@ -29,8 +27,6 @@ public class Game extends Canvas implements Runnable{
 	private Thread thread;
 	private boolean running = false;
 	public static Font fnt = new Font("04B", Font.PLAIN, 24);
-	
-	private static Random rand = new Random();
 	
 	private MouseInput mouse,mouseUI;
 	
@@ -129,6 +125,7 @@ public class Game extends Canvas implements Runnable{
 		double ns = 1000000000 / amountOfTicks;
 		double delta = 0;
 		long timer = System.currentTimeMillis();
+		@SuppressWarnings("unused")
 		int frames = 0;
 		while(running) {
 			long now = System.nanoTime();

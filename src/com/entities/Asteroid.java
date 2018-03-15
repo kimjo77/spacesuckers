@@ -14,6 +14,11 @@ import com.game.ID;
 
 public class Asteroid extends GameObject {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
 	public double dir, spd=0, pullX, pullY, rot;
 	private Random rand = new Random();
 	
@@ -65,6 +70,8 @@ public class Asteroid extends GameObject {
 					if(!tempArea.isEmpty()) {
 	//					handler.removeObject(playerObject);
 						playerObject.stunTime=60;
+						Game.handler.addObject(new Explosion(x,y,32,32,ID.Explosion));
+						Game.soundfx.play(Game.soundfx.explosion);
 						Game.handler.removeObject(this);
 					}
 				}
@@ -81,7 +88,6 @@ public class Asteroid extends GameObject {
 						Game.handler.removeObject(bulletObject);
 						Game.soundfx.play(Game.soundfx.explosion);
 						Game.handler.removeObject(this);
-						//Game.soundfx.play(Game.soundfx.explosion);
 					}
 				}
 			}

@@ -1,19 +1,20 @@
 package com.entities;
 
-import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Area;
 import java.awt.geom.GeneralPath;
-import java.util.Random;
-
 import com.game.Game;
 import com.game.ID;
 
 public class Coin extends GameObject{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private double angle = 0;
 	private int frame = 0,
 				max_frames = 6,
